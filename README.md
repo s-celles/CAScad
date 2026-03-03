@@ -1,3 +1,5 @@
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/s-celles/CAScad)
+
 <p align="center">
   <img src="assets/CAScad.png" alt="CAScad logo" width="400">
 </p>
