@@ -331,14 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '<button onclick="toggleReactiveMode(false)">' + t('cancelCascade') + '</button>';
   notebook.parentNode.insertBefore(banner, notebook);
 
-  // Dismiss PWA splash screen
-  var splash = document.getElementById('splash');
-  if (splash) {
-    var sv = document.getElementById('splash-version');
-    if (sv) sv.textContent = 'v' + APP_VERSION;
-    setTimeout(function() {
-      splash.style.opacity = '0';
-      splash.addEventListener('transitionend', function() { splash.remove(); });
-    }, 600);
-  }
+  // Show version in header
+  var versionEl = document.getElementById('app-version');
+  if (versionEl) versionEl.textContent = 'v' + APP_VERSION;
 });
