@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/1167872975.svg)](https://doi.org/10.5281/zenodo.18846989)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/s-celles/CAScad)
 
 <p align="center">
