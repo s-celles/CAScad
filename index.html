@@ -234,6 +234,11 @@ var UI = {
 <script type="module" src="js/slider-components.js"></script>
 <script>
 if ('serviceWorker' in navigator) {
+  // Reload when a new service worker takes control (ensures fresh files)
+  var refreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', function() {
+    if (!refreshing) { refreshing = true; window.location.reload(); }
+  });
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('./sw.js').then(function(reg) {
       console.log('[PWA] Service worker registered, scope:', reg.scope);
