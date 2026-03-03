@@ -307,8 +307,8 @@ document.addEventListener('DOMContentLoaded', () => {
   var loadedFromURL = (typeof loadFromURLHash === 'function') && loadFromURLHash();
 
   if (!loadedFromURL) {
-    // Minimal default notebook: logo + welcome cell
-    addCell('text', '', '![CAScad](assets/CAScad.png)', null, null, { hidden: true });
+    // Minimal default notebook: logo + version + welcome cell
+    addCell('text', '', '<div style="text-align:center"><img src="assets/CAScad.png" alt="CAScad" style="max-width:min(90%,600px)"><br><span style="font-family:var(--mono);font-size:.85rem;color:var(--text-muted)">v' + APP_VERSION + '</span></div>', null, null, { hidden: true });
     addCell('text', '', t('welcomeTitle') + '\n\n' + t('welcomeBody'), null, 'welcomeTitle,welcomeBody', { hidden: true });
     cells.forEach(function(c) { if (c.type === 'text') renderTextCell(c.id); });
   }
