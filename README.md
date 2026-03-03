@@ -155,6 +155,35 @@ The connection uses PeerJS Cloud for signaling and Google STUN for NAT traversal
 - [MathLive](https://mathlive.io/) — Web component for math input editing
 - [CortexJS Compute Engine](https://cortexjs.io/compute-engine/) — LaTeX/MathJSON parsing and symbolic computation
 
+## Development
+
+### Releasing a New Version
+
+1. Make your code changes
+2. Update the service worker hash:
+   ```bash
+   node scripts/update-sw-hash.js
+   ```
+3. Bump the version in three files:
+   - `js/boot.js` → `APP_VERSION`
+   - `sw.js` → `CACHE_VERSION`
+   - `CHANGELOG.md` → new `## [x.y.z]` section
+4. Commit, tag, and push:
+   ```bash
+   git add -A
+   git commit -m "chore: release vX.Y.Z"
+   git tag vX.Y.Z
+   git push && git push --tags
+   ```
+
+The project follows [Semantic Versioning](https://semver.org/) and [Keep a Changelog](https://keepachangelog.com/).
+
+### PWA Cache Update
+
+The service worker uses a content hash (`CACHE_HASH` in `sw.js`) to detect file changes. Running `node scripts/update-sw-hash.js` computes a SHA-256 hash of all app shell files and writes it into `sw.js`. This ensures the browser detects the new service worker and invalidates stale caches.
+
+**Always run `node scripts/update-sw-hash.js` before committing code changes.**
+
 ## Credits
 
 - [Giac/Xcas](https://www-fourier.univ-grenoble-alpes.fr/~parisse/giac.html) by Bernard Parisse
