@@ -1,0 +1,123 @@
+'use strict';
+
+// ─── Version ───────────────────────────────────────────────
+// IMPORTANT: Keep in sync with APP_VERSION in js/boot.js
+var CACHE_VERSION = '0.1.0';
+
+var SHELL_CACHE = 'cascad-shell-v' + CACHE_VERSION;
+var GIAC_CACHE  = 'cascad-giac-v1';  // Separate: giac.js rarely changes
+var CDN_CACHE   = 'cascad-cdn-v' + CACHE_VERSION;
+
+// ─── App shell files to precache on install ────────────────
+var SHELL_FILES = [
+  './',
+  './index.html',
+  './css/notebook.css',
+  './favicon.ico',
+  './assets/icon-192.png',
+  './assets/icon-512.png',
+  './manifest.webmanifest',
+  // i18n
+  './js/i18n/en.js', './js/i18n/fr.js', './js/i18n/es.js',
+  './js/i18n/de.js', './js/i18n/el.js', './js/i18n/ar.js',
+  './js/i18n/hi.js', './js/i18n/ru.js', './js/i18n/zh.js',
+  './js/i18n/ja.js', './js/i18n.js',
+  // Core
+  './js/giac-commands.js', './js/giac-init.js', './js/mathjson-giac.js',
+  './js/kernel-registry.js', './js/kernel-giac.js',
+  './js/kernel-compute-engine.js',
+  './js/state.js', './js/io.js', './js/plot-rendering.js',
+  './js/reactive-dag.js', './js/dag-diagram.js',
+  './js/cells.js', './js/execution.js', './js/actions.js',
+  './js/examples.js',
+  './js/fountain.js', './js/qr-sharing.js', './js/p2p-transfer.js',
+  './js/command-menu-data.js', './js/command-menu.js',
+  './js/help/help-en.js',
+  './js/command-help.js', './js/command-discovery.js',
+  './js/boot.js', './js/slider-components.js'
+];
+
+// ─── Install: precache shell ───────────────────────────────
+self.addEventListener('install', function(event) {
+  event.waitUntil(
+    caches.open(SHELL_CACHE).then(function(cache) {
+      return cache.addAll(SHELL_FILES);
+    }).then(function() {
+      return self.skipWaiting();
+    })
+  );
+});
+
+// ─── Activate: clean old caches ────────────────────────────
+self.addEventListener('activate', function(event) {
+  var keepCaches = [SHELL_CACHE, GIAC_CACHE, CDN_CACHE];
+  event.waitUntil(
+    caches.keys().then(function(names) {
+      return Promise.all(
+        names.filter(function(name) {
+          return keepCaches.indexOf(name) === -1;
+        }).map(function(name) {
+          console.log('[SW] Deleting old cache:', name);
+          return caches.delete(name);
+        })
+      );
+    }).then(function() {
+      return self.clients.claim();
+    })
+  );
+});
+
+// ─── Fetch strategies ──────────────────────────────────────
+self.addEventListener('fetch', function(event) {
+  var url = new URL(event.request.url);
+
+  // Skip non-GET requests
+  if (event.request.method !== 'GET') return;
+
+  // Strategy 1: giac.js — cache-first (own cache, rarely changes)
+  if (url.pathname.endsWith('/giac.js') && url.origin === self.location.origin) {
+    event.respondWith(cacheFirst(event.request, GIAC_CACHE));
+    return;
+  }
+
+  // Strategy 2: Local files — cache-first
+  if (url.origin === self.location.origin) {
+    event.respondWith(cacheFirst(event.request, SHELL_CACHE));
+    return;
+  }
+
+  // Strategy 3: CDN resources — stale-while-revalidate
+  event.respondWith(staleWhileRevalidate(event.request, CDN_CACHE));
+});
+
+// ─── Cache-first helper ────────────────────────────────────
+function cacheFirst(request, cacheName) {
+  return caches.open(cacheName).then(function(cache) {
+    return cache.match(request).then(function(cached) {
+      if (cached) return cached;
+      return fetch(request).then(function(response) {
+        if (response.ok) {
+          cache.put(request, response.clone());
+        }
+        return response;
+      });
+    });
+  });
+}
+
+// ─── Stale-while-revalidate helper ─────────────────────────
+function staleWhileRevalidate(request, cacheName) {
+  return caches.open(cacheName).then(function(cache) {
+    return cache.match(request).then(function(cached) {
+      var fetching = fetch(request).then(function(response) {
+        if (response.ok || response.type === 'opaque') {
+          cache.put(request, response.clone());
+        }
+        return response;
+      }).catch(function() {
+        return cached;
+      });
+      return cached || fetching;
+    });
+  });
+}

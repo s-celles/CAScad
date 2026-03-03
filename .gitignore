@@ -31,3 +31,5 @@
 !scripts/*.js
 !assets/
 !assets/*.png
+!sw.js
+!manifest.webmanifest

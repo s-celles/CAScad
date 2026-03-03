@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CAScad — CAS Notebook</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2563eb">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="CAScad">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<meta name="description" content="A reactive notebook for symbolic computation — computer algebra system (CAS)">
 
 <!-- ═══════════════════════════════════════════════════
   External dependencies (loaded from CDN)
@@ -224,6 +231,17 @@ var UI = {
 <script src="js/command-discovery.js"></script>
 <script src="js/boot.js"></script>
 <script type="module" src="js/slider-components.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js').then(function(reg) {
+      console.log('[PWA] Service worker registered, scope:', reg.scope);
+    }).catch(function(err) {
+      console.warn('[PWA] Service worker registration failed:', err);
+    });
+  });
+}
+</script>
 
 </body>
 </html>
