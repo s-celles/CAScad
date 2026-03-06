@@ -3,6 +3,7 @@
 
 /**
  * Computes a hash of all app shell files and writes it into sw.js.
+ * Also updates APP_COMMIT in js/boot.js with the current git commit hash.
  * Run before committing: node scripts/update-sw-hash.js
  *
  * This ensures the browser detects sw.js has changed whenever any
@@ -12,9 +13,11 @@
 const fs = require('fs');
 const crypto = require('crypto');
 const path = require('path');
+const { execSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const SW_PATH = path.join(ROOT, 'sw.js');
+const BOOT_PATH = path.join(ROOT, 'js/boot.js');
 
 // Files to hash (same as SHELL_FILES in sw.js, minus './')
 const FILES = [
@@ -63,14 +66,40 @@ if (!oldMatch) {
   process.exit(1);
 }
 
-if (oldMatch[1] === shortHash) {
+let hashChanged = false;
+if (oldMatch[1] !== shortHash) {
+  sw = sw.replace(
+    /var CACHE_HASH = '[^']+'/,
+    "var CACHE_HASH = '" + shortHash + "'"
+  );
+  fs.writeFileSync(SW_PATH, sw);
+  console.log('Updated CACHE_HASH:', oldMatch[1], '→', shortHash);
+  hashChanged = true;
+} else {
   console.log('No change — CACHE_HASH is already', shortHash);
-  process.exit(0);
 }
 
-sw = sw.replace(
-  /var CACHE_HASH = '[^']+'/,
-  "var CACHE_HASH = '" + shortHash + "'"
-);
-fs.writeFileSync(SW_PATH, sw);
-console.log('Updated CACHE_HASH:', oldMatch[1], '→', shortHash);
+// Update APP_COMMIT in js/boot.js with current git commit hash
+let commitHash = 'unknown';
+try {
+  commitHash = execSync('git rev-parse --short HEAD', { cwd: ROOT, encoding: 'utf8' }).trim();
+} catch (e) {
+  console.warn('Warning: Could not get git commit hash:', e.message);
+}
+
+let boot = fs.readFileSync(BOOT_PATH, 'utf8');
+const commitMatch = boot.match(/var APP_COMMIT = '([^']+)'/);
+if (commitMatch) {
+  if (commitMatch[1] !== commitHash) {
+    boot = boot.replace(
+      /var APP_COMMIT = '[^']+'/,
+      "var APP_COMMIT = '" + commitHash + "'"
+    );
+    fs.writeFileSync(BOOT_PATH, boot);
+    console.log('Updated APP_COMMIT:', commitMatch[1], '→', commitHash);
+  } else {
+    console.log('No change — APP_COMMIT is already', commitHash);
+  }
+} else {
+  console.warn('Warning: APP_COMMIT not found in js/boot.js');
+}

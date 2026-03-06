@@ -4,6 +4,7 @@
 // ─────────────────────────────────────────────────────────────
 
 var APP_VERSION = '0.1.3';
+var APP_COMMIT = '4700198';  // Updated by scripts/update-sw-hash.js
 
 /** Set up MathLive virtual keyboard layouts with localized tooltips */
 function setupMathKeyboard() {
@@ -185,7 +186,7 @@ function showAboutDialog() {
     '<div class="about-dialog">' +
       '<button class="about-close" onclick="hideAboutDialog()">&times;</button>' +
       '<h2>' + t('aboutTitle') + '</h2>' +
-      '<p class="about-version">v' + APP_VERSION + '</p>' +
+      '<p class="about-version">v' + APP_VERSION + ' <span class="about-commit">(' + APP_COMMIT + ')</span></p>' +
       '<p class="about-author">' + t('aboutAuthor') + '</p>' +
       '<p>' + t('aboutDesc') + '</p>' +
       '<h3>' + t('aboutShareQR') + '</h3>' +
@@ -333,5 +334,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Show version in header
   var versionEl = document.getElementById('app-version');
-  if (versionEl) versionEl.textContent = 'v' + APP_VERSION;
+  if (versionEl) versionEl.textContent = 'v' + APP_VERSION + ' (' + APP_COMMIT + ')';
 });
