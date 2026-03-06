@@ -228,4 +228,16 @@ var I18N_AR = {
     dagDiagramTitle: 'تدفق الخلايا',
     dagDiagramToggle: '⛖ تدفق',
     dagDiagramEmpty: 'لا توجد خلايا في الدفتر',
+
+    // ── MathField Context Menu ──
+    menuRewrite: 'تحويل',
+    menuMath: 'رياضيات',
+    menuFactorSelection: 'تحليل التحديد',
+    menuSimplifySelection: 'تبسيط التحديد',
+    menuExpandSelection: 'توسيع التحديد',
+    menuFactor: 'تحليل',
+    menuSimplify: 'تبسيط',
+    menuExpand: 'توسيع',
+    menuDiff: 'اشتقاق',
+    menuIntegrate: 'تكامل',
 };

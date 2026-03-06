@@ -228,4 +228,16 @@ var I18N_RU = {
     dagDiagramTitle: 'Поток ячеек',
     dagDiagramToggle: '⛖ Поток',
     dagDiagramEmpty: 'В блокноте нет ячеек',
+
+    // ── MathField Context Menu ──
+    menuRewrite: 'Преобразование',
+    menuMath: 'Математика',
+    menuFactorSelection: 'Разложить выделение',
+    menuSimplifySelection: 'Упростить выделение',
+    menuExpandSelection: 'Раскрыть выделение',
+    menuFactor: 'Разложить',
+    menuSimplify: 'Упростить',
+    menuExpand: 'Раскрыть',
+    menuDiff: 'Дифференцировать',
+    menuIntegrate: 'Интегрировать',
 };

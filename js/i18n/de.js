@@ -228,4 +228,16 @@ var I18N_DE = {
     dagDiagramTitle: 'Zellenfluss',
     dagDiagramToggle: '⛖ Fluss',
     dagDiagramEmpty: 'Keine Zellen im Notebook',
+
+    // ── MathField Context Menu ──
+    menuRewrite: 'Umformen',
+    menuMath: 'Mathematik',
+    menuFactorSelection: 'Auswahl faktorisieren',
+    menuSimplifySelection: 'Auswahl vereinfachen',
+    menuExpandSelection: 'Auswahl expandieren',
+    menuFactor: 'Faktorisieren',
+    menuSimplify: 'Vereinfachen',
+    menuExpand: 'Expandieren',
+    menuDiff: 'Ableiten',
+    menuIntegrate: 'Integrieren',
 };

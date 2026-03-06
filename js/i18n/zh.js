@@ -228,4 +228,16 @@ var I18N_ZH = {
     dagDiagramTitle: '单元格流程',
     dagDiagramToggle: '⛖ 流程',
     dagDiagramEmpty: '笔记本中没有单元格',
+
+    // ── MathField Context Menu ──
+    menuRewrite: '变换',
+    menuMath: '数学',
+    menuFactorSelection: '因式分解选区',
+    menuSimplifySelection: '简化选区',
+    menuExpandSelection: '展开选区',
+    menuFactor: '因式分解',
+    menuSimplify: '简化',
+    menuExpand: '展开',
+    menuDiff: '微分',
+    menuIntegrate: '积分',
 };

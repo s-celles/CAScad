@@ -29,6 +29,7 @@ const FILES = [
   'js/i18n/hi.js', 'js/i18n/ru.js', 'js/i18n/zh.js',
   'js/i18n/ja.js', 'js/i18n.js',
   'js/giac-commands.js', 'js/giac-init.js', 'js/mathjson-giac.js',
+  'js/mathfield-menu.js',
   'js/kernel-registry.js', 'js/kernel-giac.js',
   'js/kernel-compute-engine.js',
   'js/state.js', 'js/io.js', 'js/plot-rendering.js',

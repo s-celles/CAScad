@@ -318,4 +318,16 @@ var I18N_EN = {
     dagDiagramTitle: 'Cell Flow',
     dagDiagramToggle: '⛖ Flow',
     dagDiagramEmpty: 'No cells in notebook',
+
+    // ── MathField Context Menu ──
+    menuRewrite: 'Rewrite',
+    menuMath: 'Math',
+    menuFactorSelection: 'Factor selection',
+    menuSimplifySelection: 'Simplify selection',
+    menuExpandSelection: 'Expand selection',
+    menuFactor: 'Factor',
+    menuSimplify: 'Simplify',
+    menuExpand: 'Expand',
+    menuDiff: 'Differentiate',
+    menuIntegrate: 'Integrate',
 };

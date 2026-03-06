@@ -228,4 +228,16 @@ var I18N_HI = {
     dagDiagramTitle: 'सेल प्रवाह',
     dagDiagramToggle: '⛖ प्रवाह',
     dagDiagramEmpty: 'नोटबुक में कोई सेल नहीं',
+
+    // ── MathField Context Menu ──
+    menuRewrite: 'परिवर्तन',
+    menuMath: 'गणित',
+    menuFactorSelection: 'चयन का गुणनखंड',
+    menuSimplifySelection: 'चयन को सरल करें',
+    menuExpandSelection: 'चयन का विस्तार',
+    menuFactor: 'गुणनखंड',
+    menuSimplify: 'सरल करें',
+    menuExpand: 'विस्तार',
+    menuDiff: 'अवकलन',
+    menuIntegrate: 'समाकलन',
 };

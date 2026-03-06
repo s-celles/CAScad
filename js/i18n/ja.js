@@ -228,4 +228,16 @@ var I18N_JA = {
     dagDiagramTitle: 'セルフロー',
     dagDiagramToggle: '⛖ フロー',
     dagDiagramEmpty: 'ノートブックにセルがありません',
+
+    // ── MathField Context Menu ──
+    menuRewrite: '変換',
+    menuMath: '数学',
+    menuFactorSelection: '選択範囲を因数分解',
+    menuSimplifySelection: '選択範囲を簡約化',
+    menuExpandSelection: '選択範囲を展開',
+    menuFactor: '因数分解',
+    menuSimplify: '簡約化',
+    menuExpand: '展開',
+    menuDiff: '微分',
+    menuIntegrate: '積分',
 };

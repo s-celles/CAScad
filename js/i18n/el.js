@@ -316,4 +316,16 @@ var I18N_EL = {
     dagDiagramTitle: 'Ροή κελιών',
     dagDiagramToggle: '⛖ Ροή',
     dagDiagramEmpty: 'Δεν υπάρχουν κελιά στο σημειωματάριο',
+
+    // ── MathField Context Menu ──
+    menuRewrite: 'Μετασχηματισμός',
+    menuMath: 'Μαθηματικά',
+    menuFactorSelection: 'Παραγοντοποίηση επιλογής',
+    menuSimplifySelection: 'Απλοποίηση επιλογής',
+    menuExpandSelection: 'Ανάπτυξη επιλογής',
+    menuFactor: 'Παραγοντοποίηση',
+    menuSimplify: 'Απλοποίηση',
+    menuExpand: 'Ανάπτυξη',
+    menuDiff: 'Παραγώγιση',
+    menuIntegrate: 'Ολοκλήρωση',
 };

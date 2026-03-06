@@ -299,4 +299,16 @@ var I18N_FR = {
     dagDiagramTitle: 'Flux des cellules',
     dagDiagramToggle: '⛖ Flux',
     dagDiagramEmpty: 'Aucune cellule dans le notebook',
+
+    // ── MathField Context Menu ──
+    menuRewrite: 'Transformation',
+    menuMath: 'Maths',
+    menuFactorSelection: 'Factoriser la sélection',
+    menuSimplifySelection: 'Simplifier la sélection',
+    menuExpandSelection: 'Développer la sélection',
+    menuFactor: 'Factoriser',
+    menuSimplify: 'Simplifier',
+    menuExpand: 'Développer',
+    menuDiff: 'Dériver',
+    menuIntegrate: 'Intégrer',
 };
