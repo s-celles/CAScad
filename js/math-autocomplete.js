@@ -189,6 +189,7 @@ function hideAutocomplete() {
 function _acSelectCommand(commandName) {
   var cellId = _acAnchorCellId;
   var helpMode = _acHelpMode;
+  var partialLen = _acRawQuery.length;
   hideAutocomplete();
 
   if (!cellId) return;
@@ -197,13 +198,22 @@ function _acSelectCommand(commandName) {
   var mf = cell.querySelector('math-field');
   if (!mf) return;
 
-  // Suppress input events for 300ms — setValue triggers multiple input events
-  // from MathLive that would otherwise re-open autocomplete
-  var newVal = helpMode ? '?' + commandName : commandName;
   _acSuppressUntil = Date.now() + 300;
-  _acLastSetValue = newVal;
-  mf.setValue(newVal);
-  _acRawBuffer = helpMode ? '' : commandName;
+
+  if (helpMode) {
+    // Help mode (? prefix): replace entire value
+    var newVal = '?' + commandName;
+    _acLastSetValue = newVal;
+    mf.setValue(newVal);
+    _acRawBuffer = '';
+  } else {
+    // Plain command completion: insert only the remaining suffix at cursor
+    // (avoids deleteBackward which can remove MathLive math atoms/parens)
+    var suffix = commandName.slice(partialLen);
+    if (suffix) mf.insert(suffix);
+    _acRawBuffer = commandName;
+    _acLastSetValue = '';
+  }
   mf.focus();
 }
 
@@ -235,7 +245,7 @@ function attachAutocomplete(mathField, cellId) {
   // Track all keystrokes in _acRawBuffer so we can Tab-complete plain commands.
   // Also track _acRawQuery (post-?) when autocomplete is visible in help mode.
   mathField.addEventListener('keydown', function (e) {
-    // ── Always track raw keystrokes in buffer ──
+    // ── Always track current word in buffer (reset on non-word chars) ──
     if (!_acVisible) {
       if (e.key === 'Backspace') {
         _acRawBuffer = _acRawBuffer.slice(0, -1);
@@ -243,6 +253,9 @@ function attachAutocomplete(mathField, cellId) {
       } else if (e.key.length === 1 && /[a-zA-Z0-9_]/.test(e.key)) {
         _acRawBuffer += e.key;
         _acLastSetValue = '';
+      } else if (e.key.length === 1 && !/[a-zA-Z0-9_]/.test(e.key) && e.key !== '?') {
+        // Non-word char (e.g. '(', ',', '+', space) → reset current word buffer
+        _acRawBuffer = '';
       } else if (e.key === '?' || e.key === '?') {
         // ? typed in empty field → help-mode autocomplete
         var val = mathField.value.trim();
@@ -306,10 +319,12 @@ function attachAutocomplete(mathField, cellId) {
   mathField.addEventListener('keydown', function (e) {
     if (e.key !== 'Tab') return;
 
+    // Always prevent Tab from moving focus away from the math-field
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
     if (_acVisible) {
       // Autocomplete already showing — cycle or complete
-      e.preventDefault();
-      e.stopImmediatePropagation();
       if (_acFilteredCommands.length === 1) {
         _acSelectCommand(_acFilteredCommands[0]);
       } else if (_acFilteredCommands.length > 1) {
@@ -322,17 +337,14 @@ function attachAutocomplete(mathField, cellId) {
     if (_acRawBuffer.length > 0) {
       var matches = _acFilterCommands(_acRawBuffer);
       if (matches.length === 1) {
-        // Single match — complete directly
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        _acHelpMode = false;
-        _acSuppressUntil = Date.now() + 300;
-        mathField.setValue(matches[0]);
+        // Single match — insert remaining characters at cursor
+        var suffix = matches[0].slice(_acRawBuffer.length);
+        if (suffix) mathField.insert(suffix);
         _acRawBuffer = matches[0];
+        _acSuppressUntil = Date.now() + 300;
+        _acLastSetValue = '';
       } else if (matches.length > 1) {
         // Multiple matches — open autocomplete dropdown and select first item
-        e.preventDefault();
-        e.stopImmediatePropagation();
         _acHelpMode = false;
         _acRawQuery = _acRawBuffer;
         _acShow(cellId, _acRawQuery);
