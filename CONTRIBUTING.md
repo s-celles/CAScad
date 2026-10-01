@@ -5,30 +5,31 @@ Thank you for your interest in contributing to CAScad! This guide explains how t
 ## Prerequisites
 
 - A modern browser (Chrome 83+, Firefox 80+, Safari 15+, Edge 83+)
-- A local HTTP server (e.g. `npx serve .` or `python3 -m http.server`)
-- [giac.js](https://www-fourier.univ-grenoble-alpes.fr/~parisse/giacjs.tar.gz) placed in the project root
+- [Bun](https://bun.sh)
 
 ## Getting Started
 
 1. Fork the repository and clone your fork
-2. Download `giac.js` and place it in the project root
-3. Start a local server:
+2. Install the dev dependencies, build and serve:
    ```bash
-   npx serve .
+   bun install
+   bun run dev
    ```
-4. Open `http://localhost:3000` in your browser
+3. Open `http://localhost:3000` in your browser
 
-> **Note**: Opening `index.html` via `file://` will not work due to ES module imports.
+Before committing, run `bun run typecheck`, `bun test` and `bun run build` (or `just preflight`).
 
 ## Architecture
 
-CAScad is a **zero-build-step** browser application. All JavaScript is ES2020+ loaded via `<script>` tags (order matters — see `index.html`). External dependencies are loaded from CDN.
+CAScad is a browser application built with Bun into `dist/`. The historical code is plain JavaScript in `js/`, loaded via `<script>` tags (order matters — see `index.html`) and copied as is. New code is written in TypeScript in `src/` and bundled by `scripts/build.ts` (see `ENTRIES`) next to it; it is migrated progressively. Most external dependencies are still loaded from CDN with pinned versions.
 
 Key files:
 
 | File | Purpose |
 |------|---------|
 | `index.html` | HTML shell, toolbar, script loading order |
+| `src/*.ts` | TypeScript modules, bundled by `scripts/build.ts` |
+| `scripts/build.ts` | Build: copy, bundle, stamp version and service worker hash |
 | `js/kernel-registry.js` | Multi-kernel abstraction |
 | `js/io.js` | Export/import, `buildNotebookData()` / `loadNotebookData()` |
 | `js/cells.js` | Cell management |
@@ -41,9 +42,10 @@ Key files:
 
 ## Code Style
 
-- **JavaScript ES2020+** — no transpilation, no TypeScript
-- Use `var` for function-scoped variables (existing codebase convention)
-- Use `function` declarations (not arrow functions) for top-level functions
+- **New code: TypeScript** in `src/` (strict mode), with unit tests in `tests/` (`bun test`); expose what inline handlers or `js/` scripts need on `window`
+- **Existing code in `js/`: JavaScript ES2020+**, no transpilation
+  - Use `var` for function-scoped variables (existing codebase convention)
+  - Use `function` declarations (not arrow functions) for top-level functions
 - Lazy-load CDN dependencies with the cached module pattern:
   ```javascript
   var _module = null;

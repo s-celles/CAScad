@@ -38,22 +38,25 @@ The active kernel is selected via the toolbar dropdown. The choice is persisted 
 
 ## Getting Started
 
-1. Download [giac.js](https://www-fourier.univ-grenoble-alpes.fr/~parisse/giacjs.tar.gz) and place it in the project root
-2. Serve the directory with any static HTTP server:
-   ```bash
-   npx serve .
-   # or
-   python3 -m http.server
-   ```
-3. Open `http://localhost:3000` (or `:8000`) in a modern browser
-4. Wait for "Giac ready" status, then start computing
+Requires [Bun](https://bun.sh) (and optionally [just](https://github.com/casey/just)).
 
-> **Note**: A local HTTP server is required because the project uses ES module imports. Opening `index.html` directly via `file://` will not work.
+1. `giac.js` (the Giac engine, asm.js build) is included; to update it, download [giacjs.tar.gz](https://www-fourier.univ-grenoble-alpes.fr/~parisse/giacjs.tar.gz) and replace it in the project root
+2. Install the dev dependencies, build and serve:
+   ```bash
+   bun install
+   bun run dev        # build into dist/ and serve it on http://localhost:3000
+   ```
+3. Wait for "Giac ready" status, then start computing
+
+The app is built into `dist/`: plain scripts in `js/` are copied as they are, TypeScript sources in `src/` are bundled next to them. Serving the repository root directly no longer works.
 
 ## Project Structure
 
 ```
 index.html              HTML shell (header, toolbar, notebook container)
+src/                    TypeScript sources, bundled to js/ in dist/ (theme.ts → js/theme.js)
+tests/                  Unit tests (bun test)
+scripts/                build.ts (dist/), serve.ts (local server)
 css/
   notebook.css          All styles
 js/
@@ -157,21 +160,27 @@ The connection uses PeerJS Cloud for signaling and Google STUN for NAT traversal
 
 ## Development
 
+### Commands
+
+```bash
+bun run typecheck   # tsc --noEmit
+bun test            # unit tests
+bun run build       # build dist/
+bun run serve       # serve dist/ on http://localhost:3000
+```
+
+With `just`: `just preflight` runs the type check, the tests and the build.
+
+### Deployment
+
+The `CI` workflow (`.github/workflows/ci.yml`) type-checks, tests and builds every push and pull request, and deploys `dist/` to GitHub Pages on `main` (repository settings → Pages → Source: **GitHub Actions**).
+
 ### Releasing a New Version
 
-1. Make your code changes
-2. Update the service worker hash:
+1. Bump `version` in `package.json` and add a `## [x.y.z]` section to `CHANGELOG.md`
+2. Commit, tag, and push:
    ```bash
-   node scripts/update-sw-hash.js
-   ```
-3. Bump the version in three files:
-   - `js/boot.js` → `APP_VERSION`
-   - `sw.js` → `CACHE_VERSION`
-   - `CHANGELOG.md` → new `## [x.y.z]` section
-4. Commit, tag, and push:
-   ```bash
-   git add -A
-   git commit -m "chore: release vX.Y.Z"
+   git commit -am "chore: release vX.Y.Z"
    git tag vX.Y.Z
    git push && git push --tags
    ```
@@ -180,9 +189,7 @@ The project follows [Semantic Versioning](https://semver.org/) and [Keep a Chang
 
 ### PWA Cache Update
 
-The service worker uses a content hash (`CACHE_HASH` in `sw.js`) to detect file changes. Running `node scripts/update-sw-hash.js` computes a SHA-256 hash of all app shell files and writes it into `sw.js`. This ensures the browser detects the new service worker and invalidates stale caches.
-
-**Always run `node scripts/update-sw-hash.js` before committing code changes.**
+The build stamps the version and commit into `js/boot.js` and a hash of every precached file (`SHELL_FILES` in `sw.js`) into `sw.js` (`CACHE_HASH`), so any change installs a new service worker and refreshes the caches. There is nothing to run by hand; the build fails if `SHELL_FILES` lists a file missing from `dist/`.
 
 ## Credits
 
