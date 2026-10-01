@@ -285,6 +285,8 @@
   .cell-insert-zone span{opacity:.35;font-size:.75rem;font-family:var(--ui);color:var(--text-muted);background:var(--surface);border:1px solid var(--border);border-radius:50%;width:22px;height:22px;line-height:20px;text-align:center;box-shadow:var(--shadow-sm);transition:opacity .15s}
   .cell-insert-zone:hover span{opacity:1}
   .cell-insert-zone:hover span:hover{background:var(--accent);color:var(--accent-contrast);border-color:var(--accent)}
+  /* One + between two cells: only the first cell keeps its "insert above" zone */
+  .cell ~ .cell > .cell-insert-zone:first-child{display:none}
 
   /* ═══════ Input ═══════ */
   .cell-input{padding:.65rem .8rem;min-height:46px}
