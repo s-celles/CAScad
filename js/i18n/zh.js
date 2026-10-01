@@ -3,6 +3,7 @@
 var I18N_ZH = {
     title: 'CAScad',
     subtitle: '纯 HTML/JS/CSS 的响应式符号计算笔记本 — 支持多种内核的计算机代数系统 (CAS)（默认使用 GIAC JS 版本作为内核）',
+    themeButton: '主题', themeAuto: '自动（系统）', themeLight: '浅色', themeDark: '深色', sourceCode: '源代码',
     giacLoading: '正在加载 Giac…',
     giacReady: 'Giac 就绪',
     giacError: 'Giac 初始化错误',

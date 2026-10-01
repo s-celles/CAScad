@@ -3,6 +3,7 @@
 var I18N_ES = {
     title: 'CAScad',
     subtitle: 'Un notebook reactivo en HTML/JS/CSS puro para cálculo simbólico — sistema de álgebra computacional (CAS) con soporte de diferentes kernels (versión JS de GIAC como kernel predeterminado)',
+    themeButton: 'Tema', themeAuto: 'Auto (sistema)', themeLight: 'Claro', themeDark: 'Oscuro', sourceCode: 'Código fuente',
     giacLoading: 'Cargando Giac…',
     giacReady: 'Giac listo',
     giacError: 'Error al iniciar Giac',

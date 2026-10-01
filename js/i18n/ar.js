@@ -3,6 +3,7 @@
 var I18N_AR = {
     title: 'CAScad',
     subtitle: 'دفتر ملاحظات تفاعلي بتقنية HTML/JS/CSS خالصة للحساب الرمزي — نظام جبر حاسوبي (CAS) مع دعم نوى مختلفة (إصدار JS من GIAC كنواة افتراضية)',
+    themeButton: 'السمة', themeAuto: 'تلقائي (النظام)', themeLight: 'فاتح', themeDark: 'داكن', sourceCode: 'الشيفرة المصدرية',
     giacLoading: 'جارٍ تحميل Giac…',
     giacReady: 'Giac جاهز',
     giacError: 'خطأ في تهيئة Giac',

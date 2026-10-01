@@ -3,6 +3,7 @@
 var I18N_FR = {
     title: 'CAScad',
     subtitle: 'Un notebook r\u00e9actif en pur HTML/JS/CSS pour le calcul formel — syst\u00e8me de calcul formel (CAS) avec prise en charge de diff\u00e9rents noyaux (version JS de GIAC comme noyau par d\u00e9faut)',
+    themeButton: 'Thème', themeAuto: 'Auto (système)', themeLight: 'Clair', themeDark: 'Sombre', sourceCode: 'Code source',
     giacLoading: 'Chargement de Giac\u2026',
     giacReady: 'Giac pr\u00eat',
     giacError: 'Erreur init Giac',

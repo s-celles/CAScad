@@ -23,6 +23,7 @@ const BOOT_PATH = path.join(ROOT, 'js/boot.js');
 const FILES = [
   'index.html',
   'css/notebook.css',
+  'js/theme.js',
   'favicon.ico',
   'assets/icon-192.png',
   'assets/icon-512.png',

@@ -3,6 +3,7 @@
 var I18N_HI = {
     title: 'CAScad',
     subtitle: 'शुद्ध HTML/JS/CSS में प्रतीकात्मक गणना के लिए एक प्रतिक्रियाशील नोटबुक — विभिन्न कर्नेल के समर्थन के साथ कंप्यूटर बीजगणित प्रणाली (CAS) (GIAC JS संस्करण डिफ़ॉल्ट कर्नेल के रूप में)',
+    themeButton: 'थीम', themeAuto: 'स्वचालित (सिस्टम)', themeLight: 'हल्का', themeDark: 'गहरा', sourceCode: 'स्रोत कोड',
     giacLoading: 'Giac लोड हो रहा है…',
     giacReady: 'Giac तैयार',
     giacError: 'Giac आरंभ त्रुटि',

@@ -42,6 +42,12 @@ function applyI18n() {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     el.textContent = t(el.getAttribute('data-i18n'));
   });
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    const label = t(el.getAttribute('data-i18n-title'));
+    el.title = label;
+    if (el.classList.contains('icon-btn')) el.setAttribute('aria-label', label);
+  });
+  if (typeof updateThemeButton === 'function') updateThemeButton();
   document.querySelectorAll('.cell').forEach(cell => {
     const ta = cell.querySelector('textarea');
     if (ta && cell.dataset.type === 'raw')  ta.placeholder = t('placeholderRaw');

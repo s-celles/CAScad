@@ -3,6 +3,7 @@
 var I18N_EL = {
     title: 'CAScad',
     subtitle: 'Ένα αντιδραστικό σημειωματάριο σε καθαρό HTML/JS/CSS για συμβολικούς υπολογισμούς — σύστημα υπολογιστικής άλγεβρας (CAS) με υποστήριξη διαφορετικών πυρήνων (έκδοση JS του GIAC ως προεπιλεγμένος πυρήνας)',
+    themeButton: 'Θέμα', themeAuto: 'Αυτόματο (σύστημα)', themeLight: 'Φωτεινό', themeDark: 'Σκοτεινό', sourceCode: 'Πηγαίος κώδικας',
     giacLoading: 'Φόρτωση Giac…',
     giacReady: 'Giac έτοιμο',
     giacError: 'Σφάλμα αρχικοποίησης Giac',
