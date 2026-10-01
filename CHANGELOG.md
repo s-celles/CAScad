@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Visual style aligned with QRShare and Progressive Web Office: same palette, system typography, sticky header bar with brand badge, version link and icon buttons, outlined toolbar buttons, card-style cells and dialogs, yellow focus ring
 
+### Fixed
+- Math cells no longer evaluated (Enter / Shift+Enter did nothing): MathLive and Compute Engine were loaded unpinned from the CDN, and MathLive 0.111 removed `mf.expression` while recent Compute Engine releases no longer parse `\differentialD` (inserted by the `dx` shortcut). Both are now pinned (MathLive 0.109.0, Compute Engine 0.55.6)
+- Only one "+" insert button is shown between two cells (it was doubled)
+
 ## [0.1.3] - 2026-03-03
 
 ### Fixed
