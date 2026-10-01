@@ -1,17 +1,23 @@
 {
-  "name": "giacjs",
-  "version": "1.6.0",
-  "description": "Computer Algebra System",
-  "main": "giacsimple.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "name": "cascad",
+  "version": "0.1.3",
+  "description": "A reactive notebook for symbolic computation (computer algebra system) running entirely in the browser",
+  "private": true,
+  "type": "module",
+  "license": "AGPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/s-celles/CAScad.git"
   },
-  "keywords": [
-    "CAS",
-    "symbolic",
-    "algebra"
-  ],
-  "url":"https://www-fourier.univ-grenoble-alpes.fr/~parisse/giacjs/",
-  "author": "Bernard Parisse et al",
-  "license": "AGPL-3.0-or-later"
+  "scripts": {
+    "build": "bun run scripts/build.ts",
+    "serve": "bun run scripts/serve.ts",
+    "dev": "bun run scripts/build.ts && bun run scripts/serve.ts",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/bun": "1.3.14",
+    "typescript": "7.0.2"
+  }
 }

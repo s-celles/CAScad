@@ -3,8 +3,8 @@
 // SECTION 12 — BOOT
 // ─────────────────────────────────────────────────────────────
 
-var APP_VERSION = '0.1.3';
-var APP_COMMIT = '4adaad0';  // Updated by scripts/update-sw-hash.js
+var APP_VERSION = 'dev';  // Set from package.json by scripts/build.ts
+var APP_COMMIT = 'dev';   // Set by scripts/build.ts
 
 /** Set up MathLive virtual keyboard layouts with localized tooltips */
 function setupMathKeyboard() {

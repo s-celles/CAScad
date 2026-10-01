@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Build with Bun and TypeScript: `bun run build` produces `dist/` (plain scripts copied, TypeScript sources in `src/` bundled), deployed to GitHub Pages by the new `CI` workflow, which also type-checks and runs `bun test`. The theme toggle is the first module migrated to TypeScript (`src/theme.ts`)
+- The version, commit and service worker cache hash are now stamped by the build: `scripts/update-sw-hash.js` and the manual hash commits are gone
+
 ### Added
 - Light/dark theme toggle in the header (auto → light → dark, follows the system setting in auto mode, persisted in `localStorage`)
 - Help query support in math mode cells: `?commandname`, `help(commandname)`, `?`, and `help()` now work in visual (math2d) mode, producing identical output to raw mode cells
