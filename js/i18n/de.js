@@ -3,6 +3,7 @@
 var I18N_DE = {
     title: 'CAScad',
     subtitle: 'Ein reaktives Notebook in reinem HTML/JS/CSS für symbolisches Rechnen — Computeralgebrasystem (CAS) mit Unterstützung verschiedener Kernel (GIAC JS-Version als Standard-Kernel)',
+    themeButton: 'Design', themeAuto: 'Automatisch (System)', themeLight: 'Hell', themeDark: 'Dunkel', sourceCode: 'Quellcode',
     giacLoading: 'Giac wird geladen…',
     giacReady: 'Giac bereit',
     giacError: 'Giac Init-Fehler',

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CAScad — CAS Notebook</title>
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#2563eb">
+<meta name="theme-color" content="#1f5fbf">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="CAScad">
@@ -110,19 +110,28 @@ var UI = {
   Application CSS
   ═══════════════════════════════════════════════════ -->
 <link rel="stylesheet" href="css/notebook.css">
+<script src="js/theme.js"></script>
 
 </head>
 <body>
 
 
-<div class="header"><div class="header-inner">
-  <div class="header-left">
-    <h1>📓 <span data-i18n="title">CAScad</span> <span id="app-version" style="font-size:.45em;font-family:'JetBrains Mono',monospace;opacity:.5;vertical-align:middle"></span></h1>
-    <p data-i18n="subtitle">A pure HTML/JS/CSS reactive notebook for symbolic computation — computer algebra system (CAS) with support of different kernel (GIAC JS version as default kernel)</p>
-    <a href="https://github.com/s-celles/CAScad" target="_blank" rel="noopener" style="font-size:.85rem;opacity:.7;text-decoration:none;color:inherit"><svg height="16" width="16" viewBox="0 0 24 24" style="vertical-align:text-bottom;margin-right:.3em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Source code</a>
-  </div>
-  <div class="header-right">
-    <select class="lang-select" id="lang-select" onchange="setLocale(this.value)">
+<header class="app-header" role="banner"><nav class="app-nav" aria-label="Main navigation">
+  <a href="./" class="logo-link" data-i18n-title="subtitle">
+    <span class="brand" aria-hidden="true">∑</span>
+    <h1 data-i18n="title">CAScad</h1>
+  </a>
+  <button type="button" id="app-version" class="app-version" onclick="showAboutDialog()" data-i18n-title="aboutTitle"></button>
+  <div class="nav-actions">
+    <select class="kernel-select" id="kernel-select" aria-label="Kernel" onchange="if(typeof KernelRegistry!=='undefined')KernelRegistry.setActive(this.value)">
+      <option value="giac-js">GIAC JS</option>
+      <option value="compute-engine">Compute Engine</option>
+    </select>
+    <div id="giac-status" role="status">
+      <span class="dot"></span>
+      <span class="text" data-i18n="giacLoading">Loading Giac…</span>
+    </div>
+    <select class="lang-select" id="lang-select" aria-label="Language" onchange="setLocale(this.value)">
       <option value="en">English (en)</option>
       <option value="fr">Français (fr)</option>
       <option value="es">Español (es)</option>
@@ -134,16 +143,11 @@ var UI = {
       <option value="zh">中文 (zh)</option>
       <option value="ja">日本語 (ja)</option>
     </select>
-    <select class="kernel-select" id="kernel-select" onchange="if(typeof KernelRegistry!=='undefined')KernelRegistry.setActive(this.value)">
-      <option value="giac-js">GIAC JS</option>
-      <option value="compute-engine">Compute Engine</option>
-    </select>
-    <div id="giac-status">
-      <span class="dot"></span>
-      <span class="text" data-i18n="giacLoading">Loading Giac…</span>
-    </div>
+    <button type="button" id="theme-toggle" class="icon-btn" onclick="toggleTheme()">◐</button>
+    <a href="https://github.com/s-celles/CAScad" target="_blank" rel="noopener" class="icon-btn" data-i18n-title="sourceCode"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></a>
+    <button type="button" class="icon-btn" onclick="showAboutDialog()" data-i18n-title="aboutTitle">&#x2139;</button>
   </div>
-</div></div>
+</nav></header>
 
 <div class="toolbar-wrap"><div class="toolbar">
   <button class="primary" onclick="runAll()" data-i18n="runAll">▶ Run all</button>
@@ -163,8 +167,6 @@ var UI = {
   <div class="sep"></div>
   <button id="report-view-btn" onclick="toggleReportView()" data-i18n="reportView">📄 Report view</button>
   <button id="dag-diagram-btn" onclick="toggleDagDiagram()" data-i18n="dagDiagramToggle" title="Cell flow diagram" aria-pressed="false">⛖ Flow</button>
-  <div class="sep"></div>
-  <button onclick="showAboutDialog()" data-i18n="aboutBtn">ℹ About</button>
 </div></div>
 
 <div class="notebook" id="notebook">

@@ -263,6 +263,9 @@ async function refreshDagDiagram() {
     var prevSvg = document.getElementById('dag-diagram-' + (_dagRenderId - 1));
     if (prevSvg) prevSvg.remove();
 
+    var dark = typeof getEffectiveTheme === 'function' && getEffectiveTheme() === 'dark';
+    mermaid.initialize({ startOnLoad: false, theme: dark ? 'dark' : 'default', securityLevel: 'strict' });
+
     var renderId = 'dag-diagram-' + (_dagRenderId++);
     var result = await mermaid.render(renderId, def);
     container.innerHTML = result.svg;

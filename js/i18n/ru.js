@@ -3,6 +3,7 @@
 var I18N_RU = {
     title: 'CAScad',
     subtitle: 'Реактивный блокнот на чистом HTML/JS/CSS для символьных вычислений — система компьютерной алгебры (CAS) с поддержкой различных ядер (JS-версия GIAC в качестве ядра по умолчанию)',
+    themeButton: 'Тема', themeAuto: 'Авто (системная)', themeLight: 'Светлая', themeDark: 'Тёмная', sourceCode: 'Исходный код',
     giacLoading: 'Загрузка Giac…',
     giacReady: 'Giac готов',
     giacError: 'Ошибка инициализации Giac',

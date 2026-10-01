@@ -3,6 +3,7 @@
 var I18N_JA = {
     title: 'CAScad',
     subtitle: '純粋な HTML/JS/CSS によるシンボリック計算のためのリアクティブノートブック — 複数のカーネルをサポートするコンピュータ代数システム (CAS)（デフォルトカーネルは GIAC JS 版）',
+    themeButton: 'テーマ', themeAuto: '自動（システム）', themeLight: 'ライト', themeDark: 'ダーク', sourceCode: 'ソースコード',
     giacLoading: 'Giac を読み込み中…',
     giacReady: 'Giac 準備完了',
     giacError: 'Giac 初期化エラー',
