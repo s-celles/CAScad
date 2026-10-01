@@ -15,8 +15,11 @@
 <!-- ═══════════════════════════════════════════════════
   External dependencies (loaded from CDN)
   ═══════════════════════════════════════════════════ -->
-<script src="https://unpkg.com/mathlive"></script>
-<script src="https://unpkg.com/@cortex-js/compute-engine"></script>
+<!-- MathLive and Compute Engine are pinned: unpinned "latest" broke math cells
+     (MathLive 0.111 dropped mf.expression; recent Compute Engine no longer
+     parses \differentialD, inserted by the "dx" shortcut). -->
+<script src="https://unpkg.com/mathlive@0.109.0"></script>
+<script src="https://unpkg.com/@cortex-js/compute-engine@0.55.6"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css">
