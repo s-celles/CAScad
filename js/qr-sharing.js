@@ -73,7 +73,7 @@ var _lzStringModule = null;
 
 function _loadLZString() {
   if (_lzStringModule) return Promise.resolve(_lzStringModule);
-  return import('https://cdn.jsdelivr.net/npm/lz-string/+esm').then(function(mod) {
+  return import('https://cdn.jsdelivr.net/npm/lz-string@1.5.0/+esm').then(function(mod) {
     _lzStringModule = mod.default || mod;
     return _lzStringModule;
   });
@@ -100,7 +100,7 @@ var _qrModule = null;
 
 function _loadQRCode() {
   if (_qrModule) return Promise.resolve(_qrModule);
-  return import('https://cdn.jsdelivr.net/npm/@cheprasov/qrcode/+esm').then(function(mod) {
+  return import('https://cdn.jsdelivr.net/npm/@cheprasov/qrcode@0.1.0/+esm').then(function(mod) {
     var lib = mod.default || mod;
     _qrModule = lib;
     return lib;
@@ -303,7 +303,7 @@ var _scanStream = null;
 
 function _loadJsQR() {
   if (_jsQRModule) return Promise.resolve(_jsQRModule);
-  return import('https://cdn.jsdelivr.net/npm/jsqr/+esm').then(function(mod) {
+  return import('https://cdn.jsdelivr.net/npm/jsqr@1.4.0/+esm').then(function(mod) {
     _jsQRModule = mod.default || mod;
     return _jsQRModule;
   });

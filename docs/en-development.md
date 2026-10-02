@@ -39,8 +39,9 @@ committing.
   `index.html`, migrated to TypeScript progressively.
 - **Translations**: every user-visible string goes through `t()` and exists in
   the 10 files of `js/i18n/`.
-- **Dependencies**: pinned versions only (`package.json`, or versioned CDN
-  URLs). They appear automatically in **About → Libraries**.
+- **Dependencies**: exact versions only (`package.json`, or CDN URLs with
+  `@x.y.z`); `tests/dependencies.test.ts` refuses anything else. They appear
+  automatically in **About → Libraries** (`scripts/dependencies.ts`).
 - **Requirements**: when a behaviour changes, update
   [the requirements](requirements.md) (ID, priority, status) and reference the
   ID in the tests.

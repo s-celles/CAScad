@@ -42,7 +42,7 @@ user's device unless the user chooses to share them.
 | PLT-005 | M | ✅ | The system shall be built with Bun into a static site: new code in TypeScript with strict type checking, existing plain scripts copied as they are. |
 | PLT-006 | M | ✅ | The build shall stamp the version, the commit and a hash of every precached file, so that any change installs a new service worker. |
 | PLT-007 | M | ✅ | The continuous integration shall type-check, run the unit tests and build every change, and shall deploy the built site to GitHub Pages from the main branch. |
-| PLT-008 | S | 🚧 | The system shall load third-party libraries at pinned versions (bundled dependencies or versioned CDN URLs). Some CDN libraries are still loaded without a pinned version. |
+| PLT-008 | S | ✅ | The system shall load third-party libraries at exact pinned versions (bundled dependencies or versioned CDN URLs), so that a new release of a library cannot change the application unnoticed. |
 | PLT-009 | M | ✅ | The system shall work in the latest versions of Chromium-based browsers, Firefox and Safari. |
 
 ## 3. Notebook & cells (CELL)

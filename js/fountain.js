@@ -13,7 +13,7 @@ var _ltModule = null;
 
 function _loadLT() {
   if (_ltModule) return Promise.resolve(_ltModule);
-  return import('https://cdn.jsdelivr.net/npm/luby-transform/+esm').then(function(mod) {
+  return import('https://cdn.jsdelivr.net/npm/luby-transform@0.2.0/+esm').then(function(mod) {
     _ltModule = mod.default || mod;
     return _ltModule;
   });

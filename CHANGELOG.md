@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Every library loaded from a CDN is pinned to an exact version (JSXGraph 1.13.3, Lit 3.3.3, Mermaid 11.17.2, Observable Runtime 6.0.1, lz-string 1.5.0, jsQR 1.4.0, luby-transform 0.2.0, @cheprasov/qrcode 0.1.0), as MathLive and Compute Engine already were: a new release can no longer break the app unnoticed. A test refuses unpinned URLs
+
 ### Changed
 - Minimal README pointing to the in-app documentation; its detailed content moved to `docs/` (user guide, sharing and transfer, architecture, development) and was corrected (the phone-to-computer transfer has no confirmation step; `js/mathjson-giac.js`)
 - About window aligned with QRShare and Progressive Web Office: version (linked to the changelog), commit (linked), build date, licence, installed/offline status, QR code of the app (click to enlarge full screen), links (getting started, source, changelog, report a problem), privacy note, credits, libraries in a collapsible table, and **Copy details** for bug reports. The social network share buttons are gone (the QR code and the system share sheet remain)

@@ -5,7 +5,7 @@
 // Dispatches 'slider-change' CustomEvent when moved.
 // ─────────────────────────────────────────────────────────────
 
-import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
+import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@3.3.3/core/lit-core.min.js';
 
 class SliderParam extends LitElement {
   static properties = {
