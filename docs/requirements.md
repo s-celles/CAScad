@@ -185,9 +185,9 @@ Nostr relays, presence and version history).
 | UI-001 | M | ✅ | The system shall use the visual style of QRShare and Progressive Web Office: palette, system typography, sticky header with brand, version and icon buttons, outlined buttons, card-style cells and dialogs, visible focus ring. |
 | UI-002 | M | ✅ | When the user clicks the theme button, the system shall cycle between automatic (system setting), light and dark themes and remember the choice on this device. |
 | UI-003 | M | ✅ | The system shall show its version and commit in the header; clicking them shall open the About window. |
-| UI-004 | M | ✅ | The About window shall show the version (linked to the changelog), the commit (linked to the source), the build date, the licence, whether the app is installed and works offline, a QR code of the application (enlargeable full screen), links (getting started, source code, changelog, problem report, requirements), a privacy note and credits. |
+| UI-004 | M | ✅ | The About window shall show the version (linked to the changelog), the commit (linked to the source), the build date, the licence, whether the app is installed and works offline, a QR code of the application (enlargeable full screen), links (documentation, getting started, source code, changelog, problem report, requirements), a privacy note and credits. |
 | UI-005 | S | ✅ | The About window shall list the third-party libraries with their version, whether they are included in the application or loaded from a CDN, their licence and their author; the version of Giac shall be read from the engine. |
-| UI-006 | S | ✅ | When the user selects "Requirements" in the About window, the system shall show this specification in the application, also offline. |
+| UI-006 | S | ✅ | The system shall show its documentation (user guide, sharing, architecture, development, this specification) in the application, also offline, from the header and the About window; an address `#/docs?page=<page>[&section=<heading>]` shall open a page directly, and links between pages shall stay in the application. |
 | UI-007 | S | ✅ | When the user selects "Copy details" in the About window, the system shall copy the version, address, browser and settings, to paste into a problem report. |
 | UI-008 | M | ✅ | The layout shall work at phone width without horizontal scrolling of the page. |
 

@@ -8,12 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- Minimal README pointing to the in-app documentation; its detailed content moved to `docs/` (user guide, sharing and transfer, architecture, development) and was corrected (the phone-to-computer transfer has no confirmation step; `js/mathjson-giac.js`)
 - About window aligned with QRShare and Progressive Web Office: version (linked to the changelog), commit (linked), build date, licence, installed/offline status, QR code of the app (click to enlarge full screen), links (getting started, source, changelog, report a problem), privacy note, credits, libraries in a collapsible table, and **Copy details** for bug reports. The social network share buttons are gone (the QR code and the system share sheet remain)
 - TypeScript module `src/main.ts` bundled as `js/app/main.js` with code splitting, next to the plain scripts
 - Build with Bun and TypeScript: `bun run build` produces `dist/` (plain scripts copied, TypeScript sources in `src/` bundled), deployed to GitHub Pages by the new `CI` workflow, which also type-checks and runs `bun test`. The theme toggle is the first module migrated to TypeScript (`src/theme.ts`)
 - The version, commit and service worker cache hash are now stamped by the build: `scripts/update-sw-hash.js` and the manual hash commits are gone
 
 ### Added
+- In-app documentation, as in QRShare: the pages of `docs/` (user guide, sharing and transfer, architecture, development, requirements) open in the app from the header (?) and the About window, with an index, a list of pages and links between pages; addresses `#/docs?page=<page>[&section=<heading>]` open a page directly; bundled, so it works offline
 - Requirements specification `docs/requirements.md`: about 100 requirements in EARS notation with MoSCoW priorities and their status (implemented, partly implemented, planned), including the planned real-time collaboration; readable in the app from **About → Requirements** (works offline) and checked by unit tests
 - The About window lists the third-party libraries with their version, whether they are included in the app or loaded from a CDN, their licence and their author; Giac's version is read from the engine. The list is produced by the build from `package.json` and the CDN URLs
 - Send to another device and receive from it with [QRShare](https://github.com/s-celles/QRShare), as in Progressive Web Office: **📲 Send to device** hands the notebook to QRShare inside the browser (handoff protocol v1, with a download fallback for older QRShare), offers the system share sheet and a link containing the notebook; **📥 Receive** opens QRShare's receive screen, and the received notebook comes back to CAScad. Policy and QRShare address are remembered

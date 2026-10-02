@@ -1,223 +1,54 @@
 [![DOI](https://zenodo.org/badge/1167872975.svg)](https://doi.org/10.5281/zenodo.18846989)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/s-celles/CAScad)
 
-<p align="center">
-  <img src="assets/CAScad.png" alt="CAScad logo" width="400">
-</p>
+# CAScad
 
-# CAScad — Computer Algebra System Notebook
+![CAScad](assets/CAScad.png)
 
-An interactive, browser-based computer algebra notebook with multi-kernel support and reactive cell evaluation.
+A reactive notebook for symbolic computation, with the
+[Giac](https://www-fourier.univ-grenoble-alpes.fr/~parisse/giac.html) computer algebra system.
 
-**[Live Demo](https://s-celles.github.io/CAScad/)** (if deployed via GitHub Pages)
+**Open the app: https://s-celles.github.io/CAScad/** — it runs entirely in your
+browser, installs as a Progressive Web App and works offline.
 
-## Features
+## Highlights
 
-- **Multi-kernel support** — Switch between [Giac/Xcas](https://www-fourier.univ-grenoble-alpes.fr/~parisse/giac.html) (default) and [CortexJS Compute Engine](https://cortexjs.io/compute-engine/) via a toolbar selector
-- **Reactive DAG execution** — Cells automatically re-evaluate when their dependencies change, powered by [Observable Runtime](https://github.com/observablehq/runtime)
-- **Visual math input** — LaTeX-style editing with [MathLive](https://mathlive.io/) and a custom virtual keyboard (fractions, integrals, sums, products, Greek letters)
-- **MathJSON-first pipeline** — Math cells use MathJSON internally: MathField -> MathJSON -> kernel, LaTeX used only for display
-- **Interactive 2D plots** — `plot(sin(x))`, `plotfunc`, `plotparam`, `plotpolar`, `plotimplicit`, `plotfield`, `plotcontour`, `plotode`, `plotseq` rendered with [JSXGraph](https://jsxgraph.org/) (zoom, pan, coordinates)
-- **3D surface plots** — `plotfunc(x^2+y^2,[x,y])` rendered with WebGL
-- **Statistical charts** — `histogram`, `barplot`, `camembert`, `boxwhisker`, `scatterplot`
-- **Geometry** — `circle`, `segment`, `point` and more
-- **LaTeX output** — Results rendered with [KaTeX](https://katex.org/)
-- **Internationalization** — 10 languages: English, French, Spanish, German, Greek, Arabic (RTL), Hindi, Russian, Chinese, Japanese
-- **Export/Import** — Save and reload notebooks as JSON (v5 format with kernel field, backward-compatible with v1–v4)
-- **Send and receive with [QRShare](https://github.com/s-celles/QRShare)** — Move a notebook to another device with animated QR codes (no network needed) or a direct connection, as in [Progressive Web Office](https://github.com/s-celles/progressive-web-office)
-- **Reactive/Manual toggle** — Switch between automatic cascade and manual cell-by-cell execution
-- **Command discovery** — `search_commands()`, `list_categories()`, `suggest_commands()` and more for exploring available functions
+- Type mathematics **visually** or in Giac syntax; results as formulas
+- **Reactive** cells that recompute when what they depend on changes
+- Interactive 2D and 3D **plots**, statistical charts, geometry, sliders
+- Two kernels: **Giac** and the CortexJS **Compute Engine**
+- Command menu, help and discovery functions for the Giac commands
+- Send notebooks to other devices with [QRShare](https://github.com/s-celles/QRShare), links or QR codes
+- 10 languages, light and dark themes
 
-## Requirements
+## Documentation
 
-The behaviour of CAScad is specified in [docs/requirements.md](docs/requirements.md): requirements in [EARS](https://alistairmavin.com/ears/) notation with MoSCoW priorities and their implementation status, as in Progressive Web Office. The specification can also be read in the app (**About → Requirements**), offline included.
+The documentation opens **in the app** (? button in the header):
 
-## Kernels
+- [User guide](https://s-celles.github.io/CAScad/#/docs?page=user-guide)
+- [Sharing and transfer](https://s-celles.github.io/CAScad/#/docs?page=sharing) — QRShare, links, QR codes, phone to computer
+- [Architecture](https://s-celles.github.io/CAScad/#/docs?page=architecture) — building blocks and source layout
+- [Development](https://s-celles.github.io/CAScad/#/docs?page=development) — build, test and release
+- [Requirements](https://s-celles.github.io/CAScad/#/docs?page=requirements) — EARS specification
 
-| Kernel | Description | Status |
-|--------|-------------|--------|
-| **Giac/Xcas** | Full-featured CAS — algebra, calculus, plots, linear algebra, programming | Default, requires `giac.js` |
-| **CortexJS Compute Engine** | Symbolic computation — simplify, factor, differentiate, integrate | Loaded from CDN |
+Its Markdown sources are in the [`docs/`](docs/) folder.
 
-The active kernel is selected via the toolbar dropdown. The choice is persisted in `localStorage` and saved in notebook files (v5 format).
+## Related projects
 
-## Getting Started
+CAScad shares its visual style and its QRShare integration with
+[Progressive Web Office](https://github.com/s-celles/progressive-web-office), an
+office suite that runs entirely in the browser.
 
-Requires [Bun](https://bun.sh) (and optionally [just](https://github.com/casey/just)).
-
-1. `giac.js` (the Giac engine, asm.js build) is included; to update it, download [giacjs.tar.gz](https://www-fourier.univ-grenoble-alpes.fr/~parisse/giacjs.tar.gz) and replace it in the project root
-2. Install the dev dependencies, build and serve:
-   ```bash
-   bun install
-   bun run dev        # build into dist/ and serve it on http://localhost:3000
-   ```
-3. Wait for "Giac ready" status, then start computing
-
-The app is built into `dist/`: plain scripts in `js/` are copied as they are, TypeScript sources in `src/` are bundled next to them. Serving the repository root directly no longer works.
-
-## Project Structure
-
-```
-index.html              HTML shell (header, toolbar, notebook container)
-docs/requirements.md    Requirements specification (EARS), also shown in the app
-src/                    TypeScript sources: theme.ts → js/theme.js; main.ts (About window,
-                        share/ — QRShare send and receive) → js/app/main.js
-tests/                  Unit tests (bun test)
-scripts/                build.ts (dist/), serve.ts (local server)
-css/
-  notebook.css          All styles
-js/
-  kernel-registry.js    Multi-kernel abstraction and registry
-  kernel-giac.js        Giac/Xcas kernel adapter
-  kernel-compute-engine.js  CortexJS Compute Engine kernel adapter
-  i18n.js               Internationalization (10 locales)
-  giac-init.js          CortexJS Compute Engine + Giac initialization
-  mathjson-xcas.js      MathJSON -> Xcas string converter
-  state.js              Shared application state
-  io.js                 Export/Import + utilities
-  plot-rendering.js     2D/3D plot rendering (SVG, gr2d, JSXGraph, WebGL)
-  reactive-dag.js       Reactive DAG with Observable Runtime
-  cells.js              Cell management, debug panel, mode switching
-  execution.js          Cell execution engine
-  command-discovery.js  Command search, browse, and suggest functions
-  actions.js            Global actions (run all, delete, move)
-  boot.js               Startup sequence, virtual keyboard config, demo cells
-assets/
-  CAScad.png            Visual identity / logo
-examples/
-  giac-js/              Example notebooks for Giac/Xcas kernel
-  compute-engine/       Example notebooks for CortexJS Compute Engine
-giac.js                 Giac/Xcas engine (asm.js, not included — download separately)
-```
-
-## Examples
-
-The notebook comes pre-loaded with demo cells covering:
-
-| Category | Examples |
-|----------|----------|
-| **Reactive chain** | `a := 5`, `a^2`, `b := a + 3` |
-| **Calculus** | `\frac{x^4-1}{x^2+1}`, `\int \frac{1}{x^2+1} dx`, `\frac{d}{dx}(\sin(x) \cdot e^x)`, `\lim_{x\to 0} \frac{\sin(x)}{x}` |
-| **Finite sums/products** | `\sum_{k=1}^{n} k`, `\prod_{k=1}^{n} k`, `\sum_{k=1}^{10} k^2` |
-| **Infinite series** | `\sum_{n=1}^{\infty} \frac{1}{n^2}` (Basel), `\sum_{n=0}^{\infty} \frac{(-1)^n}{2n+1}` (Leibniz) |
-| **Algebra** | `solve(x^2 - 3*x + 2 = 0, x)`, `eigenvalues([[1,2],[3,4]])` |
-| **2D plots** | `plot(sin(x))`, `plotfunc([sin(x),cos(x)],x)`, `plotimplicit(x^2+y^2-1,x,y)` |
-| **3D plots** | `plotfunc(x^2+y^2,[x,y])`, `plotfunc(sin(x)*cos(y),[x,y])` |
-| **Statistics** | `histogram(...)`, `barplot(...)`, `camembert(...)`, `boxwhisker(...)`, `scatterplot(...)` |
-| **Geometry** | `circle(0,2); segment([0,0],[2,0]); point(1,1)` |
-
-## Sending to Another Device (QRShare)
-
-CAScad works with [QRShare](https://github.com/s-celles/QRShare), a companion web app that moves files between two devices with **animated QR codes** — no account, no cloud, even without any network — or with a direct peer-to-peer connection. It is used the same way by [Progressive Web Office](https://github.com/s-celles/progressive-web-office).
-
-- **📲 Send to device**: choose the transfer policy (*air-gapped only*, *prefer air-gapped* or *any mode*) and click **Send with QRShare**. The notebook (`notebook.cascad.json`) is handed to QRShare inside the browser (no download, no upload), ready to send. With an older QRShare, the file is downloaded and QRShare opens its *Prepare a transfer* screen. The same window offers **Share with another app…** (system share sheet) and a **link that contains the notebook itself** (`#nb=…`).
-- **📥 Receive**: opens QRShare's receive screen. Once the file is received, **Open in …** in QRShare opens it directly in CAScad. Only files coming from the configured QRShare address are accepted.
-- Under **Advanced**, you can point to another QRShare installation (for example a self-hosted copy). The address and the policy are remembered.
-
-QRShare and CAScad are separate applications, both under the GNU AGPL-3.0: CAScad only opens QRShare's public pages and talks to it with `postMessage` (QRShare app handoff protocol, version 1).
-
-## P2P Transfer (Phone → PC)
-
-Transfer a notebook from your phone to your PC without needing a webcam on the PC side. Uses WebRTC for direct browser-to-browser communication — notebook data never passes through any server.
-
-### Prerequisites
-
-- Two devices (phone + PC) with internet access
-- Modern browser (Chrome 83+, Firefox 80+, Safari 15+, Edge 83+)
-- Phone must have a camera for QR scanning
-
-### How to Use
-
-1. On the **PC**, click **📲 Receive from Phone** in the toolbar — a QR code appears
-2. On the **phone**, click **📷 Scan QR** and scan the PC's QR code
-3. Both devices show a **4-digit confirmation code** — verify they match
-4. The notebook transfers automatically from phone to PC
-5. Review and confirm to load the notebook
-
-The connection uses PeerJS Cloud for signaling and Google STUN for NAT traversal. All notebook data travels over a DTLS-encrypted WebRTC data channel.
-
-### Transfer Methods Comparison
-
-| Method | PC Webcam | Internet | Size Limit | Speed |
-|--------|-----------|----------|------------|-------|
-| Static QR | No | No | ~2 KB | Instant |
-| Animated QR (Fountain) | No | No | Unlimited | 5-30s |
-| URL Sharing | No | Yes | ~2 KB | Instant |
-| File Export/Import | No | No | Unlimited | Manual |
-| QRShare (Send to device) | No | Optional | Unlimited | Depends on mode |
-| **P2P Transfer** | **No** | **Yes** | **Unlimited** | **<10s** |
-
-**When to use P2P Transfer**: You want to send a large notebook from phone to PC, the PC has no webcam, and both devices have internet access.
-
-## Keyboard Shortcuts
-
-| Shortcut | Action |
-|----------|--------|
-| `Shift+Enter` | Run current cell |
-| `Ctrl+Enter` | Run current cell + add new cell |
-| `Ctrl+Shift+Enter` | Run current cell only (no reactive cascade) |
-
-## Technology Stack
-
-- **Giac/Xcas** (asm.js) — Computer algebra engine (default kernel)
-- **CortexJS Compute Engine** — Symbolic computation engine (alternative kernel)
-- **MathLive** — Math input web component
-- **KaTeX** — LaTeX rendering
-- **JSXGraph** — Interactive 2D/3D plots
-- **Observable Runtime** — Reactive dependency graph
-- **Bun** — Build (TypeScript in `src/`, plain scripts in `js/`), tests
-- **lean-qr** — QR codes (About window)
-
-## Related Projects
-
-- [Giac/Xcas](https://www-fourier.univ-grenoble-alpes.fr/~parisse/giac.html) — Computer algebra system by Bernard Parisse
-- [KaTeX](https://katex.org/) — Fast LaTeX math rendering for the web
-- [JSXGraph](https://jsxgraph.org/) — Interactive geometry and function plotting in the browser
-- [Observable Runtime](https://github.com/observablehq/runtime) — Reactive dataflow runtime for dependency graphs
-- [MathLive](https://mathlive.io/) — Web component for math input editing
-- [CortexJS Compute Engine](https://cortexjs.io/compute-engine/) — LaTeX/MathJSON parsing and symbolic computation
-- [QRShare](https://github.com/s-celles/QRShare) — Air-gapped file transfer with animated QR codes, used to send and receive notebooks
-- [Progressive Web Office](https://github.com/s-celles/progressive-web-office) — Office suite in the browser, sharing the same visual style and QRShare integration
-
-## Development
-
-### Commands
+## Quick start
 
 ```bash
-bun run typecheck   # tsc --noEmit
-bun test            # unit tests
-bun run build       # build dist/
-bun run serve       # serve dist/ on http://localhost:3000
+bun install
+bun test
+bun run dev     # build and serve on http://localhost:3000
 ```
 
-With `just`: `just preflight` runs the type check, the tests and the build.
-
-### Deployment
-
-The `CI` workflow (`.github/workflows/ci.yml`) type-checks, tests and builds every push and pull request, and deploys `dist/` to GitHub Pages on `main` (repository settings → Pages → Source: **GitHub Actions**).
-
-### Releasing a New Version
-
-1. Bump `version` in `package.json` and add a `## [x.y.z]` section to `CHANGELOG.md`
-2. Commit, tag, and push:
-   ```bash
-   git commit -am "chore: release vX.Y.Z"
-   git tag vX.Y.Z
-   git push && git push --tags
-   ```
-
-The project follows [Semantic Versioning](https://semver.org/) and [Keep a Changelog](https://keepachangelog.com/).
-
-### PWA Cache Update
-
-The build stamps the version and commit into `js/boot.js` and a hash of every precached file (`SHELL_FILES` in `sw.js`) into `sw.js` (`CACHE_HASH`), so any change installs a new service worker and refreshes the caches. There is nothing to run by hand; the build fails if `SHELL_FILES` lists a file missing from `dist/`.
-
-## Credits
-
-- [Giac/Xcas](https://www-fourier.univ-grenoble-alpes.fr/~parisse/giac.html) by Bernard Parisse
-- [MathLive](https://mathlive.io/) by Arno Gourdol
-- Virtual keyboard layout inspired by [B. Parisse's math2d.html](https://www-fourier.univ-grenoble-alpes.fr/~parisse/test/math2d.html)
+See [Development](https://s-celles.github.io/CAScad/#/docs?page=development) for all commands and the release process.
 
 ## License
 
-AGPL-3.0 — See [LICENSE.txt](LICENSE.txt)
+[GNU AGPL-3.0-or-later](LICENSE.txt)

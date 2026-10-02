@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'bun:test';
 import requirements from '../docs/requirements.md' with { type: 'text' };
-import { requirementsHtml } from '../src/requirements';
 
 /** Table rows of the specification: ID, priority, status, requirement. */
 const rows = [...requirements.matchAll(/^\| ([A-Z0-9]+-\d{3}) \| (\w) \| (\S+) \| (.+) \|$/gm)].map((m) => ({ id: m[1]!, pri: m[2]!, status: m[3]!, text: m[4]! }));
@@ -32,16 +31,3 @@ describe('requirements specification', () => {
   });
 });
 
-describe('UI-006 requirements viewer', () => {
-  it('renders the specification without its front matter, links opening in a new tab', () => {
-    const html = requirementsHtml('---\ndescription: x\n---\n\n# Title\n\n| ID | Pri |\n|---|---|\n| A-001 | M |\n\nSee [EARS](https://example.org/).');
-    expect(html).not.toContain('description');
-    expect(html).toContain('<h1>Title</h1>');
-    expect(html).toContain('<td>A-001</td>');
-    expect(html).toContain('<a href="https://example.org/" target="_blank" rel="noopener"');
-  });
-
-  it('renders the real specification', () => {
-    expect(requirementsHtml()).toContain('<table>');
-  });
-});
