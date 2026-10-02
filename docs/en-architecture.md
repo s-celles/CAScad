@@ -59,6 +59,9 @@ src/                  TypeScript, bundled by scripts/build.ts
   main.ts             Module entry (→ js/app/main.js)
   about.ts            About window
   autosave.ts         Keeping the open notebook across reloads
+  notebook-events.ts  Notebook changes (for autosave and collaboration)
+  collab/             Real-time collaboration (in progress): invitation links,
+                      cells as shared parts, Yjs binding, notebook adapter
   docs.ts, docs-view.ts, markdown.ts   In-app documentation
   share/              Sending and receiving with QRShare
 docs/                 This documentation (Markdown, shown in the app)

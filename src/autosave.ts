@@ -4,6 +4,8 @@
  * another notebook. A pristine notebook (welcome cells, empty cells) is not kept.
  */
 
+import { onNotebookChange } from './notebook-events';
+
 export const STORAGE_KEY = 'cascad.notebook';
 const SAVE_DELAY_MS = 800;
 
@@ -44,24 +46,6 @@ function save(): void {
 
 /** Save the notebook after each change (debounced) and when the page is hidden. */
 export function watchNotebook(): void {
-  const notebook = document.getElementById('notebook');
-  if (!notebook) return;
-  let timer: ReturnType<typeof setTimeout> | undefined;
-  const schedule = (): void => {
-    clearTimeout(timer);
-    timer = setTimeout(save, SAVE_DELAY_MS);
-  };
-  // Typing (math fields and text areas), sliders, and cells added, removed, moved or changed.
-  notebook.addEventListener('input', schedule, true);
-  notebook.addEventListener('slider-change', schedule, true);
-  new MutationObserver(schedule).observe(notebook, {
-    childList: true,
-    subtree: true,
-    attributes: true,
-    attributeFilter: ['data-type', 'data-mode', 'data-hidden', 'data-disabled', 'data-locked'],
-  });
-  addEventListener('pagehide', () => {
-    clearTimeout(timer);
-    save();
-  });
+  onNotebookChange(save, SAVE_DELAY_MS);
+  addEventListener('pagehide', save);
 }

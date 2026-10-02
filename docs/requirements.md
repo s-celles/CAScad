@@ -160,7 +160,10 @@ user's device unless the user chooses to share them.
 
 As in Progressive Web Office, with the collaboration engine shared with QRShare
 (`@scelles/collab`: Yjs document, trystero peer-to-peer rooms found through
-Nostr relays, presence and version history).
+Nostr relays, presence and version history). In progress: cells have stable
+identifiers, and the invitation links, the cell-by-cell merge with Yjs and the
+application of remote changes to the notebook (`src/collab/`) are written and
+tested; connecting them to `@scelles/collab` remains.
 
 | ID | Pri | Status | Requirement |
 |----|-----|--------|-------------|
