@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Security
+- Plot commands drawn directly in the browser (`plotimplicit`, `plotfield`, `plotcontour`, `plotode`, `plotseq`, 3D fallbacks) only compile plain arithmetic on the plot variables and `Math` functions; anything else falls back to Giac's drawing, so a notebook cannot run code through a plot. Pixon data is evaluated only when it is an array of numbers
 - A notebook (which may come from a shared link) can no longer run scripts when it is displayed: text cells escape quotes too, so an image address or a `@bind` name cannot add HTML attributes (such as `onerror`); images are only loaded from http(s), data or relative addresses; KaTeX only trusts `\href`/`\url` to http(s) (no more `\htmlClass`, `\includegraphics`…); Giac's SVG output is cleaned of scripts, embedded documents, animations, event handlers and unsafe links before it is shown
 
 ### Fixed

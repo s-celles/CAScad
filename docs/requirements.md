@@ -206,7 +206,7 @@ Nostr relays, presence and version history).
 | ID | Pri | Status | Requirement |
 |----|-----|--------|-------------|
 | SEC-001 | M | ✅ | The system shall keep its settings (language, kernel, theme, QRShare settings) in the browser's local storage only. |
-| SEC-002 | M | 🚧 | The system shall not execute notebook content as JavaScript and shall escape user text before inserting it in the page. Some plot commands still compile the plotted expression to a JavaScript function. |
+| SEC-002 | M | ✅ | The system shall not execute notebook content as JavaScript. Plot commands that draw an expression directly shall accept only arithmetic on the plot variables and `Math` functions, and fall back to Giac's own drawing otherwise. |
 | SEC-003 | M | ✅ | The system shall render text, formulas, images and plots from a notebook (which may come from a shared link) without allowing them to run scripts: HTML and attribute values escaped, images only from http(s), data or relative addresses, formula links only to http(s), and Giac SVG output stripped of scripts, embedded documents, animations, event handlers and unsafe links. |
 | SEC-004 | M | ✅ | The system shall accept messages from other windows (QRShare handoff) only from the expected window and origin, and shall validate their content (type, version, file name, size up to 200 MB). |
 | SEC-005 | S | ✅ | The system shall never put a password in a link or send it anywhere. |

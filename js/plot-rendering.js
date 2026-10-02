@@ -118,6 +118,8 @@ function renderSvgPlot(outputEl, svgString) {
 function plotPixonDraw(canvas, dataString) {
   var v;
   try { v = JSON.parse(dataString); } catch(e) {
+    // Not JSON: evaluate only an array of numbers (SEC-002)
+    if (!/^[\s\d.,eE+\-\[\]]*$/.test(dataString)) return;
     try { v = (0, eval)(dataString); } catch(e2) { return; }
   }
   if (!Array.isArray(v) || v.length < 2) return;
@@ -163,6 +165,8 @@ function plotPixonDraw(canvas, dataString) {
 function plotLogoDraw(canvas, dataString, zoom, dx, dy) {
   var v;
   try { v = JSON.parse(dataString); } catch(e) {
+    // Not JSON: evaluate only an array of numbers (SEC-002)
+    if (!/^[\s\d.,eE+\-\[\]]*$/.test(dataString)) return;
     try { v = (0, eval)(dataString); } catch(e2) { return; }
   }
   if (!Array.isArray(v) || v.length < 2) return;
@@ -402,6 +406,22 @@ function parseRange(rangeExpr) {
 }
 
 /** Convert a Giac math expression to a JavaScript function */
+/** Names the converted expression may use besides its variables (SEC-002). */
+var PLOT_JS_NAMES = ['Math', 'sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'exp', 'sqrt', 'abs', 'sinh', 'cosh', 'tanh', 'log', 'PI'];
+
+/**
+ * Whether a converted plot expression is plain arithmetic (SEC-002): numbers,
+ * operators, parentheses, commas, the plot variables and Math functions only.
+ * Anything else (quotes, brackets, braces, ;, =, other names) is refused, so a
+ * notebook cannot run code through a plot command.
+ */
+function isSafePlotExpression(js, vars) {
+  var rest = js.replace(/\b\d+(\.\d*)?([eE][+-]?\d+)?\b|\.\d+([eE][+-]?\d+)?/g, ' ');
+  if (/[^\w\s+\-*\/().,]/.test(rest)) return false;
+  var names = rest.match(/[A-Za-z_$][\w$]*/g) || [];
+  return names.every(function(name) { return vars.indexOf(name) >= 0 || PLOT_JS_NAMES.indexOf(name) >= 0; });
+}
+
 function giacExprToJSFunc(expr, vars) {
   try {
     var js = expr;
@@ -418,6 +438,7 @@ function giacExprToJSFunc(expr, vars) {
       var vre = v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       js = js.replace(new RegExp('(\\d)(' + vre + ')\\b', 'g'), '$1*$2');
     });
+    if (!isSafePlotExpression(js, vars)) return null;
     var fn = new Function(vars.join(','), 'return ' + js + ';');
     // Test evaluation to verify it works
     var testArgs = vars.map(function() { return 0.7; });
