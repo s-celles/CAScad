@@ -11,7 +11,7 @@ var I18N_ES = {
     addMath: '+ Mate', addRaw: '+ Directo', addText: '+ Texto',
     runAll: '▶ Ejecutar todo', clearOutputs: '✕ Limpiar salidas',
     exportBtn: '💾 Exportar', shareBtn: '📤 Compartir', importBtn: '📂 Importar',
-    examplesBtn: '📚 Ejemplos', loadExampleConfirm: 'Esto reemplazará el notebook actual. ¿Continuar?',
+    examplesBtn: '📚 Ejemplos', replaceNotebookConfirm: '¿Reemplazar el cuaderno abierto? Sus cambios se perderán (expórtalo antes para conservarlo).',
     exampleArithmetic: 'Aritmética', exampleAlgebra: 'Álgebra', exampleCalculus: 'Cálculo',
     exampleSumsSeries: 'Sumas y Series', exampleFourier: 'Series de Fourier', exampleLinearAlgebra: 'Álgebra lineal', examplePlots: 'Gráficos y Visualización',
     exampleReactive: 'Variables reactivas', exampleMechanics: 'Física — Mecánica', exampleWaves: 'Física — Ondas',

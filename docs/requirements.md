@@ -88,7 +88,7 @@ user's device unless the user chooses to share them.
 | ID | Pri | Status | Requirement |
 |----|-----|--------|-------------|
 | EXE-001 | M | ✅ | When the user presses Shift+Enter in a cell (or Enter in a math cell), the system shall evaluate that cell. |
-| EXE-002 | M | 🚧 | When the user presses Ctrl+Enter in a cell, the system shall evaluate it and add a new cell after it. The new cell is currently added at the end of the notebook. |
+| EXE-002 | M | ✅ | When the user presses Ctrl+Enter in a cell, the system shall evaluate it and insert a new cell of the same kind (text after a text cell, math otherwise) right after it, with the focus. |
 | EXE-003 | M | ✅ | When the user selects "Run all", the system shall evaluate every cell in order (or the whole dependency graph in reactive mode). |
 | EXE-004 | M | ✅ | While reactive mode is on and the dependency graph is built, when a cell that defines a variable (`name := …`) changes, the system shall re-evaluate the cells that use it, in dependency order. |
 | EXE-005 | S | ✅ | When the user presses Ctrl+Shift+Enter, the system shall evaluate the cell without re-evaluating its dependents. |
@@ -135,7 +135,7 @@ user's device unless the user chooses to share them.
 | FILE-001 | M | ✅ | When the user selects "Export", the system shall save the notebook as `notebook.cascad.json` (format version 5: kernel, locale, reactive mode, cells with their type, content and flags). |
 | FILE-002 | M | ✅ | When the user selects "Import", the system shall open a CAScad, Giac or Xcas notebook file (format versions 1 to 5). |
 | FILE-003 | M | ✅ | If the imported file is not valid JSON or not a notebook, then the system shall show an error and keep the current notebook. |
-| FILE-004 | S | 📋 | When an action would replace a non-empty notebook (import, opening a link, QR code, transfer, kernel change), the system shall ask for confirmation first, as it does for examples. |
+| FILE-004 | S | ✅ | When an action would replace a notebook the user has worked on (import, example, link, QR code, transfer, QRShare, kernel change), the system shall ask for confirmation first; the welcome notebook and empty cells are replaced without asking. If the user declines, the notebook and the kernel selection shall stay unchanged. |
 | FILE-005 | C | 📋 | The system shall keep the open notebook in browser storage and restore it after a reload. |
 
 ## 11. Sharing & transfer (SHARE)

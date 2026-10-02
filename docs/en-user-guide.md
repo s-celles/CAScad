@@ -68,7 +68,7 @@ constants, letters and Greek letters.
 | Keys | Action |
 |------|--------|
 | **Enter** (math cell) or **Shift+Enter** | Run the cell |
-| **Ctrl+Enter** | Run the cell and add a new cell |
+| **Ctrl+Enter** | Run the cell and add a new cell right after it |
 | **Ctrl+Shift+Enter** | Run the cell without updating its dependents |
 
 ### Reactive mode
@@ -89,8 +89,8 @@ nothing runs until you click **▶ Run all (reactive)** in the banner above the 
 | **Giac** (default) | Full computer algebra system: algebra, calculus, plots, linear algebra, programming. Included in the app. |
 | **Compute Engine** | CortexJS Compute Engine: simplify, factor, expand, solve, differentiate, integrate. |
 
-Choosing a kernel in the header starts a new notebook with it; the choice is
-remembered. A notebook file remembers its kernel.
+Choosing a kernel in the header starts a new notebook with it (CAScad asks
+first if you have worked on the open one); the choice is remembered. A notebook file remembers its kernel.
 
 ## Results and plots
 
@@ -138,8 +138,8 @@ the cells that use `a`.
 - To send a notebook to someone or to another device, see
   [Sharing and transfer](en-sharing.md).
 
-Opening a file, a link or a received notebook replaces the open notebook:
-export it first if you want to keep it.
+Opening a file, an example, a link or a received notebook replaces the open
+notebook: CAScad asks first when you have worked on it. Export it to keep a copy.
 
 ## Settings
 

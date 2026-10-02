@@ -11,7 +11,7 @@ var I18N_JA = {
     addMath: '+ 数学', addRaw: '+ 直接入力', addText: '+ テキスト',
     runAll: '▶ すべて実行', clearOutputs: '✕ 出力をクリア',
     exportBtn: '💾 エクスポート', shareBtn: '📤 共有', importBtn: '📂 インポート',
-    examplesBtn: '📚 サンプル', loadExampleConfirm: '現在のノートブックが置き換えられます。続行しますか？',
+    examplesBtn: '📚 サンプル', replaceNotebookConfirm: '開いているノートブックを置き換えますか？変更内容は失われます（残すには先にエクスポートしてください）。',
     exampleArithmetic: '算術', exampleAlgebra: '代数', exampleCalculus: '微積分',
     exampleSumsSeries: '和と級数', exampleFourier: 'フーリエ級数', exampleLinearAlgebra: '線形代数', examplePlots: 'グラフと可視化',
     exampleReactive: 'リアクティブ変数', exampleMechanics: '物理 — 力学', exampleWaves: '物理 — 波動',

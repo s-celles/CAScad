@@ -11,7 +11,7 @@ var I18N_EL = {
     addMath: '+ Μαθηματικά', addRaw: '+ Ακατέργαστο', addText: '+ Κείμενο',
     runAll: '▶ Εκτέλεση όλων', clearOutputs: '✕ Καθαρισμός εξόδων',
     exportBtn: '💾 Εξαγωγή', shareBtn: '📤 Κοινοποίηση', importBtn: '📂 Εισαγωγή',
-    examplesBtn: '📚 Παραδείγματα', loadExampleConfirm: 'Αυτό θα αντικαταστήσει το τρέχον τετράδιο. Συνέχεια;',
+    examplesBtn: '📚 Παραδείγματα', replaceNotebookConfirm: 'Αντικατάσταση του ανοιχτού σημειωματαρίου; Οι αλλαγές του θα χαθούν (εξαγάγετέ το πρώτα για να το κρατήσετε).',
     exampleArithmetic: 'Αριθμητική', exampleAlgebra: 'Άλγεβρα', exampleCalculus: 'Λογισμός',
     exampleSumsSeries: 'Αθροίσματα & Σειρές', exampleFourier: 'Σειρές Fourier', exampleLinearAlgebra: 'Γραμμική Άλγεβρα', examplePlots: 'Γραφικές & Οπτικοποίηση',
     exampleReactive: 'Αντιδραστικές Μεταβλητές', exampleMechanics: 'Φυσική — Μηχανική', exampleWaves: 'Φυσική — Κύματα',

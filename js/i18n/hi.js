@@ -11,7 +11,7 @@ var I18N_HI = {
     addMath: '+ गणित', addRaw: '+ कच्चा', addText: '+ पाठ',
     runAll: '▶ सभी चलाएँ', clearOutputs: '✕ आउटपुट साफ़ करें',
     exportBtn: '💾 निर्यात', shareBtn: '📤 साझा करें', importBtn: '📂 आयात',
-    examplesBtn: '📚 उदाहरण', loadExampleConfirm: 'यह वर्तमान नोटबुक को बदल देगा। जारी रखें?',
+    examplesBtn: '📚 उदाहरण', replaceNotebookConfirm: 'खुली नोटबुक बदलें? उसमें किए बदलाव खो जाएँगे (रखने के लिए पहले उसे निर्यात करें)।',
     exampleArithmetic: 'अंकगणित', exampleAlgebra: 'बीजगणित', exampleCalculus: 'कलन',
     exampleSumsSeries: 'योग और श्रेणी', exampleFourier: 'फूरिए श्रेणी', exampleLinearAlgebra: 'रैखिक बीजगणित', examplePlots: 'ग्राफ़ और विज़ुअलाइज़ेशन',
     exampleReactive: 'प्रतिक्रियाशील चर', exampleMechanics: 'भौतिकी — यांत्रिकी', exampleWaves: 'भौतिकी — तरंगें',

@@ -227,7 +227,7 @@ function mkTextarea(ph, val) {
 function cellKey(e, id, type) {
   if (e.key === 'Enter' && e.ctrlKey && e.shiftKey) { e.preventDefault(); runSingleCell(id, true); return; }
   if (e.key === 'Enter' && e.shiftKey) { e.preventDefault(); runSingleCell(id); return; }
-  if (e.key === 'Enter' && e.ctrlKey)  { e.preventDefault(); runSingleCell(id); addCell(type === 'text' ? 'text' : 'math'); return; }
+  if (e.key === 'Enter' && e.ctrlKey)  { e.preventDefault(); runSingleCell(id); insertCellAt(id, 1, type === 'text' ? 'text' : 'math'); return; }
   if (e.key === 'Enter' && !e.altKey && type === 'math') { e.preventDefault(); runSingleCell(id); return; }
   // Cell control shortcuts
   if (e.ctrlKey && e.shiftKey && (e.key === 'H' || e.key === 'h')) { e.preventDefault(); toggleCellHidden(id); }

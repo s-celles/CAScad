@@ -11,7 +11,7 @@ var I18N_EN = {
     addMath: '+ Math', addRaw: '+ Raw', addText: '+ Text',
     runAll: '▶ Run all', clearOutputs: '✕ Clear outputs',
     exportBtn: '💾 Export', shareBtn: '📤 Share', importBtn: '📂 Import',
-    examplesBtn: '📚 Examples', loadExampleConfirm: 'This will replace the current notebook. Continue?',
+    examplesBtn: '📚 Examples', replaceNotebookConfirm: 'Replace the open notebook? Your changes to it will be lost (export it first to keep it).',
     exampleArithmetic: 'Arithmetic', exampleAlgebra: 'Algebra', exampleCalculus: 'Calculus',
     exampleSumsSeries: 'Sums & Series', exampleFourier: 'Fourier Series', exampleLinearAlgebra: 'Linear Algebra', examplePlots: 'Plots & Visualization',
     exampleReactive: 'Reactive Variables', exampleMechanics: 'Physics — Mechanics', exampleWaves: 'Physics — Waves',

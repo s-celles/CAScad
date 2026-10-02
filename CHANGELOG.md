@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
+- Ctrl+Enter inserts the new cell right after the current one (it was added at the end of the notebook)
+- Replacing a notebook the user has worked on now asks first: import, example, link, QR code, phone transfer, QRShare and kernel change (the welcome notebook is replaced without asking; examples no longer ask over it)
 - Every library loaded from a CDN is pinned to an exact version (JSXGraph 1.13.3, Lit 3.3.3, Mermaid 11.17.2, Observable Runtime 6.0.1, lz-string 1.5.0, jsQR 1.4.0, luby-transform 0.2.0, @cheprasov/qrcode 0.1.0), as MathLive and Compute Engine already were: a new release can no longer break the app unnoticed. A test refuses unpinned URLs
 
 ### Changed

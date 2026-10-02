@@ -11,7 +11,7 @@ var I18N_RU = {
     addMath: '+ Математика', addRaw: '+ Прямой ввод', addText: '+ Текст',
     runAll: '▶ Запустить всё', clearOutputs: '✕ Очистить вывод',
     exportBtn: '💾 Экспорт', shareBtn: '📤 Поделиться', importBtn: '📂 Импорт',
-    examplesBtn: '📚 Примеры', loadExampleConfirm: 'Текущий блокнот будет заменён. Продолжить?',
+    examplesBtn: '📚 Примеры', replaceNotebookConfirm: 'Заменить открытый блокнот? Его изменения будут потеряны (сначала экспортируйте его, чтобы сохранить).',
     exampleArithmetic: 'Арифметика', exampleAlgebra: 'Алгебра', exampleCalculus: 'Анализ',
     exampleSumsSeries: 'Суммы и ряды', exampleFourier: 'Ряды Фурье', exampleLinearAlgebra: 'Линейная алгебра', examplePlots: 'Графики и визуализация',
     exampleReactive: 'Реактивные переменные', exampleMechanics: 'Физика — Механика', exampleWaves: 'Физика — Волны',

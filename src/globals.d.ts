@@ -10,7 +10,7 @@ declare global {
     /** The open notebook as saved in a file (js/io.js). */
     buildNotebookData(): unknown;
     /** Replace the open notebook (js/io.js). */
-    loadNotebookData(data: unknown, opts?: { keepReactiveMode?: boolean }): void;
+    loadNotebookData(data: unknown, opts?: { keepReactiveMode?: boolean; confirmed?: boolean }): boolean;
     /** The open notebook, compressed for a link (js/qr-sharing.js). */
     compressNotebook(): Promise<string>;
     /** A link carrying a compressed notebook (js/qr-sharing.js). */

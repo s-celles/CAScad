@@ -11,7 +11,7 @@ var I18N_ZH = {
     addMath: '+ 数学', addRaw: '+ 原始', addText: '+ 文本',
     runAll: '▶ 全部运行', clearOutputs: '✕ 清除输出',
     exportBtn: '💾 导出', shareBtn: '📤 分享', importBtn: '📂 导入',
-    examplesBtn: '📚 示例', loadExampleConfirm: '这将替换当前笔记本。继续？',
+    examplesBtn: '📚 示例', replaceNotebookConfirm: '替换已打开的笔记本？其中的更改将会丢失（如需保留，请先导出）。',
     exampleArithmetic: '算术', exampleAlgebra: '代数', exampleCalculus: '微积分',
     exampleSumsSeries: '求和与级数', exampleFourier: '傅里叶级数', exampleLinearAlgebra: '线性代数', examplePlots: '图表与可视化',
     exampleReactive: '响应式变量', exampleMechanics: '物理 — 力学', exampleWaves: '物理 — 波动',

@@ -40,6 +40,13 @@ var KernelRegistry = (function() {
       }
       if (_active && _active.id === kernelId) return true; // already active
 
+      // Switching from the selector starts a new notebook: ask first (FILE-004)
+      if (!opts.silent && typeof confirmReplaceNotebook === 'function' && !confirmReplaceNotebook()) {
+        var selector = document.getElementById('kernel-select');
+        if (selector && _active) selector.value = _active.id;
+        return false;
+      }
+
       _active = kernel;
       currentKernel = kernelId;
 

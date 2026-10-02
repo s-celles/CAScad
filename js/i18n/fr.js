@@ -11,7 +11,7 @@ var I18N_FR = {
     addMath: '+ Math', addRaw: '+ Brut', addText: '+ Texte',
     runAll: '\u25b6 Tout ex\u00e9cuter', clearOutputs: '\u2715 Effacer sorties',
     exportBtn: '\ud83d\udcbe Exporter', shareBtn: '\ud83d\udce4 Partager', importBtn: '\ud83d\udcc2 Importer',
-    examplesBtn: '\ud83d\udcda Exemples', loadExampleConfirm: 'Cela remplacera le notebook actuel. Continuer ?',
+    examplesBtn: '\ud83d\udcda Exemples', replaceNotebookConfirm: 'Remplacer le notebook ouvert ? Ses modifications seront perdues (exportez-le d’abord pour le garder).',
     exampleArithmetic: 'Arithm\u00e9tique', exampleAlgebra: 'Alg\u00e8bre', exampleCalculus: 'Analyse',
     exampleSumsSeries: 'Sommes & S\u00e9ries', exampleFourier: 'S\u00e9ries de Fourier', exampleLinearAlgebra: 'Alg\u00e8bre lin\u00e9aire', examplePlots: 'Graphiques & Visualisation',
     exampleReactive: 'Variables r\u00e9actives', exampleMechanics: 'Physique \u2014 M\u00e9canique', exampleWaves: 'Physique \u2014 Ondes',

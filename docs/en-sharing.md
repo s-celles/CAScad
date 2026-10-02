@@ -2,7 +2,7 @@
 
 CAScad keeps notebooks on your device. To give one to someone else or to move
 it to another device, choose one of the ways below. Each of them replaces the
-notebook open on the receiving side: export it first if you want to keep it.
+notebook open on the receiving side, after asking if it holds work.
 
 | Way | Network needed | Size | Best for |
 |-----|----------------|------|----------|

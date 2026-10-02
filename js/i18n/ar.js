@@ -11,7 +11,7 @@ var I18N_AR = {
     addMath: '+ رياضيات', addRaw: '+ مباشر', addText: '+ نص',
     runAll: '▶ تشغيل الكل', clearOutputs: '✕ مسح المخرجات',
     exportBtn: '💾 تصدير', shareBtn: '📤 مشاركة', importBtn: '📂 استيراد',
-    examplesBtn: '📚 أمثلة', loadExampleConfirm: 'سيتم استبدال الدفتر الحالي. هل تريد المتابعة؟',
+    examplesBtn: '📚 أمثلة', replaceNotebookConfirm: 'استبدال الدفتر المفتوح؟ ستضيع تعديلاته (صدّره أولًا للاحتفاظ به).',
     exampleArithmetic: 'الحساب', exampleAlgebra: 'الجبر', exampleCalculus: 'التحليل',
     exampleSumsSeries: 'المجاميع والمتسلسلات', exampleFourier: 'سلاسل فورييه', exampleLinearAlgebra: 'الجبر الخطي', examplePlots: 'الرسوم البيانية',
     exampleReactive: 'المتغيرات التفاعلية', exampleMechanics: 'الفيزياء — الميكانيكا', exampleWaves: 'الفيزياء — الأمواج',
