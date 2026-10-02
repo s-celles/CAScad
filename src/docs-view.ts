@@ -4,7 +4,7 @@
  * #/docs (index) or #/docs?page=<slug>[&section=<anchor>], so pages can be
  * linked from the README; it works offline (bundled).
  */
-import { DOC_GROUPS, DOC_PAGES, DOCS_SOURCE_URL, docLinkResolver, docRoute, parseDocRoute, type DocPage } from './docs';
+import { DOC_GROUPS, DOC_PAGES, DOCS_SOURCE_URL, docLanguage, docLinkResolver, docRoute, parseDocRoute, type DocLang, type DocPage } from './docs';
 import { button, h } from './dom';
 import { t } from './i18n';
 import { markdownToHtml } from './markdown';
@@ -59,22 +59,24 @@ function index(): HTMLElement {
   );
 }
 
-function article(page: DocPage): HTMLElement {
+/** The interface language (set by js/i18n.js on <html lang>). */
+const uiLang = (): string => document.documentElement.lang || 'en';
+
+function article(page: DocPage, lang: DocLang): HTMLElement {
   const content = h('div', { class: 'docs-content' });
   // Repository content, bundled at build time; raw HTML in it is escaped.
-  content.innerHTML = markdownToHtml(page.content, docLinkResolver(page));
-  const lang = document.documentElement.lang || 'en';
+  content.innerHTML = markdownToHtml(page.content[lang] ?? page.content.en, docLinkResolver(page, lang));
   return h(
     'article',
-    { class: 'docs-article' },
-    lang.startsWith('en') ? null : h('p', { class: 'docs-lang-note' }, t('docsEnglishOnly')),
+    { class: 'docs-article', lang },
+    lang === uiLang().slice(0, 2) || uiLang().startsWith('en') ? null : h('p', { class: 'docs-lang-note' }, t('docsEnglishOnly')),
     content,
-    h('p', { class: 'docs-source' }, h('a', { href: `${DOCS_SOURCE_URL}/${page.file}`, target: '_blank', rel: 'noopener' }, t('docsOnGitHub'))),
+    h('p', { class: 'docs-source' }, h('a', { href: `${DOCS_SOURCE_URL}/${page.files[lang] ?? page.files.en}`, target: '_blank', rel: 'noopener' }, t('docsOnGitHub'))),
   );
 }
 
-/** Show the index, a page, or a section of a page; opens the window if needed. */
-export function showDocs(slug?: string, section?: string): void {
+/** Show the index, a page, or a section of a page (in `lang`, or the interface language); opens the window if needed. */
+export function showDocs(slug?: string, section?: string, lang?: string): void {
   const route = parseDocRoute(docRoute(slug, section))!;
   if (!dialog) {
     dialog = h('dialog', { class: 'dialog docs-dialog', 'aria-labelledby': 'docs-title' });
@@ -90,7 +92,7 @@ export function showDocs(slug?: string, section?: string): void {
       const next = target ? parseDocRoute(target) : null;
       if (!next) return;
       e.preventDefault();
-      showDocs(next.page?.slug, next.section);
+      showDocs(next.page?.slug, next.section, next.lang);
     });
     document.body.append(dialog);
     if (typeof dialog.showModal === 'function') dialog.showModal();
@@ -104,8 +106,9 @@ export function showDocs(slug?: string, section?: string): void {
     button(t('commonClose'), () => dialog?.close(), { className: 'docs-close' }),
   );
   if (page) header.firstElementChild!.id = 'docs-title';
-  dialog.replaceChildren(header, page ? h('div', { class: 'docs-layout' }, nav(page), article(page)) : index());
-  history.replaceState(null, '', location.pathname + location.search + docRoute(page?.slug, section));
+  const shown = page ? docLanguage(page, lang ?? uiLang()) : undefined;
+  dialog.replaceChildren(header, page ? h('div', { class: 'docs-layout' }, nav(page), article(page, shown!)) : index());
+  history.replaceState(null, '', location.pathname + location.search + docRoute(page?.slug, section, lang));
   const target = section ? dialog.querySelector(`[id="${CSS.escape(section)}"]`) : null;
   if (target) target.scrollIntoView();
   else dialog.scrollTop = 0;
@@ -114,5 +117,5 @@ export function showDocs(slug?: string, section?: string): void {
 /** Open the documentation at the address in the fragment (#/docs…), if it is one. */
 export function showDocsFromHash(): void {
   const route = parseDocRoute(location.hash);
-  if (route) showDocs(route.page?.slug, route.section);
+  if (route) showDocs(route.page?.slug, route.section, route.lang);
 }

@@ -25,8 +25,8 @@ browser, installs as a Progressive Web App and works offline.
 
 The documentation opens **in the app** (? button in the header):
 
-- [User guide](https://s-celles.github.io/CAScad/#/docs?page=user-guide)
-- [Sharing and transfer](https://s-celles.github.io/CAScad/#/docs?page=sharing) — QRShare, links, QR codes, phone to computer
+- [User guide](https://s-celles.github.io/CAScad/#/docs?page=user-guide) · [Guide utilisateur](https://s-celles.github.io/CAScad/#/docs?page=user-guide&lang=fr)
+- [Sharing and transfer](https://s-celles.github.io/CAScad/#/docs?page=sharing) · [Partage et transfert](https://s-celles.github.io/CAScad/#/docs?page=sharing&lang=fr) — QRShare, links, QR codes, phone to computer
 - [Architecture](https://s-celles.github.io/CAScad/#/docs?page=architecture) — building blocks and source layout
 - [Development](https://s-celles.github.io/CAScad/#/docs?page=development) — build, test and release
 - [Requirements](https://s-celles.github.io/CAScad/#/docs?page=requirements) — EARS specification

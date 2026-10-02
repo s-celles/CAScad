@@ -57,8 +57,13 @@ on GitHub. Each page is a Markdown file; links between pages use the file name
 in `docs/`, list it in `src/docs.ts` and add its title and description to the
 translations (`docsPage_<slug>`, `docsDesc_<slug>`).
 
+A page can be translated: write `docs/<lang>-<name>.md` and add it to the
+`files` and `content` of its entry in `src/docs.ts` (the user guide and the
+sharing page exist in French). The app shows a page in the interface language
+when it exists, in English otherwise, with a note.
+
 The pages open directly at `https://s-celles.github.io/CAScad/#/docs?page=<slug>`
-(and `&section=<heading-anchor>`).
+(and `&section=<heading-anchor>`, `&lang=fr`).
 
 ## Deployment
 

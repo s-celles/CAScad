@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The version, commit and service worker cache hash are now stamped by the build: `scripts/update-sw-hash.js` and the manual hash commits are gone
 
 ### Added
+- The user guide and the sharing page are also in French (`docs/fr-guide-utilisateur.md`, `docs/fr-partage.md`); the documentation shows each page in the interface language when it exists, English otherwise (with a note); `&lang=fr` opens the French version from a link
 - The open notebook is kept in the browser and comes back after a reload or when the app is reopened (unless a link opens another notebook); **🗋 New** starts a new notebook, after asking if the open one holds work
 - In-app documentation, as in QRShare: the pages of `docs/` (user guide, sharing and transfer, architecture, development, requirements) open in the app from the header (?) and the About window, with an index, a list of pages and links between pages; addresses `#/docs?page=<page>[&section=<heading>]` open a page directly; bundled, so it works offline
 - Requirements specification `docs/requirements.md`: about 100 requirements in EARS notation with MoSCoW priorities and their status (implemented, partly implemented, planned), including the planned real-time collaboration; readable in the app from **About → Requirements** (works offline) and checked by unit tests
