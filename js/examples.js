@@ -40,7 +40,7 @@ var EXAMPLES = [
 ];
 
 function loadExample(id, kernel) {
-  if (cells.length > 0 && !confirm(t('loadExampleConfirm'))) return;
+  if (!confirmReplaceNotebook()) return;
   hideExamplesMenu();
 
   // Set the kernel before loading (FR-009)
@@ -69,7 +69,7 @@ function loadExample(id, kernel) {
       });
       function doLoad() {
         try {
-          loadNotebookData(data);
+          loadNotebookData(data, { confirmed: true });
         } catch (err) {
           console.error('Failed to load example:', err);
           alert(err.message);

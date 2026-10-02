@@ -34,6 +34,8 @@ function buildNotebookData() {
         cell.expression = el.dataset.expression || '';
         cell.plotType = el.dataset.plotType || 'plot';
       } else if (mode === 'math' && mf) {
+        // The LaTeX as typed (setting MathJSON back would simplify it: 2+3 → 5)
+        cell.latex = mf.value;
         cell.mathjson = mf.expression.json;
       } else {
         cell.content = ta ? ta.value : '';
@@ -91,8 +93,31 @@ function clearNotebook() {
   cells = []; cellCounter = 0;
 }
 
+/** True when the open notebook holds nothing of the user's: no cell, the welcome cells, or empty cells. */
+function isNotebookPristine() {
+  return cells.every(function(c) {
+    var el = c.element;
+    if (el.dataset.i18nContent) return true;
+    if (el.dataset.type === 'slider') return false;
+    var ta = el.querySelector('textarea');
+    var mf = el.querySelector('math-field');
+    var value = ta ? ta.value.trim() : (mf ? mf.value.trim() : '');
+    return value === '' || value === '![CAScad](assets/CAScad.png)';
+  });
+}
+
+/** Ask before replacing a notebook the user has worked on (FILE-004); true to go ahead. */
+function confirmReplaceNotebook() {
+  return isNotebookPristine() || confirm(t('replaceNotebookConfirm'));
+}
+
+/**
+ * Replace the open notebook with `data`. Asks first when the open notebook is not
+ * pristine, unless `opts.confirmed`; returns false when the user declines.
+ */
 function loadNotebookData(data, opts) {
   opts = opts || {};
+  if (!opts.confirmed && !confirmReplaceNotebook()) return false;
   // Restore kernel from notebook data (v5+), default to giac-js
   var notebookKernel = data.kernel || 'giac-js';
   if (typeof KernelRegistry !== 'undefined') {
@@ -121,7 +146,9 @@ function loadNotebookData(data, opts) {
         plotType: item.plotType || 'plot'
       }));
     } else if (item.type === 'math') {
-      if (item.mathjson && fileVersion >= 3) {
+      if (typeof item.latex === 'string') {
+        cid = addCell('math', item.latex, '', null, null, cellOpts);
+      } else if (item.mathjson && fileVersion >= 3) {
         cid = addCell('math', '', '', item.mathjson, null, cellOpts);
       } else if (item.content) {
         // Pass LaTeX directly to math-field (mf.value) instead of going
@@ -141,6 +168,7 @@ function loadNotebookData(data, opts) {
   updateEmptyState();
   // Auto-render text cells
   cells.forEach(function(c) { if (c.type === 'text') renderTextCell(c.id); });
+  return true;
 }
 
 function importNotebook() {
@@ -170,4 +198,7 @@ function importNotebook() {
 // SECTION 11 — UTILITIES
 // ─────────────────────────────────────────────────────────────
 
-function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+/** Escape text for HTML, attribute values included (quotes too). */
+function esc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}

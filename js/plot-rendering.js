@@ -85,10 +85,32 @@ function stripQuotes(s) {
 }
 
 // T008: SVG plot renderer
+/**
+ * Parse markup (Giac's SVG output) without running it, and keep only what draws:
+ * no scripts, embedded documents or animations, no event handlers, and links or
+ * sources only to the same document, http(s) or data images (SEC-003).
+ */
+function sanitizeMarkup(markup) {
+  var tpl = document.createElement('template');
+  tpl.innerHTML = markup;
+  tpl.content.querySelectorAll('script, foreignObject, iframe, object, embed, set, animate, animateMotion, animateTransform')
+    .forEach(function(el) { el.remove(); });
+  tpl.content.querySelectorAll('*').forEach(function(el) {
+    Array.prototype.slice.call(el.attributes).forEach(function(attr) {
+      var name = attr.name.toLowerCase();
+      if (name.indexOf('on') === 0) el.removeAttribute(attr.name);
+      else if ((name === 'href' || name === 'src' || /:href$/.test(name)) && !/^(#|https?:|data:image\/)/i.test(attr.value.trim())) {
+        el.removeAttribute(attr.name);
+      }
+    });
+  });
+  return tpl.content;
+}
+
 function renderSvgPlot(outputEl, svgString) {
   var container = document.createElement('div');
   container.className = 'plot-container plot-svg';
-  container.innerHTML = svgString;
+  container.appendChild(sanitizeMarkup(svgString));
   outputEl.appendChild(container);
 }
 
@@ -96,6 +118,8 @@ function renderSvgPlot(outputEl, svgString) {
 function plotPixonDraw(canvas, dataString) {
   var v;
   try { v = JSON.parse(dataString); } catch(e) {
+    // Not JSON: evaluate only an array of numbers (SEC-002)
+    if (!/^[\s\d.,eE+\-\[\]]*$/.test(dataString)) return;
     try { v = (0, eval)(dataString); } catch(e2) { return; }
   }
   if (!Array.isArray(v) || v.length < 2) return;
@@ -141,6 +165,8 @@ function plotPixonDraw(canvas, dataString) {
 function plotLogoDraw(canvas, dataString, zoom, dx, dy) {
   var v;
   try { v = JSON.parse(dataString); } catch(e) {
+    // Not JSON: evaluate only an array of numbers (SEC-002)
+    if (!/^[\s\d.,eE+\-\[\]]*$/.test(dataString)) return;
     try { v = (0, eval)(dataString); } catch(e2) { return; }
   }
   if (!Array.isArray(v) || v.length < 2) return;
@@ -380,6 +406,22 @@ function parseRange(rangeExpr) {
 }
 
 /** Convert a Giac math expression to a JavaScript function */
+/** Names the converted expression may use besides its variables (SEC-002). */
+var PLOT_JS_NAMES = ['Math', 'sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'exp', 'sqrt', 'abs', 'sinh', 'cosh', 'tanh', 'log', 'PI'];
+
+/**
+ * Whether a converted plot expression is plain arithmetic (SEC-002): numbers,
+ * operators, parentheses, commas, the plot variables and Math functions only.
+ * Anything else (quotes, brackets, braces, ;, =, other names) is refused, so a
+ * notebook cannot run code through a plot command.
+ */
+function isSafePlotExpression(js, vars) {
+  var rest = js.replace(/\b\d+(\.\d*)?([eE][+-]?\d+)?\b|\.\d+([eE][+-]?\d+)?/g, ' ');
+  if (/[^\w\s+\-*\/().,]/.test(rest)) return false;
+  var names = rest.match(/[A-Za-z_$][\w$]*/g) || [];
+  return names.every(function(name) { return vars.indexOf(name) >= 0 || PLOT_JS_NAMES.indexOf(name) >= 0; });
+}
+
 function giacExprToJSFunc(expr, vars) {
   try {
     var js = expr;
@@ -396,6 +438,7 @@ function giacExprToJSFunc(expr, vars) {
       var vre = v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       js = js.replace(new RegExp('(\\d)(' + vre + ')\\b', 'g'), '$1*$2');
     });
+    if (!isSafePlotExpression(js, vars)) return null;
     var fn = new Function(vars.join(','), 'return ' + js + ';');
     // Test evaluation to verify it works
     var testArgs = vars.map(function() { return 0.7; });

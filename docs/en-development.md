@@ -39,8 +39,9 @@ committing.
   `index.html`, migrated to TypeScript progressively.
 - **Translations**: every user-visible string goes through `t()` and exists in
   the 10 files of `js/i18n/`.
-- **Dependencies**: pinned versions only (`package.json`, or versioned CDN
-  URLs). They appear automatically in **About → Libraries**.
+- **Dependencies**: exact versions only (`package.json`, or CDN URLs with
+  `@x.y.z`); `tests/dependencies.test.ts` refuses anything else. They appear
+  automatically in **About → Libraries** (`scripts/dependencies.ts`).
 - **Requirements**: when a behaviour changes, update
   [the requirements](requirements.md) (ID, priority, status) and reference the
   ID in the tests.
@@ -56,8 +57,13 @@ on GitHub. Each page is a Markdown file; links between pages use the file name
 in `docs/`, list it in `src/docs.ts` and add its title and description to the
 translations (`docsPage_<slug>`, `docsDesc_<slug>`).
 
+A page can be translated: write `docs/<lang>-<name>.md` and add it to the
+`files` and `content` of its entry in `src/docs.ts` (the user guide and the
+sharing page exist in French). The app shows a page in the interface language
+when it exists, in English otherwise, with a note.
+
 The pages open directly at `https://s-celles.github.io/CAScad/#/docs?page=<slug>`
-(and `&section=<heading-anchor>`).
+(and `&section=<heading-anchor>`, `&lang=fr`).
 
 ## Deployment
 

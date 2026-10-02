@@ -18,10 +18,10 @@ var _helpFloatingOpen = false;
 var _helpLoadedLang = 'en';
 var _helpRequestedLang = 'en'; // UI language requested (may differ from loaded)
 var _helpLangMap = {
-  // Languages with native aide_cas translations:
+  // Languages with an aide_cas translation from Giac:
   en: 'help-en', fr: 'help-fr', es: 'help-es',
   el: 'help-el', de: 'help-de', zh: 'help-zh',
-  // Languages with English fallback (no aide_cas source):
+  // Languages translated from the English help (scripts/help-translate.js):
   ar: 'help-ar', hi: 'help-hi', ja: 'help-ja', ru: 'help-ru'
 };
 var _helpEnglishCache = {}; // cache English descriptions for fallback

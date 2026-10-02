@@ -174,8 +174,7 @@ export async function openHandedOffNotebook(): Promise<void> {
   try {
     const data = JSON.parse(await received.file.text()) as { type?: string };
     if (data.type && !['cascad-notebook', 'giac-notebook', 'xcas-notebook'].includes(data.type)) throw new Error('not a notebook');
-    window.loadNotebookData(data);
-    notify(t('shareReceived', { name: received.file.name }));
+    if (window.loadNotebookData(data)) notify(t('shareReceived', { name: received.file.name }));
   } catch {
     alert(t('shareNotNotebook', { name: received.file.name }));
   }

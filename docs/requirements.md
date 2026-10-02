@@ -42,7 +42,7 @@ user's device unless the user chooses to share them.
 | PLT-005 | M | ✅ | The system shall be built with Bun into a static site: new code in TypeScript with strict type checking, existing plain scripts copied as they are. |
 | PLT-006 | M | ✅ | The build shall stamp the version, the commit and a hash of every precached file, so that any change installs a new service worker. |
 | PLT-007 | M | ✅ | The continuous integration shall type-check, run the unit tests and build every change, and shall deploy the built site to GitHub Pages from the main branch. |
-| PLT-008 | S | 🚧 | The system shall load third-party libraries at pinned versions (bundled dependencies or versioned CDN URLs). Some CDN libraries are still loaded without a pinned version. |
+| PLT-008 | S | ✅ | The system shall load third-party libraries at exact pinned versions (bundled dependencies or versioned CDN URLs), so that a new release of a library cannot change the application unnoticed. |
 | PLT-009 | M | ✅ | The system shall work in the latest versions of Chromium-based browsers, Firefox and Safari. |
 
 ## 3. Notebook & cells (CELL)
@@ -88,7 +88,7 @@ user's device unless the user chooses to share them.
 | ID | Pri | Status | Requirement |
 |----|-----|--------|-------------|
 | EXE-001 | M | ✅ | When the user presses Shift+Enter in a cell (or Enter in a math cell), the system shall evaluate that cell. |
-| EXE-002 | M | 🚧 | When the user presses Ctrl+Enter in a cell, the system shall evaluate it and add a new cell after it. The new cell is currently added at the end of the notebook. |
+| EXE-002 | M | ✅ | When the user presses Ctrl+Enter in a cell, the system shall evaluate it and insert a new cell of the same kind (text after a text cell, math otherwise) right after it, with the focus. |
 | EXE-003 | M | ✅ | When the user selects "Run all", the system shall evaluate every cell in order (or the whole dependency graph in reactive mode). |
 | EXE-004 | M | ✅ | While reactive mode is on and the dependency graph is built, when a cell that defines a variable (`name := …`) changes, the system shall re-evaluate the cells that use it, in dependency order. |
 | EXE-005 | S | ✅ | When the user presses Ctrl+Shift+Enter, the system shall evaluate the cell without re-evaluating its dependents. |
@@ -96,7 +96,7 @@ user's device unless the user chooses to share them.
 | EXE-007 | M | ✅ | If two cells define the same variable, or a cell depends on a cell that failed or was deleted, then the system shall show a warning on the cells concerned. |
 | EXE-008 | S | ✅ | When the application starts in reactive mode, the system shall not evaluate the notebook until the user confirms (Run all), and shall offer to switch to manual mode instead. |
 | EXE-009 | S | ✅ | When the user turns reactive mode off, the system shall discard the dependency graph and evaluate cells only on request. |
-| EXE-010 | S | 📋 | If cells form a dependency cycle, then the system shall name the cells of the cycle in a warning instead of evaluating them. |
+| EXE-010 | S | ✅ | If cells form a dependency cycle, then the system shall show, on each cell of the cycle, a warning naming the cells and variables involved (e.g. "In[1] (b) → In[2] (a) → In[1]") instead of evaluating them; once the cycle is broken, they shall be evaluated again. |
 
 ## 7. Output & plots (OUT)
 
@@ -132,11 +132,12 @@ user's device unless the user chooses to share them.
 
 | ID | Pri | Status | Requirement |
 |----|-----|--------|-------------|
-| FILE-001 | M | ✅ | When the user selects "Export", the system shall save the notebook as `notebook.cascad.json` (format version 5: kernel, locale, reactive mode, cells with their type, content and flags). |
+| FILE-001 | M | ✅ | When the user selects "Export", the system shall save the notebook as `notebook.cascad.json` (format version 5: kernel, locale, reactive mode, cells with their type, content — the LaTeX as typed for math cells — and flags), so that opening it gives back exactly what was typed. |
 | FILE-002 | M | ✅ | When the user selects "Import", the system shall open a CAScad, Giac or Xcas notebook file (format versions 1 to 5). |
 | FILE-003 | M | ✅ | If the imported file is not valid JSON or not a notebook, then the system shall show an error and keep the current notebook. |
-| FILE-004 | S | 📋 | When an action would replace a non-empty notebook (import, opening a link, QR code, transfer, kernel change), the system shall ask for confirmation first, as it does for examples. |
-| FILE-005 | C | 📋 | The system shall keep the open notebook in browser storage and restore it after a reload. |
+| FILE-004 | S | ✅ | When an action would replace a notebook the user has worked on (import, example, link, QR code, transfer, QRShare, kernel change), the system shall ask for confirmation first; the welcome notebook and empty cells are replaced without asking. If the user declines, the notebook and the kernel selection shall stay unchanged. |
+| FILE-005 | S | ✅ | The system shall keep the open notebook in browser storage, saved shortly after each change and when the page is closed, and shall restore it when the application starts without a link to another notebook. A pristine notebook is not kept. |
+| FILE-006 | S | ✅ | When the user selects "New", the system shall start a new notebook with the welcome cells, after asking if the open one holds work. |
 
 ## 11. Sharing & transfer (SHARE)
 
@@ -199,15 +200,15 @@ Nostr relays, presence and version history).
 | I18N-002 | M | ✅ | When the user selects a language, the system shall translate the interface immediately and remember the choice. |
 | I18N-003 | M | ✅ | While the language is Arabic, the system shall lay the interface out right to left, formulas staying left to right. |
 | I18N-004 | S | ✅ | When the system starts without a remembered language, it shall use the browser's language if available, English otherwise. |
-| I18N-005 | S | 🚧 | The system shall show the command help in the interface language. Arabic, Hindi, Japanese and Russian currently show the English help with a notice. |
+| I18N-005 | S | ✅ | The system shall show the command help in the interface language (all 10 languages); a description missing in a language shall be shown in English. |
 
 ## 16. Privacy & security (SEC)
 
 | ID | Pri | Status | Requirement |
 |----|-----|--------|-------------|
-| SEC-001 | M | ✅ | The system shall keep its settings (language, kernel, theme, QRShare settings) in the browser's local storage only. |
-| SEC-002 | M | 🚧 | The system shall not execute notebook content as JavaScript and shall escape user text before inserting it in the page. Some plot commands still compile the plotted expression to a JavaScript function. |
-| SEC-003 | S | 🚧 | The system shall render formulas, images and plots from a notebook without allowing them to run scripts or load unexpected URLs. KaTeX currently runs in trusted mode, image URLs are not filtered and Giac SVG output is inserted as is. |
+| SEC-001 | M | ✅ | The system shall keep its settings (language, kernel, theme, QRShare settings) and the open notebook in the browser's local storage only. |
+| SEC-002 | M | ✅ | The system shall not execute notebook content as JavaScript. Plot commands that draw an expression directly shall accept only arithmetic on the plot variables and `Math` functions, and fall back to Giac's own drawing otherwise. |
+| SEC-003 | M | ✅ | The system shall render text, formulas, images and plots from a notebook (which may come from a shared link) without allowing them to run scripts: HTML and attribute values escaped, images only from http(s), data or relative addresses, formula links only to http(s), and Giac SVG output stripped of scripts, embedded documents, animations, event handlers and unsafe links. |
 | SEC-004 | M | ✅ | The system shall accept messages from other windows (QRShare handoff) only from the expected window and origin, and shall validate their content (type, version, file name, size up to 200 MB). |
 | SEC-005 | S | ✅ | The system shall never put a password in a link or send it anywhere. |
 | SEC-006 | C | 📋 | The system shall apply a Content-Security-Policy restricting script sources to the application and its pinned CDN libraries. |

@@ -3,6 +3,21 @@
 // SECTION 9 — GLOBAL ACTIONS
 // ─────────────────────────────────────────────────────────────
 
+/** The welcome notebook: logo and introduction (hidden text cells). */
+function showWelcomeNotebook() {
+  addCell('text', '', '![CAScad](assets/CAScad.png)', null, null, { hidden: true });
+  addCell('text', '', t('welcomeTitle') + '\n\n' + t('welcomeBody'), null, 'welcomeTitle,welcomeBody', { hidden: true });
+  cells.forEach(function(c) { if (c.type === 'text') renderTextCell(c.id); });
+  updateEmptyState();
+}
+
+/** Start a new notebook (FILE-006), after asking if the open one holds work. */
+function newNotebook() {
+  if (!confirmReplaceNotebook()) return;
+  clearNotebook();
+  showWelcomeNotebook();
+}
+
 function updateEmptyState() {
   var el = document.getElementById('empty-notebook');
   if (el) el.style.display = cells.length === 0 ? '' : 'none';
@@ -235,19 +250,19 @@ function rebuildNotebookDOM() {
   if (footer) nb.appendChild(footer);
 }
 
-function insertCellAt(refId, dir) {
-  // dir: -1 = above, 1 = below
+function insertCellAt(refId, dir, type) {
+  // dir: -1 = above, 1 = below; type: 'math' (default) or 'text'
   var idx = cells.findIndex(function(c) { return c.id === refId; });
   if (idx < 0) return;
-  var newId = addCell('math');
+  var newId = addCell(type || 'math');
   // addCell appends at end — move the new cell to the right position
   var newCell = cells.pop();
   var insertIdx = dir < 0 ? idx : idx + 1;
   cells.splice(insertIdx, 0, newCell);
   rebuildNotebookDOM();
   // Focus the new cell
-  var mf = document.getElementById(newId)?.querySelector('math-field');
-  if (mf) setTimeout(function() { mf.focus(); }, 50);
+  var input = document.getElementById(newId)?.querySelector('math-field, textarea');
+  if (input) setTimeout(function() { input.focus(); }, 50);
 }
 
 function moveCell(id, dir) {

@@ -40,6 +40,13 @@ var KernelRegistry = (function() {
       }
       if (_active && _active.id === kernelId) return true; // already active
 
+      // Switching from the selector starts a new notebook: ask first (FILE-004)
+      if (!opts.silent && typeof confirmReplaceNotebook === 'function' && !confirmReplaceNotebook()) {
+        var selector = document.getElementById('kernel-select');
+        if (selector && _active) selector.value = _active.id;
+        return false;
+      }
+
       _active = kernel;
       currentKernel = kernelId;
 
@@ -52,12 +59,7 @@ var KernelRegistry = (function() {
         if (typeof clearNotebook === 'function') {
           clearNotebook();
         }
-        if (typeof addCell === 'function' && typeof t === 'function') {
-          addCell('text', '', t('welcomeTitle') + '\n\n' + t('welcomeBody'), null, 'welcomeTitle,welcomeBody', { hidden: true });
-          if (typeof cells !== 'undefined') {
-            cells.forEach(function(c) { if (c.type === 'text' && typeof renderTextCell === 'function') renderTextCell(c.id); });
-          }
-        }
+        if (typeof showWelcomeNotebook === 'function') showWelcomeNotebook();
       }
 
       // Update kernel selector UI if present
