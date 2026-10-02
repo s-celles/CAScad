@@ -132,6 +132,7 @@ var I18N_FR = {
     reactiveToggle: 'R\u00e9actif',
     pendingEvaluation: 'En attente\u2026',
     dependencyError: 'Erreur de d\u00e9pendance : la cellule amont a \u00e9chou\u00e9',
+    dependencyCycle: 'Cycle de dépendances',
     cyclicDependency: 'D\u00e9pendance circulaire d\u00e9tect\u00e9e',
     duplicateVariable: 'D\u00e9finition de variable en double',
     brokenDependency: 'D\u00e9pendance cass\u00e9e : cellule amont supprim\u00e9e',

@@ -132,6 +132,7 @@ var I18N_DE = {
     reactiveToggle: 'Reaktiv',
     pendingEvaluation: 'Ausstehend…',
     dependencyError: 'Abhängigkeitsfehler: vorgelagerte Zelle fehlgeschlagen',
+    dependencyCycle: 'Abhängigkeitszyklus',
     cyclicDependency: 'Zirkuläre Abhängigkeit erkannt',
     duplicateVariable: 'Doppelte Variablendefinition',
     brokenDependency: 'Abhängigkeit unterbrochen: vorgelagerte Zelle gelöscht',

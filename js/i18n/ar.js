@@ -132,6 +132,7 @@ var I18N_AR = {
     reactiveToggle: 'تفاعلي',
     pendingEvaluation: 'قيد الانتظار…',
     dependencyError: 'خطأ في التبعية: فشلت الخلية السابقة',
+    dependencyCycle: 'حلقة تبعيات',
     cyclicDependency: 'تم اكتشاف تبعية دورية',
     duplicateVariable: 'تعريف متغير مكرر',
     brokenDependency: 'تبعية معطلة: تم حذف الخلية السابقة',

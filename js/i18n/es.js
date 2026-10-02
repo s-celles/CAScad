@@ -132,6 +132,7 @@ var I18N_ES = {
     reactiveToggle: 'Reactivo',
     pendingEvaluation: 'Pendiente…',
     dependencyError: 'Error de dependencia: la celda anterior falló',
+    dependencyCycle: 'Ciclo de dependencias',
     cyclicDependency: 'Dependencia circular detectada',
     duplicateVariable: 'Definición de variable duplicada',
     brokenDependency: 'Dependencia rota: celda anterior eliminada',

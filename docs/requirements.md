@@ -96,7 +96,7 @@ user's device unless the user chooses to share them.
 | EXE-007 | M | ✅ | If two cells define the same variable, or a cell depends on a cell that failed or was deleted, then the system shall show a warning on the cells concerned. |
 | EXE-008 | S | ✅ | When the application starts in reactive mode, the system shall not evaluate the notebook until the user confirms (Run all), and shall offer to switch to manual mode instead. |
 | EXE-009 | S | ✅ | When the user turns reactive mode off, the system shall discard the dependency graph and evaluate cells only on request. |
-| EXE-010 | S | 📋 | If cells form a dependency cycle, then the system shall name the cells of the cycle in a warning instead of evaluating them. |
+| EXE-010 | S | ✅ | If cells form a dependency cycle, then the system shall show, on each cell of the cycle, a warning naming the cells and variables involved (e.g. "In[1] (b) → In[2] (a) → In[1]") instead of evaluating them; once the cycle is broken, they shall be evaluated again. |
 
 ## 7. Output & plots (OUT)
 

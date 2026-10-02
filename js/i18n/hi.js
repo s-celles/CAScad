@@ -132,6 +132,7 @@ var I18N_HI = {
     reactiveToggle: 'प्रतिक्रियाशील',
     pendingEvaluation: 'लंबित…',
     dependencyError: 'निर्भरता त्रुटि: पूर्ववर्ती सेल विफल',
+    dependencyCycle: 'निर्भरता चक्र',
     cyclicDependency: 'चक्रीय निर्भरता पाई गई',
     duplicateVariable: 'डुप्लिकेट चर परिभाषा',
     brokenDependency: 'टूटी निर्भरता: पूर्ववर्ती सेल हटाई गई',

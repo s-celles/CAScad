@@ -132,6 +132,7 @@ var I18N_RU = {
     reactiveToggle: 'Реактивный',
     pendingEvaluation: 'Ожидание…',
     dependencyError: 'Ошибка зависимости: предшествующая ячейка не выполнена',
+    dependencyCycle: 'Циклическая зависимость',
     cyclicDependency: 'Обнаружена циклическая зависимость',
     duplicateVariable: 'Дублирование определения переменной',
     brokenDependency: 'Нарушенная зависимость: предшествующая ячейка удалена',

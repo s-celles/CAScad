@@ -132,6 +132,7 @@ var I18N_ZH = {
     reactiveToggle: '响应式',
     pendingEvaluation: '等待中…',
     dependencyError: '依赖错误：上游单元格执行失败',
+    dependencyCycle: '依赖循环',
     cyclicDependency: '检测到循环依赖',
     duplicateVariable: '重复的变量定义',
     brokenDependency: '依赖断裂：上游单元格已删除',

@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A notebook (which may come from a shared link) can no longer run scripts when it is displayed: text cells escape quotes too, so an image address or a `@bind` name cannot add HTML attributes (such as `onerror`); images are only loaded from http(s), data or relative addresses; KaTeX only trusts `\href`/`\url` to http(s) (no more `\htmlClass`, `\includegraphics`…); Giac's SVG output is cleaned of scripts, embedded documents, animations, event handlers and unsafe links before it is shown
 
 ### Fixed
+- A dependency cycle between reactive cells is now named on each cell of the cycle ("Dependency cycle: In[1] (b) → In[2] (a) → In[1]") instead of a generic runtime error
 - Ctrl+Enter inserts the new cell right after the current one (it was added at the end of the notebook)
 - Replacing a notebook the user has worked on now asks first: import, example, link, QR code, phone transfer, QRShare and kernel change (the welcome notebook is replaced without asking; examples no longer ask over it)
 - Every library loaded from a CDN is pinned to an exact version (JSXGraph 1.13.3, Lit 3.3.3, Mermaid 11.17.2, Observable Runtime 6.0.1, lz-string 1.5.0, jsQR 1.4.0, luby-transform 0.2.0, @cheprasov/qrcode 0.1.0), as MathLive and Compute Engine already were: a new release can no longer break the app unnoticed. A test refuses unpinned URLs

@@ -132,6 +132,7 @@ var I18N_JA = {
     reactiveToggle: 'リアクティブ',
     pendingEvaluation: '保留中…',
     dependencyError: '依存関係エラー：上流セルが失敗しました',
+    dependencyCycle: '依存関係の循環',
     cyclicDependency: '循環依存が検出されました',
     duplicateVariable: '変数の重複定義',
     brokenDependency: '依存関係の破損：上流セルが削除されました',

@@ -133,6 +133,7 @@ var I18N_EL = {
     reactiveToggle: 'Αντιδραστική',
     pendingEvaluation: 'Εκκρεμεί…',
     dependencyError: 'Σφάλμα εξάρτησης: αποτυχία ανάντη κελιού',
+    dependencyCycle: 'Κύκλος εξαρτήσεων',
     cyclicDependency: 'Εντοπίστηκε κυκλική εξάρτηση',
     duplicateVariable: 'Διπλός ορισμός μεταβλητής',
     brokenDependency: 'Κατεστραμμένη εξάρτηση: το ανάντη κελί διαγράφηκε',

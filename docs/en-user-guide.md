@@ -78,7 +78,8 @@ updates the cells that use `a` when it changes, as in a spreadsheet. At start,
 nothing runs until you click **▶ Run all (reactive)** in the banner above the notebook.
 
 - A cell waiting for its inputs is marked *pending*; a cell not run yet is dimmed.
-- Warnings tell you when two cells define the same variable, or when a cell
+- Warnings tell you when two cells define the same variable, when cells depend
+  on each other in a loop (the cells of the loop are named), or when a cell
   depends on a cell that failed or was deleted.
 - Turn **Reactive** off to run cells only when you ask.
 

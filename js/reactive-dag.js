@@ -132,8 +132,11 @@ function makeCellObserver(cellId) {
       var out = document.getElementById(cellId + '-output');
       if (out) {
         var msg = (err && err.message) ? err.message : String(err);
-        // Check if it's a dependency error (upstream rejected)
-        if (msg.indexOf('RuntimeError') !== -1 || err instanceof Error) {
+        // A cycle: name its cells instead of the runtime's generic error (EXE-010)
+        var cycle = findDependencyCycle(cellId);
+        if (cycle) {
+          out.innerHTML = '<div class="dep-warning cycle">' + esc(t('dependencyCycle')) + ': ' + esc(describeCycle(cycle)) + '</div>';
+        } else if (msg.indexOf('RuntimeError') !== -1 || err instanceof Error) {
           out.innerHTML = '<div class="dep-warning cycle">' + t('dependencyError') + ': ' + esc(msg) + '</div>';
         } else {
           out.innerHTML = '<span class="err">' + t('errorPrefix') + ' ' + esc(msg) + '</span>';
@@ -496,6 +499,40 @@ function getUpstreamCells(cellId) {
   }
   traverse(cellId);
   return result;
+}
+
+/**
+ * The dependency cycle through `cellId`, as the list of cells from `cellId`
+ * back to it (each cell uses a variable defined by the next), or null (EXE-010).
+ */
+function findDependencyCycle(cellId) {
+  var path = [];
+  var visited = new Set();
+  function visit(id) {
+    var info = cellVariableMap.get(id);
+    if (!info || !info.references) return false;
+    for (var i = 0; i < info.references.length; i++) {
+      var owner = variableOwnerMap.get(info.references[i]);
+      if (!owner || owner === id) continue;
+      if (owner === cellId) { path.push({ id: id, uses: info.references[i] }); return true; }
+      if (visited.has(owner)) continue;
+      visited.add(owner);
+      path.push({ id: id, uses: info.references[i] });
+      if (visit(owner)) return true;
+      path.pop();
+    }
+    return false;
+  }
+  return visit(cellId) ? path : null;
+}
+
+/** "In[2] (uses b) → In[3] (uses a) → In[2]" for a cycle found by findDependencyCycle. */
+function describeCycle(cycle) {
+  function label(id) {
+    var idx = document.querySelector('#' + id + ' .cell-idx');
+    return idx ? idx.textContent.trim() : id;
+  }
+  return cycle.map(function(step) { return label(step.id) + ' (' + step.uses + ')'; }).join(' → ') + ' → ' + label(cycle[0].id);
 }
 
 /** Get downstream cell IDs (transitive) */

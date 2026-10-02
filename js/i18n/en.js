@@ -133,6 +133,7 @@ var I18N_EN = {
     reactiveToggle: 'Reactive',
     pendingEvaluation: 'Pending…',
     dependencyError: 'Dependency error: upstream cell failed',
+    dependencyCycle: 'Dependency cycle',
     cyclicDependency: 'Circular dependency detected',
     duplicateVariable: 'Duplicate variable definition',
     brokenDependency: 'Broken dependency: upstream cell deleted',
