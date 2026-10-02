@@ -16,6 +16,7 @@ var SHELL_FILES = [
   './index.html',
   './css/notebook.css',
   './js/theme.js',
+  './js/app/main.js',
   './favicon.ico',
   './assets/icon-192.png',
   './assets/icon-512.png',

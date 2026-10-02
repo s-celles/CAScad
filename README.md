@@ -24,8 +24,13 @@ An interactive, browser-based computer algebra notebook with multi-kernel suppor
 - **LaTeX output** — Results rendered with [KaTeX](https://katex.org/)
 - **Internationalization** — 10 languages: English, French, Spanish, German, Greek, Arabic (RTL), Hindi, Russian, Chinese, Japanese
 - **Export/Import** — Save and reload notebooks as JSON (v5 format with kernel field, backward-compatible with v1–v4)
+- **Send and receive with [QRShare](https://github.com/s-celles/QRShare)** — Move a notebook to another device with animated QR codes (no network needed) or a direct connection, as in [Progressive Web Office](https://github.com/s-celles/progressive-web-office)
 - **Reactive/Manual toggle** — Switch between automatic cascade and manual cell-by-cell execution
 - **Command discovery** — `search_commands()`, `list_categories()`, `suggest_commands()` and more for exploring available functions
+
+## Requirements
+
+The behaviour of CAScad is specified in [docs/requirements.md](docs/requirements.md): requirements in [EARS](https://alistairmavin.com/ears/) notation with MoSCoW priorities and their implementation status, as in Progressive Web Office. The specification can also be read in the app (**About → Requirements**), offline included.
 
 ## Kernels
 
@@ -54,7 +59,9 @@ The app is built into `dist/`: plain scripts in `js/` are copied as they are, Ty
 
 ```
 index.html              HTML shell (header, toolbar, notebook container)
-src/                    TypeScript sources, bundled to js/ in dist/ (theme.ts → js/theme.js)
+docs/requirements.md    Requirements specification (EARS), also shown in the app
+src/                    TypeScript sources: theme.ts → js/theme.js; main.ts (About window,
+                        share/ — QRShare send and receive) → js/app/main.js
 tests/                  Unit tests (bun test)
 scripts/                build.ts (dist/), serve.ts (local server)
 css/
@@ -99,6 +106,16 @@ The notebook comes pre-loaded with demo cells covering:
 | **Statistics** | `histogram(...)`, `barplot(...)`, `camembert(...)`, `boxwhisker(...)`, `scatterplot(...)` |
 | **Geometry** | `circle(0,2); segment([0,0],[2,0]); point(1,1)` |
 
+## Sending to Another Device (QRShare)
+
+CAScad works with [QRShare](https://github.com/s-celles/QRShare), a companion web app that moves files between two devices with **animated QR codes** — no account, no cloud, even without any network — or with a direct peer-to-peer connection. It is used the same way by [Progressive Web Office](https://github.com/s-celles/progressive-web-office).
+
+- **📲 Send to device**: choose the transfer policy (*air-gapped only*, *prefer air-gapped* or *any mode*) and click **Send with QRShare**. The notebook (`notebook.cascad.json`) is handed to QRShare inside the browser (no download, no upload), ready to send. With an older QRShare, the file is downloaded and QRShare opens its *Prepare a transfer* screen. The same window offers **Share with another app…** (system share sheet) and a **link that contains the notebook itself** (`#nb=…`).
+- **📥 Receive**: opens QRShare's receive screen. Once the file is received, **Open in …** in QRShare opens it directly in CAScad. Only files coming from the configured QRShare address are accepted.
+- Under **Advanced**, you can point to another QRShare installation (for example a self-hosted copy). The address and the policy are remembered.
+
+QRShare and CAScad are separate applications, both under the GNU AGPL-3.0: CAScad only opens QRShare's public pages and talks to it with `postMessage` (QRShare app handoff protocol, version 1).
+
 ## P2P Transfer (Phone → PC)
 
 Transfer a notebook from your phone to your PC without needing a webcam on the PC side. Uses WebRTC for direct browser-to-browser communication — notebook data never passes through any server.
@@ -127,6 +144,7 @@ The connection uses PeerJS Cloud for signaling and Google STUN for NAT traversal
 | Animated QR (Fountain) | No | No | Unlimited | 5-30s |
 | URL Sharing | No | Yes | ~2 KB | Instant |
 | File Export/Import | No | No | Unlimited | Manual |
+| QRShare (Send to device) | No | Optional | Unlimited | Depends on mode |
 | **P2P Transfer** | **No** | **Yes** | **Unlimited** | **<10s** |
 
 **When to use P2P Transfer**: You want to send a large notebook from phone to PC, the PC has no webcam, and both devices have internet access.
@@ -147,7 +165,8 @@ The connection uses PeerJS Cloud for signaling and Google STUN for NAT traversal
 - **KaTeX** — LaTeX rendering
 - **JSXGraph** — Interactive 2D/3D plots
 - **Observable Runtime** — Reactive dependency graph
-- No build step, no bundler — pure browser ES2020+
+- **Bun** — Build (TypeScript in `src/`, plain scripts in `js/`), tests
+- **lean-qr** — QR codes (About window)
 
 ## Related Projects
 
@@ -157,6 +176,8 @@ The connection uses PeerJS Cloud for signaling and Google STUN for NAT traversal
 - [Observable Runtime](https://github.com/observablehq/runtime) — Reactive dataflow runtime for dependency graphs
 - [MathLive](https://mathlive.io/) — Web component for math input editing
 - [CortexJS Compute Engine](https://cortexjs.io/compute-engine/) — LaTeX/MathJSON parsing and symbolic computation
+- [QRShare](https://github.com/s-celles/QRShare) — Air-gapped file transfer with animated QR codes, used to send and receive notebooks
+- [Progressive Web Office](https://github.com/s-celles/progressive-web-office) — Office suite in the browser, sharing the same visual style and QRShare integration
 
 ## Development
 

@@ -1,0 +1,34 @@
+/** Minimal hyperscript-style DOM builder (no innerHTML, so no injection), as in Progressive Web Office. */
+
+type Attrs = Record<string, string | number | boolean | EventListener | undefined | null>;
+type Child = Node | string | null | undefined | false;
+
+export function h<K extends keyof HTMLElementTagNameMap>(tag: K, attrs: Attrs = {}, ...kids: Child[]): HTMLElementTagNameMap[K] {
+  const el = document.createElement(tag);
+  for (const [key, value] of Object.entries(attrs)) {
+    if (value === undefined || value === null || value === false) continue;
+    if (key.startsWith('on') && typeof value === 'function') el.addEventListener(key.slice(2).toLowerCase(), value);
+    else if (key === 'class') el.className = String(value);
+    else if (value === true) el.setAttribute(key, '');
+    else el.setAttribute(key, String(value));
+  }
+  for (const kid of kids) {
+    if (kid === null || kid === undefined || kid === false) continue;
+    el.append(typeof kid === 'string' ? document.createTextNode(kid) : kid);
+  }
+  return el;
+}
+
+export function button(label: string, onClick: (ev: MouseEvent) => void, opts: { title?: string; className?: string } = {}): HTMLButtonElement {
+  const b = h('button', { type: 'button', class: opts.className, title: opts.title }, label);
+  b.addEventListener('click', onClick);
+  return b;
+}
+
+/** Show a `<dialog>` modally; it is removed from the page when closed. */
+export function openDialog(dialog: HTMLDialogElement, host: HTMLElement = document.body): void {
+  dialog.addEventListener('close', () => dialog.remove());
+  host.append(dialog);
+  if (typeof dialog.showModal === 'function') dialog.showModal();
+  else dialog.setAttribute('open', '');
+}

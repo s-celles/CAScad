@@ -162,6 +162,8 @@ var UI = {
   <button id="examples-btn" onclick="showExamplesMenu()" data-i18n="examplesBtn">📚 Examples</button>
   <button id="command-menu-btn" onclick="toggleCommandMenu()" data-i18n="commandMenuBtn">🧮 Commands</button>
   <div class="sep"></div>
+  <button onclick="sendToDevice()" data-i18n="sendToDevice">📲 Send to device</button>
+  <button onclick="receiveFromDevice()" data-i18n="receiveFromDevice">📥 Receive</button>
   <button onclick="showShareQR()" data-i18n="shareQR">📤 Share QR</button>
   <button onclick="showScanQR()" data-i18n="scanQR">📷 Scan QR</button>
   <button onclick="showReceiveFromPhone()" data-i18n="p2pReceive" id="p2p-receive-btn" style="display:none">📲 Receive from Phone</button>
@@ -239,6 +241,7 @@ var UI = {
 <script src="js/command-discovery.js"></script>
 <script src="js/boot.js"></script>
 <script type="module" src="js/slider-components.js"></script>
+<script type="module" src="js/app/main.js"></script>
 <script>
 if ('serviceWorker' in navigator) {
   // Reload when a new service worker takes control (ensures fresh files)
