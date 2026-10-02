@@ -11,6 +11,9 @@ export const SOURCE_URL = 'https://github.com/s-celles/CAScad';
 const CHANGELOG_URL = `${SOURCE_URL}/blob/main/CHANGELOG.md`;
 const LICENSE_URL = 'https://www.gnu.org/licenses/agpl-3.0.html';
 
+/** The author of CAScad, shown in the About window (as in package.json). */
+export const AUTHOR = { name: 'Sébastien Celles', url: 'https://github.com/s-celles' };
+
 /** What the About window says about each library (versions come from the build). */
 const LIBRARIES: Record<string, { label: string; author: string; license: string; url: string }> = {
   giac: { label: 'Giac', author: 'Bernard Parisse', license: 'GPL-3.0', url: 'https://www-fourier.univ-grenoble-alpes.fr/~parisse/giac.html' },
@@ -122,6 +125,7 @@ export function aboutContent(appUrl: string): HTMLElement {
   const facts: [string, Node | string][] = [
     [t('aboutVersion'), link(CHANGELOG_URL, BUILD.version)],
     [t('aboutCommit'), commit],
+    [t('aboutAuthor'), link(AUTHOR.url, AUTHOR.name)],
     [t('aboutBuilt'), BUILD.date && !Number.isNaN(date.getTime()) ? date.toLocaleString() : '—'],
     [t('aboutLicenseLabel'), link(LICENSE_URL, 'GNU AGPL-3.0-or-later')],
     [t('aboutInstalled'), yesNo(installed())],

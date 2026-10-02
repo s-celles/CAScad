@@ -49,6 +49,10 @@ bun run dev     # build and serve on http://localhost:3000
 
 See [Development](https://s-celles.github.io/CAScad/#/docs?page=development) for all commands and the release process.
 
+## Author
+
+[Sébastien Celles](https://github.com/s-celles)
+
 ## License
 
 [GNU AGPL-3.0-or-later](LICENSE.txt)

@@ -81,7 +81,7 @@ var I18N_JA = {
     exBaseRGB: '## 実用例：RGBカラー分解\n\n16進カラー値 `#3A7BFF` をR、G、B成分に分解します。',
     exBaseRGBVerify: '## 各成分を16進数と2進数に変換して検証',
     aboutTitle: 'CAScad について', aboutDesc: 'CAScad はブラウザ上で完全に動作するリアクティブなコンピュータ代数ノートブックです。ビジュアル数学入力（MathJSON）と WebAssembly にコンパイルされた Giac シンボリックエンジンを組み合わせています。',
-    aboutLibraries: 'ライブラリ', aboutColLib: 'ライブラリ', aboutColAuthor: '著者', aboutColLicense: 'ライセンス',
+    aboutLibraries: 'ライブラリ', aboutColLib: 'ライブラリ', aboutColAuthor: '著者', aboutAuthor: '著者', aboutColLicense: 'ライセンス',
     aboutDocs: 'ドキュメント', docsTitle: 'ドキュメント', docsIntro: 'CAScad の使い方、仕組み、構成についてのすべて。同じページはリポジトリの docs/ フォルダーにもあります。',
     docsNavLabel: 'ドキュメントのページ', docsGroup_using: 'CAScad を使う', docsGroup_developing: 'CAScad を開発する',
     'docsPage_user-guide': 'ユーザーガイド', docsPage_sharing: '共有と転送', docsPage_architecture: 'アーキテクチャ',

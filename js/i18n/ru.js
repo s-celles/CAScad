@@ -81,7 +81,7 @@ var I18N_RU = {
     exBaseRGB: '## Практика: Разложение RGB-цвета\n\nРазложить шестнадцатеричное значение цвета `#3A7BFF` на компоненты R, G, B.',
     exBaseRGBVerify: '## Проверка преобразованием каждого компонента в шестнадцатеричный и двоичный вид',
     aboutTitle: 'О CAScad', aboutDesc: 'CAScad — реактивный блокнот для компьютерной алгебры, работающий полностью в браузере. Сочетает визуальный ввод математики (MathJSON) с символьным движком Giac, скомпилированным в WebAssembly.',
-    aboutLibraries: 'Библиотеки', aboutColLib: 'Библиотека', aboutColAuthor: 'Автор', aboutColLicense: 'Лицензия',
+    aboutLibraries: 'Библиотеки', aboutColLib: 'Библиотека', aboutColAuthor: 'Автор', aboutAuthor: 'Автор', aboutColLicense: 'Лицензия',
     aboutDocs: 'Документация', docsTitle: 'Документация', docsIntro: 'Всё об использовании CAScad, о том, как он работает и как устроен. Эти же страницы лежат в папке docs/ репозитория.',
     docsNavLabel: 'Страницы документации', docsGroup_using: 'Использование CAScad', docsGroup_developing: 'Разработка CAScad',
     'docsPage_user-guide': 'Руководство пользователя', docsPage_sharing: 'Обмен и передача', docsPage_architecture: 'Архитектура',

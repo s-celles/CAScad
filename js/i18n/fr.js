@@ -81,7 +81,7 @@ var I18N_FR = {
     exBaseRGB: '## Pratique : D\u00e9composition d\'une couleur RGB\n\nD\u00e9composer la valeur hexad\u00e9cimale `#3A7BFF` en composantes R, G, B.',
     exBaseRGBVerify: '## V\u00e9rification en convertissant chaque composante en hexad\u00e9cimal et binaire',
     aboutTitle: '\u00c0 propos de CAScad', aboutDesc: 'CAScad est un notebook r\u00e9actif pour le calcul formel, fonctionnant enti\u00e8rement dans le navigateur. Il combine la saisie math\u00e9matique visuelle (MathJSON) avec le moteur symbolique Giac compil\u00e9 en WebAssembly.',
-    aboutLibraries: 'Biblioth\u00e8ques', aboutColLib: 'Biblioth\u00e8que', aboutColAuthor: 'Auteur', aboutColLicense: 'Licence',
+    aboutLibraries: 'Biblioth\u00e8ques', aboutColLib: 'Biblioth\u00e8que', aboutColAuthor: 'Auteur', aboutAuthor: 'Auteur', aboutColLicense: 'Licence',
     aboutDocs: 'Documentation', docsTitle: 'Documentation', docsIntro: 'Tout sur l’utilisation de CAScad, son fonctionnement et sa construction. Les mêmes pages sont dans le dossier docs/ du dépôt.',
     docsNavLabel: 'Pages de la documentation', docsGroup_using: 'Utiliser CAScad', docsGroup_developing: 'Développer CAScad',
     'docsPage_user-guide': 'Guide utilisateur', docsPage_sharing: 'Partage et transfert', docsPage_architecture: 'Architecture',

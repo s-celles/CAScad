@@ -81,7 +81,7 @@ var I18N_ES = {
     exBaseRGB: '## Práctico: Descomposición de color RGB\n\nDescomponer el valor hexadecimal `#3A7BFF` en sus componentes R, G, B.',
     exBaseRGBVerify: '## Verificación convirtiendo cada componente a hexadecimal y binario',
     aboutTitle: 'Acerca de CAScad', aboutDesc: 'CAScad es un notebook reactivo para álgebra computacional, que funciona completamente en el navegador. Combina la entrada matemática visual (MathJSON) con el motor simbólico Giac compilado a WebAssembly.',
-    aboutLibraries: 'Bibliotecas', aboutColLib: 'Biblioteca', aboutColAuthor: 'Autor', aboutColLicense: 'Licencia',
+    aboutLibraries: 'Bibliotecas', aboutColLib: 'Biblioteca', aboutColAuthor: 'Autor', aboutAuthor: 'Autor', aboutColLicense: 'Licencia',
     aboutDocs: 'Documentación', docsTitle: 'Documentación', docsIntro: 'Todo sobre el uso de CAScad, cómo funciona y cómo está construido. Las mismas páginas están en la carpeta docs/ del repositorio.',
     docsNavLabel: 'Páginas de la documentación', docsGroup_using: 'Usar CAScad', docsGroup_developing: 'Desarrollar CAScad',
     'docsPage_user-guide': 'Guía de usuario', docsPage_sharing: 'Compartir y transferir', docsPage_architecture: 'Arquitectura',

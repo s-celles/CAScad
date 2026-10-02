@@ -82,7 +82,7 @@ var I18N_EL = {
     exBaseRGB: '## Πρακτικό: Ανάλυση χρώματος RGB\n\nΑνάλυση της δεκαεξαδικής τιμής `#3A7BFF` στα συστατικά R, G, B.',
     exBaseRGBVerify: '## Επαλήθευση μετατρέποντας κάθε συστατικό σε δεκαεξαδικό και δυαδικό',
     aboutTitle: 'Σχετικά με το CAScad', aboutDesc: 'Το CAScad είναι ένα αντιδραστικό τετράδιο για υπολογιστική άλγεβρα, που εκτελείται εξ ολοκλήρου στον περιηγητή. Συνδυάζει οπτική εισαγωγή μαθηματικών (MathJSON) με τη συμβολική μηχανή Giac μεταγλωττισμένη σε WebAssembly.',
-    aboutLibraries: 'Βιβλιοθήκες', aboutColLib: 'Βιβλιοθήκη', aboutColAuthor: 'Συγγραφέας', aboutColLicense: 'Άδεια',
+    aboutLibraries: 'Βιβλιοθήκες', aboutColLib: 'Βιβλιοθήκη', aboutColAuthor: 'Συγγραφέας', aboutAuthor: 'Συγγραφέας', aboutColLicense: 'Άδεια',
     aboutDocs: 'Τεκμηρίωση', docsTitle: 'Τεκμηρίωση', docsIntro: 'Όλα για τη χρήση του CAScad, πώς λειτουργεί και πώς είναι κατασκευασμένο. Οι ίδιες σελίδες βρίσκονται στον φάκελο docs/ του αποθετηρίου.',
     docsNavLabel: 'Σελίδες τεκμηρίωσης', docsGroup_using: 'Χρήση του CAScad', docsGroup_developing: 'Ανάπτυξη του CAScad',
     'docsPage_user-guide': 'Οδηγός χρήσης', docsPage_sharing: 'Κοινοποίηση και μεταφορά', docsPage_architecture: 'Αρχιτεκτονική',

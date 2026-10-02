@@ -81,7 +81,7 @@ var I18N_AR = {
     exBaseRGB: '## تطبيق عملي: تفكيك لون RGB\n\nتفكيك القيمة الست عشرية `#3A7BFF` إلى مكوناتها R و G و B.',
     exBaseRGBVerify: '## التحقق بتحويل كل مكون إلى ست عشري وثنائي',
     aboutTitle: 'حول CAScad', aboutDesc: 'CAScad هو دفتر ملاحظات تفاعلي للجبر الحاسوبي، يعمل بالكامل في المتصفح. يجمع بين الإدخال الرياضي المرئي (MathJSON) ومحرك Giac الرمزي المترجم إلى WebAssembly.',
-    aboutLibraries: 'المكتبات', aboutColLib: 'المكتبة', aboutColAuthor: 'المؤلف', aboutColLicense: 'الرخصة',
+    aboutLibraries: 'المكتبات', aboutColLib: 'المكتبة', aboutColAuthor: 'المؤلف', aboutAuthor: 'المؤلف', aboutColLicense: 'الرخصة',
     aboutDocs: 'التوثيق', docsTitle: 'التوثيق', docsIntro: 'كل ما يتعلق باستخدام CAScad وطريقة عمله وبنائه. الصفحات نفسها موجودة في المجلد docs/ من المستودع.',
     docsNavLabel: 'صفحات التوثيق', docsGroup_using: 'استخدام CAScad', docsGroup_developing: 'تطوير CAScad',
     'docsPage_user-guide': 'دليل المستخدم', docsPage_sharing: 'المشاركة والنقل', docsPage_architecture: 'البنية',

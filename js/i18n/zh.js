@@ -81,7 +81,7 @@ var I18N_ZH = {
     exBaseRGB: '## 实用示例：RGB 颜色分解\n\n将十六进制颜色值 `#3A7BFF` 分解为 R、G、B 分量。',
     exBaseRGBVerify: '## 将每个分量转换为十六进制和二进制进行验证',
     aboutTitle: '关于 CAScad', aboutDesc: 'CAScad 是一个完全在浏览器中运行的响应式计算机代数笔记本。它将可视化数学输入（MathJSON）与编译为 WebAssembly 的 Giac 符号引擎相结合。',
-    aboutLibraries: '依赖库', aboutColLib: '库', aboutColAuthor: '作者', aboutColLicense: '许可证',
+    aboutLibraries: '依赖库', aboutColLib: '库', aboutColAuthor: '作者', aboutAuthor: '作者', aboutColLicense: '许可证',
     aboutDocs: '文档', docsTitle: '文档', docsIntro: '关于使用 CAScad、其工作原理和构建方式的一切。同样的页面也在仓库的 docs/ 文件夹中。',
     docsNavLabel: '文档页面', docsGroup_using: '使用 CAScad', docsGroup_developing: '开发 CAScad',
     'docsPage_user-guide': '用户指南', docsPage_sharing: '分享与传输', docsPage_architecture: '架构',

@@ -81,7 +81,7 @@ var I18N_HI = {
     exBaseRGB: '## व्यावहारिक: RGB रंग विघटन\n\nहेक्स मान `#3A7BFF` को उसके R, G, B घटकों में विघटित करें।',
     exBaseRGBVerify: '## प्रत्येक घटक को हेक्स और बाइनरी में बदलकर सत्यापन',
     aboutTitle: 'CAScad के बारे में', aboutDesc: 'CAScad कंप्यूटर बीजगणित के लिए एक प्रतिक्रियाशील नोटबुक है, जो पूरी तरह ब्राउज़र में चलता है। यह विज़ुअल गणित इनपुट (MathJSON) को WebAssembly में संकलित Giac सांकेतिक इंजन के साथ जोड़ता है।',
-    aboutLibraries: 'लाइब्रेरी', aboutColLib: 'लाइब्रेरी', aboutColAuthor: 'लेखक', aboutColLicense: 'लाइसेंस',
+    aboutLibraries: 'लाइब्रेरी', aboutColLib: 'लाइब्रेरी', aboutColAuthor: 'लेखक', aboutAuthor: 'लेखक', aboutColLicense: 'लाइसेंस',
     aboutDocs: 'दस्तावेज़', docsTitle: 'दस्तावेज़', docsIntro: 'CAScad के उपयोग, उसके काम करने के तरीके और उसकी बनावट के बारे में सब कुछ। यही पेज रिपॉज़िटरी के docs/ फ़ोल्डर में हैं।',
     docsNavLabel: 'दस्तावेज़ के पेज', docsGroup_using: 'CAScad का उपयोग', docsGroup_developing: 'CAScad का विकास',
     'docsPage_user-guide': 'उपयोगकर्ता गाइड', docsPage_sharing: 'साझा करना और स्थानांतरण', docsPage_architecture: 'संरचना',
