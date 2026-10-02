@@ -194,4 +194,7 @@ function importNotebook() {
 // SECTION 11 — UTILITIES
 // ─────────────────────────────────────────────────────────────
 
-function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+/** Escape text for HTML, attribute values included (quotes too). */
+function esc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}

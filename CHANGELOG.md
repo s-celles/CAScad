@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+- A notebook (which may come from a shared link) can no longer run scripts when it is displayed: text cells escape quotes too, so an image address or a `@bind` name cannot add HTML attributes (such as `onerror`); images are only loaded from http(s), data or relative addresses; KaTeX only trusts `\href`/`\url` to http(s) (no more `\htmlClass`, `\includegraphics`…); Giac's SVG output is cleaned of scripts, embedded documents, animations, event handlers and unsafe links before it is shown
+
 ### Fixed
 - Ctrl+Enter inserts the new cell right after the current one (it was added at the end of the notebook)
 - Replacing a notebook the user has worked on now asks first: import, example, link, QR code, phone transfer, QRShare and kernel change (the welcome notebook is replaced without asking; examples no longer ask over it)

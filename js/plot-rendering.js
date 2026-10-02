@@ -85,10 +85,32 @@ function stripQuotes(s) {
 }
 
 // T008: SVG plot renderer
+/**
+ * Parse markup (Giac's SVG output) without running it, and keep only what draws:
+ * no scripts, embedded documents or animations, no event handlers, and links or
+ * sources only to the same document, http(s) or data images (SEC-003).
+ */
+function sanitizeMarkup(markup) {
+  var tpl = document.createElement('template');
+  tpl.innerHTML = markup;
+  tpl.content.querySelectorAll('script, foreignObject, iframe, object, embed, set, animate, animateMotion, animateTransform')
+    .forEach(function(el) { el.remove(); });
+  tpl.content.querySelectorAll('*').forEach(function(el) {
+    Array.prototype.slice.call(el.attributes).forEach(function(attr) {
+      var name = attr.name.toLowerCase();
+      if (name.indexOf('on') === 0) el.removeAttribute(attr.name);
+      else if ((name === 'href' || name === 'src' || /:href$/.test(name)) && !/^(#|https?:|data:image\/)/i.test(attr.value.trim())) {
+        el.removeAttribute(attr.name);
+      }
+    });
+  });
+  return tpl.content;
+}
+
 function renderSvgPlot(outputEl, svgString) {
   var container = document.createElement('div');
   container.className = 'plot-container plot-svg';
-  container.innerHTML = svgString;
+  container.appendChild(sanitizeMarkup(svgString));
   outputEl.appendChild(container);
 }
 

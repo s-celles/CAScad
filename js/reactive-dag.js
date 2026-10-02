@@ -387,7 +387,7 @@ function scheduleCellRender(cellId, expr, rawResult) {
       if (ceResult && typeof katex !== 'undefined') {
         var d = document.createElement('div');
         try {
-          katex.render(ceResult, d, { displayMode: true, throwOnError: false, trust: true });
+          katex.render(ceResult, d, { displayMode: true, throwOnError: false, trust: KATEX_TRUST });
           out.appendChild(d);
         } catch(e) { out.innerHTML = '<div class="raw-res">' + esc(ceResult) + '</div>'; }
       } else {
@@ -440,7 +440,7 @@ function scheduleCellRender(cellId, expr, rawResult) {
         if (latex && typeof katex !== 'undefined') {
           var d2 = document.createElement('div');
           try {
-            katex.render(latex, d2, { displayMode: true, throwOnError: false, trust: true });
+            katex.render(latex, d2, { displayMode: true, throwOnError: false, trust: KATEX_TRUST });
             out.appendChild(d2);
           } catch(e) { out.innerHTML = '<div class="raw-res">' + esc(raw) + '</div>'; }
         } else {

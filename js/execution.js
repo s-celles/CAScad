@@ -165,7 +165,7 @@ function runSingleCell(cellId, forceManual) {
         if (result && typeof katex !== 'undefined') {
           var d = document.createElement('div');
           try {
-            katex.render(result, d, { displayMode: true, throwOnError: false, trust: true });
+            katex.render(result, d, { displayMode: true, throwOnError: false, trust: KATEX_TRUST });
             out.appendChild(d);
           } catch(e) { out.innerHTML = '<div class="raw-res">' + esc(result) + '</div>'; }
         } else {
@@ -301,7 +301,7 @@ function runSingleCell(cellId, forceManual) {
           if (latex && typeof katex !== 'undefined') {
             const d = document.createElement('div');
             try {
-              katex.render(latex, d, { displayMode: true, throwOnError: false, trust: true });
+              katex.render(latex, d, { displayMode: true, throwOnError: false, trust: KATEX_TRUST });
               out.appendChild(d);
             } catch(e) { out.innerHTML = '<div class="raw-res">' + esc(raw) + '</div>'; }
           } else {
@@ -390,14 +390,14 @@ function renderTextCell(cellId) {
   // Display math $$...$$ (must come before inline $...$)
   raw = raw.replace(/\$\$([\s\S]+?)\$\$/g, function(_, tex) {
     var idx = latexBlocks.length;
-    try { latexBlocks.push(katex.renderToString(tex.trim(), { displayMode: true, throwOnError: false, trust: true })); }
+    try { latexBlocks.push(katex.renderToString(tex.trim(), { displayMode: true, throwOnError: false, trust: KATEX_TRUST })); }
     catch(e) { latexBlocks.push('<code>' + esc(tex) + '</code>'); }
     return PH + idx + PH;
   });
   // Inline math $...$
   raw = raw.replace(/\$([^\$\n]+?)\$/g, function(_, tex) {
     var idx = latexBlocks.length;
-    try { latexBlocks.push(katex.renderToString(tex.trim(), { displayMode: false, throwOnError: false, trust: true })); }
+    try { latexBlocks.push(katex.renderToString(tex.trim(), { displayMode: false, throwOnError: false, trust: KATEX_TRUST })); }
     catch(e) { latexBlocks.push('<code>' + esc(tex) + '</code>'); }
     return PH + idx + PH;
   });
@@ -410,7 +410,11 @@ function renderTextCell(cellId) {
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.+?)\*/g,     '<em>$1</em>')
     .replace(/`(.+?)`/g,       '<code>$1</code>')
-    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%">')
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(_, alt, src) {
+      // Already escaped (quotes included); only http(s), data:image and relative addresses (SEC-003)
+      var safe = /^(https?:|data:image\/)/i.test(src) || !/^[a-z][a-z0-9+.-]*:/i.test(src);
+      return safe ? '<img src="' + src + '" alt="' + alt + '" style="max-width:100%">' : alt;
+    })
     .replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
   // Restore LaTeX blocks
   var phRe = new RegExp(PH + '(\\d+)' + PH, 'g');
