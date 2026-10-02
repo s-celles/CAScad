@@ -192,33 +192,60 @@
   .discovery-table td{padding:.25rem .5rem;border-bottom:1px solid var(--border);vertical-align:top}
   .discovery-table tr:hover td{background:var(--bg)}
 
-  /* ═══════ About Dialog ═══════ */
-  .about-overlay{position:fixed;inset:0;z-index:1000;background:var(--backdrop);display:flex;align-items:center;justify-content:center;padding:1rem}
-  .about-dialog{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:2rem 2.2rem;max-width:540px;width:100%;max-height:85vh;overflow-y:auto;font-family:var(--body);color:var(--text)}
-  .about-dialog h2{font-family:var(--ui);font-size:1.2rem;font-weight:600;margin-bottom:.1rem}
-  .about-dialog .about-version{font-family:var(--ui);font-size:.75rem;color:var(--text-muted);margin-bottom:.2rem}
-  .about-dialog .about-commit{font-size:.65rem;opacity:.7}
-  .about-dialog .about-author{font-size:.82rem;color:var(--text-muted);margin-bottom:.8rem}
-  .about-dialog h3{font-family:var(--ui);font-size:.85rem;font-weight:500;margin-top:1.2rem;margin-bottom:.4rem;color:var(--accent)}
-  .about-dialog p{font-size:.85rem;line-height:1.6;margin-bottom:.5rem}
-  .about-dialog table{width:100%;border-collapse:collapse;font-size:.78rem;margin:.4rem 0 .8rem}
-  .about-dialog th{text-align:left;font-family:var(--ui);font-weight:500;padding:5px 8px;border-bottom:2px solid var(--border);font-size:.72rem;color:var(--text-muted)}
-  .about-dialog td{padding:5px 8px;border-bottom:1px solid var(--border)}
-  .about-dialog a{color:var(--accent);text-decoration:none}
-  .about-dialog a:hover{text-decoration:underline}
-  .about-close{position:absolute;top:.7rem;right:.9rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--text-muted);line-height:1}
-  .about-close:hover{color:var(--text)}
-  .about-qr{text-align:center;margin-top:.8rem}
-  .about-qr svg{width:256px;height:256px;display:inline-block}
-  .about-qr-url{font-family:var(--mono);font-size:.7rem;color:var(--text-muted);word-break:break-all;margin-top:.3rem}
-  .qr-fullscreen-overlay{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;cursor:pointer}
-  .qr-fullscreen-content{background:#fff;border-radius:12px;padding:2rem;display:flex;align-items:center;justify-content:center}
-  .qr-fullscreen-content svg{width:min(80vw,80vh);height:min(80vw,80vh)}
-  .about-share-buttons{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin:.6rem 0}
-  .about-share-buttons button,.about-share-buttons a{display:inline-flex;align-items:center;gap:.3rem;padding:.35rem .7rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--text);font-size:.78rem;cursor:pointer;text-decoration:none;transition:background .15s}
-  .about-share-buttons button:hover,.about-share-buttons a:hover{background:var(--accent);color:var(--accent-contrast);border-color:var(--accent)}
-  .about-share-buttons .share-primary{background:var(--accent);color:var(--accent-contrast);border-color:var(--accent);font-weight:500}
-  .about-share-buttons .share-primary:hover{opacity:.85}
+  /* ═══════ Dialogs, as in QRShare and Progressive Web Office ═══════ */
+  .dialog{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--text);max-width:min(520px,calc(100vw - 32px));max-height:calc(100dvh - 32px);margin:auto;padding:20px;overflow:auto;box-shadow:var(--shadow-lg)}
+  .dialog::backdrop{background:var(--backdrop)}
+  .dialog h2{margin:0 0 12px;font-size:1.2rem}
+  .dialog p{margin:0 0 8px}
+  .dialog .hint,.hint{color:var(--muted);font-size:.9rem}
+  .dialog a{color:var(--accent)}
+  .dialog select,.dialog input[type="text"],.dialog input[type="url"]{min-height:32px;padding:4px 8px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)}
+  .dialog details{margin:8px 0}
+  .dialog summary{cursor:pointer;color:var(--muted)}
+  .dialog-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:8px;margin-top:16px}
+  .dialog-actions button,.dialog .share-row button{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);min-height:32px;padding:4px 12px;cursor:pointer}
+  .dialog-actions button:hover,.dialog .share-row button:hover{border-color:var(--accent)}
+  .dialog-actions button.primary{background:var(--accent);color:var(--accent-contrast);border-color:var(--accent)}
+  .dialog-actions button.primary:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+  .mono{font-family:var(--mono)}
+
+  /* ═══════ About window ═══════ */
+  .about-dialog{max-width:min(40rem,calc(100vw - 32px))}
+  .about-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .about-head p{margin:0}
+  .about-name{font-size:1.15rem;font-weight:600}
+  .about-logo{flex:none;border-radius:12px}
+  .about-body{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start}
+  .about-facts{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;flex:1 1 16rem;margin:0}
+  .about-facts dt{color:var(--muted)}
+  .about-facts dd{margin:0}
+  .about-qr-figure{text-align:center;flex:none;max-width:180px;margin:0 auto}
+  .about-qr-figure .mono{word-break:break-all}
+  .about-qr{display:block;margin:0 auto 4px;background:#fff;padding:4px;border-radius:4px;image-rendering:pixelated}
+  button.qr-zoom{display:block;padding:0;margin:0 auto 4px;border:0;background:none;cursor:zoom-in;border-radius:4px}
+  button.qr-zoom .about-qr{margin:0}
+  .about-links{display:flex;flex-wrap:wrap;gap:4px 16px;list-style:none;margin:16px 0 8px;padding:0}
+  .about .hint+.hint{margin-top:8px}
+  .about-libraries{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:8px}
+  .about-libraries th{text-align:left;font-weight:500;color:var(--muted);padding:4px 8px;border-bottom:2px solid var(--border)}
+  .about-libraries td{padding:4px 8px;border-bottom:1px solid var(--border)}
+  .about-dialog .dialog-actions .hint{margin-inline-end:auto}
+
+  /* QR code full screen */
+  .qr-full{width:100vw;height:100vh;max-width:none;max-height:none;margin:0;padding:16px;border:0;background:#fff;color:#000}
+  .qr-full[open]{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+  .qr-full-image{width:min(80vw,75vh);height:auto;image-rendering:pixelated;cursor:zoom-out}
+  .qr-full-text{font-family:var(--mono);font-size:.9rem;word-break:break-all;text-align:center;max-width:90vw}
+  .qr-full button.primary{background:#1f5fbf;color:#fff;border:1px solid #1f5fbf;border-radius:var(--radius-sm);min-height:32px;padding:4px 12px;cursor:pointer}
+
+  /* ═══════ Send to another device (QRShare) ═══════ */
+  .share-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0}
+  .share-row select,.share-row input{flex:1 1 12rem;min-width:0}
+  .share-file{font-family:var(--mono);font-size:.9rem}
+  .share-link-section{border-top:1px solid var(--border);margin-top:16px;padding-top:12px}
+
+  /* ═══════ Notice ═══════ */
+  .toast{position:fixed;left:50%;bottom:3rem;transform:translateX(-50%);z-index:2000;max-width:calc(100vw - 32px);background:var(--text);color:var(--bg);padding:8px 16px;border-radius:var(--radius);box-shadow:var(--shadow-lg);font-size:.9rem}
 
   /* ═══════ Slider cells ═══════ */
   .cell[data-type="slider"] .cell-badge{background:#8b5cf6;color:#fff}
@@ -411,7 +438,7 @@
   .share-password-group input{width:100%;padding:.4rem .6rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:var(--mono);font-size:.8rem}
   .share-password-group input:focus{outline:none;border-color:var(--border-focus)}
   .share-qr-code{display:flex;justify-content:center;align-items:center;min-height:150px;margin:1rem 0}
-  .share-qr-code svg,.p2p-qr svg,.about-qr svg{max-width:100%;height:auto;background:#fff;padding:8px;border-radius:4px}
+  .share-qr-code svg,.p2p-qr svg{max-width:100%;height:auto;background:#fff;padding:8px;border-radius:4px}
   .share-qr-url{font-family:var(--mono);font-size:.65rem;color:var(--text-muted);word-break:break-all;padding:.4rem;background:var(--output-bg);border-radius:4px;margin:.5rem 0}
   .share-qr-actions{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap}
   .share-qr-actions button{font-family:var(--ui);font-size:.75rem;padding:.4rem 1rem;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);cursor:pointer}

@@ -26,15 +26,28 @@ const STATIC = [
   'examples',
 ];
 
-/** TypeScript entries, each bundled to a classic script loaded by index.html. */
+/** TypeScript entries bundled to a classic script loaded by index.html (run before first paint). */
 const ENTRIES: Record<string, string> = {
   'src/theme.ts': 'js/theme.js',
 };
+
+/** The module entry (index.html loads js/app/main.js); parts used on demand become separate chunks. */
+const MODULE_ENTRY = 'src/main.ts';
+const MODULE_DIR = 'js/app';
 
 function fail(message: string): never {
   console.error(message);
   process.exit(1);
 }
+
+const version: string = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')).version;
+const git = Bun.spawnSync(['git', 'rev-parse', '--short', 'HEAD'], { cwd: ROOT });
+const commit = process.env.GITHUB_SHA?.slice(0, 7) || (git.exitCode === 0 ? git.stdout.toString().trim() : 'unknown');
+const define = {
+  __APP_VERSION__: JSON.stringify(version),
+  __GIT_COMMIT__: JSON.stringify(commit),
+  __BUILD_DATE__: JSON.stringify(new Date().toISOString()),
+};
 
 rmSync(DIST, { recursive: true, force: true });
 mkdirSync(DIST, { recursive: true });
@@ -53,16 +66,25 @@ for (const [entry, out] of Object.entries(ENTRIES)) {
     target: 'browser',
     format: 'iife',
     minify: true,
+    define,
   });
   if (!result.success) fail(`Build of ${entry} failed:\n${result.logs.join('\n')}`);
   writeFileSync(join(DIST, out), await result.outputs[0]!.text());
 }
 
-// 3. Version and commit
-const version: string = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')).version;
-const git = Bun.spawnSync(['git', 'rev-parse', '--short', 'HEAD'], { cwd: ROOT });
-const commit = process.env.GITHUB_SHA?.slice(0, 7) || (git.exitCode === 0 ? git.stdout.toString().trim() : 'unknown');
+const moduleResult = await Bun.build({
+  entrypoints: [join(ROOT, MODULE_ENTRY)],
+  outdir: join(DIST, MODULE_DIR),
+  target: 'browser',
+  format: 'esm',
+  splitting: true,
+  minify: true,
+  naming: { entry: '[name].js', chunk: '[name]-[hash].js' },
+  define,
+});
+if (!moduleResult.success) fail(`Build of ${MODULE_ENTRY} failed:\n${moduleResult.logs.join('\n')}`);
 
+// 3. Version and commit in the plain scripts
 function stamp(file: string, replacements: [RegExp, string][]): void {
   const path = join(DIST, file);
   let text = readFileSync(path, 'utf8');
