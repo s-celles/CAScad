@@ -9,6 +9,7 @@ var I18N_AR = {
     giacError: 'خطأ في تهيئة Giac',
     giacDemo: 'وضع تجريبي (Giac غير محمّل)',
     addMath: '+ رياضيات', addRaw: '+ مباشر', addText: '+ نص',
+    newNotebook: '🗋 جديد',
     runAll: '▶ تشغيل الكل', clearOutputs: '✕ مسح المخرجات',
     exportBtn: '💾 تصدير', shareBtn: '📤 مشاركة', importBtn: '📂 استيراد',
     examplesBtn: '📚 أمثلة', replaceNotebookConfirm: 'استبدال الدفتر المفتوح؟ ستضيع تعديلاته (صدّره أولًا للاحتفاظ به).',

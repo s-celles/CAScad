@@ -3,6 +3,21 @@
 // SECTION 9 — GLOBAL ACTIONS
 // ─────────────────────────────────────────────────────────────
 
+/** The welcome notebook: logo and introduction (hidden text cells). */
+function showWelcomeNotebook() {
+  addCell('text', '', '![CAScad](assets/CAScad.png)', null, null, { hidden: true });
+  addCell('text', '', t('welcomeTitle') + '\n\n' + t('welcomeBody'), null, 'welcomeTitle,welcomeBody', { hidden: true });
+  cells.forEach(function(c) { if (c.type === 'text') renderTextCell(c.id); });
+  updateEmptyState();
+}
+
+/** Start a new notebook (FILE-006), after asking if the open one holds work. */
+function newNotebook() {
+  if (!confirmReplaceNotebook()) return;
+  clearNotebook();
+  showWelcomeNotebook();
+}
+
 function updateEmptyState() {
   var el = document.getElementById('empty-notebook');
   if (el) el.style.display = cells.length === 0 ? '' : 'none';

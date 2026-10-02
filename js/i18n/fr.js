@@ -9,6 +9,7 @@ var I18N_FR = {
     giacError: 'Erreur init Giac',
     giacDemo: 'Mode d\u00e9mo (Giac non charg\u00e9)',
     addMath: '+ Math', addRaw: '+ Brut', addText: '+ Texte',
+    newNotebook: '🗋 Nouveau',
     runAll: '\u25b6 Tout ex\u00e9cuter', clearOutputs: '\u2715 Effacer sorties',
     exportBtn: '\ud83d\udcbe Exporter', shareBtn: '\ud83d\udce4 Partager', importBtn: '\ud83d\udcc2 Importer',
     examplesBtn: '\ud83d\udcda Exemples', replaceNotebookConfirm: 'Remplacer le notebook ouvert ? Ses modifications seront perdues (exportez-le d’abord pour le garder).',

@@ -132,11 +132,12 @@ user's device unless the user chooses to share them.
 
 | ID | Pri | Status | Requirement |
 |----|-----|--------|-------------|
-| FILE-001 | M | ✅ | When the user selects "Export", the system shall save the notebook as `notebook.cascad.json` (format version 5: kernel, locale, reactive mode, cells with their type, content and flags). |
+| FILE-001 | M | ✅ | When the user selects "Export", the system shall save the notebook as `notebook.cascad.json` (format version 5: kernel, locale, reactive mode, cells with their type, content — the LaTeX as typed for math cells — and flags), so that opening it gives back exactly what was typed. |
 | FILE-002 | M | ✅ | When the user selects "Import", the system shall open a CAScad, Giac or Xcas notebook file (format versions 1 to 5). |
 | FILE-003 | M | ✅ | If the imported file is not valid JSON or not a notebook, then the system shall show an error and keep the current notebook. |
 | FILE-004 | S | ✅ | When an action would replace a notebook the user has worked on (import, example, link, QR code, transfer, QRShare, kernel change), the system shall ask for confirmation first; the welcome notebook and empty cells are replaced without asking. If the user declines, the notebook and the kernel selection shall stay unchanged. |
-| FILE-005 | C | 📋 | The system shall keep the open notebook in browser storage and restore it after a reload. |
+| FILE-005 | S | ✅ | The system shall keep the open notebook in browser storage, saved shortly after each change and when the page is closed, and shall restore it when the application starts without a link to another notebook. A pristine notebook is not kept. |
+| FILE-006 | S | ✅ | When the user selects "New", the system shall start a new notebook with the welcome cells, after asking if the open one holds work. |
 
 ## 11. Sharing & transfer (SHARE)
 
@@ -205,7 +206,7 @@ Nostr relays, presence and version history).
 
 | ID | Pri | Status | Requirement |
 |----|-----|--------|-------------|
-| SEC-001 | M | ✅ | The system shall keep its settings (language, kernel, theme, QRShare settings) in the browser's local storage only. |
+| SEC-001 | M | ✅ | The system shall keep its settings (language, kernel, theme, QRShare settings) and the open notebook in the browser's local storage only. |
 | SEC-002 | M | ✅ | The system shall not execute notebook content as JavaScript. Plot commands that draw an expression directly shall accept only arithmetic on the plot variables and `Math` functions, and fall back to Giac's own drawing otherwise. |
 | SEC-003 | M | ✅ | The system shall render text, formulas, images and plots from a notebook (which may come from a shared link) without allowing them to run scripts: HTML and attribute values escaped, images only from http(s), data or relative addresses, formula links only to http(s), and Giac SVG output stripped of scripts, embedded documents, animations, event handlers and unsafe links. |
 | SEC-004 | M | ✅ | The system shall accept messages from other windows (QRShare handoff) only from the expected window and origin, and shall validate their content (type, version, file name, size up to 200 MB). |

@@ -9,6 +9,7 @@ var I18N_JA = {
     giacError: 'Giac 初期化エラー',
     giacDemo: 'デモモード（Giac 未読み込み）',
     addMath: '+ 数学', addRaw: '+ 直接入力', addText: '+ テキスト',
+    newNotebook: '🗋 新規',
     runAll: '▶ すべて実行', clearOutputs: '✕ 出力をクリア',
     exportBtn: '💾 エクスポート', shareBtn: '📤 共有', importBtn: '📂 インポート',
     examplesBtn: '📚 サンプル', replaceNotebookConfirm: '開いているノートブックを置き換えますか？変更内容は失われます（残すには先にエクスポートしてください）。',

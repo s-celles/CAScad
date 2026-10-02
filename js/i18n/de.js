@@ -9,6 +9,7 @@ var I18N_DE = {
     giacError: 'Giac Init-Fehler',
     giacDemo: 'Demo-Modus (Giac nicht geladen)',
     addMath: '+ Mathe', addRaw: '+ Direkt', addText: '+ Text',
+    newNotebook: '🗋 Neu',
     runAll: '▶ Alles ausführen', clearOutputs: '✕ Ausgaben löschen',
     exportBtn: '💾 Exportieren', shareBtn: '📤 Teilen', importBtn: '📂 Importieren',
     examplesBtn: '📚 Beispiele', replaceNotebookConfirm: 'Das geöffnete Notebook ersetzen? Seine Änderungen gehen verloren (vorher exportieren, um es zu behalten).',

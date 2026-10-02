@@ -34,6 +34,8 @@ function buildNotebookData() {
         cell.expression = el.dataset.expression || '';
         cell.plotType = el.dataset.plotType || 'plot';
       } else if (mode === 'math' && mf) {
+        // The LaTeX as typed (setting MathJSON back would simplify it: 2+3 → 5)
+        cell.latex = mf.value;
         cell.mathjson = mf.expression.json;
       } else {
         cell.content = ta ? ta.value : '';
@@ -144,7 +146,9 @@ function loadNotebookData(data, opts) {
         plotType: item.plotType || 'plot'
       }));
     } else if (item.type === 'math') {
-      if (item.mathjson && fileVersion >= 3) {
+      if (typeof item.latex === 'string') {
+        cid = addCell('math', item.latex, '', null, null, cellOpts);
+      } else if (item.mathjson && fileVersion >= 3) {
         cid = addCell('math', '', '', item.mathjson, null, cellOpts);
       } else if (item.content) {
         // Pass LaTeX directly to math-field (mf.value) instead of going

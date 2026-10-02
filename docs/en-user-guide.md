@@ -24,7 +24,7 @@ processing, amplitude and frequency modulation with sliders, and more.
 - **Header**: name and version (click it for *About*), kernel selector, Giac
   status, language, theme (◐ automatic, ☀ light, ☾ dark), documentation,
   source code and *About*.
-- **Toolbar**: run all, clear outputs, export, import, examples, commands,
+- **Toolbar**: new notebook, run all, clear outputs, export, import, examples, commands,
   sending and receiving, reactive mode, report view and cell flow diagram.
 - **Bottom bar**: keyboard shortcuts and **Show MathJSON**.
 
@@ -134,7 +134,10 @@ the cells that use `a`.
 
 ## Files
 
-- **💾 Export** saves the notebook as `notebook.cascad.json`.
+- The open notebook is kept in your browser: closing or reloading the page
+  brings it back. **🗋 New** starts a new notebook.
+- **💾 Export** saves the notebook as `notebook.cascad.json`, to keep a copy or
+  send it.
 - **📂 Import** opens a CAScad, Giac or Xcas notebook (`.json`).
 - To send a notebook to someone or to another device, see
   [Sharing and transfer](en-sharing.md).

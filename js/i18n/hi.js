@@ -9,6 +9,7 @@ var I18N_HI = {
     giacError: 'Giac आरंभ त्रुटि',
     giacDemo: 'डेमो मोड (Giac लोड नहीं हुआ)',
     addMath: '+ गणित', addRaw: '+ कच्चा', addText: '+ पाठ',
+    newNotebook: '🗋 नया',
     runAll: '▶ सभी चलाएँ', clearOutputs: '✕ आउटपुट साफ़ करें',
     exportBtn: '💾 निर्यात', shareBtn: '📤 साझा करें', importBtn: '📂 आयात',
     examplesBtn: '📚 उदाहरण', replaceNotebookConfirm: 'खुली नोटबुक बदलें? उसमें किए बदलाव खो जाएँगे (रखने के लिए पहले उसे निर्यात करें)।',

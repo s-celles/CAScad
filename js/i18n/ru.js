@@ -9,6 +9,7 @@ var I18N_RU = {
     giacError: 'Ошибка инициализации Giac',
     giacDemo: 'Демо-режим (Giac не загружен)',
     addMath: '+ Математика', addRaw: '+ Прямой ввод', addText: '+ Текст',
+    newNotebook: '🗋 Новый',
     runAll: '▶ Запустить всё', clearOutputs: '✕ Очистить вывод',
     exportBtn: '💾 Экспорт', shareBtn: '📤 Поделиться', importBtn: '📂 Импорт',
     examplesBtn: '📚 Примеры', replaceNotebookConfirm: 'Заменить открытый блокнот? Его изменения будут потеряны (сначала экспортируйте его, чтобы сохранить).',

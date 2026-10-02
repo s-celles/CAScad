@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A notebook (which may come from a shared link) can no longer run scripts when it is displayed: text cells escape quotes too, so an image address or a `@bind` name cannot add HTML attributes (such as `onerror`); images are only loaded from http(s), data or relative addresses; KaTeX only trusts `\href`/`\url` to http(s) (no more `\htmlClass`, `\includegraphics`…); Giac's SVG output is cleaned of scripts, embedded documents, animations, event handlers and unsafe links before it is shown
 
 ### Fixed
+- Export → Import gives back the math cells exactly as typed: files now also keep their LaTeX (`latex`), because rebuilding them from MathJSON simplified them (`2+3` came back as `5`, `2^{10}` as `1\,024`); older files still open from their MathJSON
 - A dependency cycle between reactive cells is now named on each cell of the cycle ("Dependency cycle: In[1] (b) → In[2] (a) → In[1]") instead of a generic runtime error
 - Ctrl+Enter inserts the new cell right after the current one (it was added at the end of the notebook)
 - Replacing a notebook the user has worked on now asks first: import, example, link, QR code, phone transfer, QRShare and kernel change (the welcome notebook is replaced without asking; examples no longer ask over it)
@@ -25,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The version, commit and service worker cache hash are now stamped by the build: `scripts/update-sw-hash.js` and the manual hash commits are gone
 
 ### Added
+- The open notebook is kept in the browser and comes back after a reload or when the app is reopened (unless a link opens another notebook); **🗋 New** starts a new notebook, after asking if the open one holds work
 - In-app documentation, as in QRShare: the pages of `docs/` (user guide, sharing and transfer, architecture, development, requirements) open in the app from the header (?) and the About window, with an index, a list of pages and links between pages; addresses `#/docs?page=<page>[&section=<heading>]` open a page directly; bundled, so it works offline
 - Requirements specification `docs/requirements.md`: about 100 requirements in EARS notation with MoSCoW priorities and their status (implemented, partly implemented, planned), including the planned real-time collaboration; readable in the app from **About → Requirements** (works offline) and checked by unit tests
 - The About window lists the third-party libraries with their version, whether they are included in the app or loaded from a CDN, their licence and their author; Giac's version is read from the engine. The list is produced by the build from `package.json` and the CDN URLs

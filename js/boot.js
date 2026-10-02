@@ -216,12 +216,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Check if URL contains a shared notebook (#nb= or #nbe=)
   var loadedFromURL = (typeof loadFromURLHash === 'function') && loadFromURLHash();
 
-  if (!loadedFromURL) {
-    // Minimal default notebook: logo + welcome cell
-    addCell('text', '', '![CAScad](assets/CAScad.png)', null, null, { hidden: true });
-    addCell('text', '', t('welcomeTitle') + '\n\n' + t('welcomeBody'), null, 'welcomeTitle,welcomeBody', { hidden: true });
-    cells.forEach(function(c) { if (c.type === 'text') renderTextCell(c.id); });
-  }
+  // Otherwise the notebook open before the page was closed (FILE-005), or the welcome notebook
+  var restored = !loadedFromURL && typeof restoreSavedNotebook === 'function' && restoreSavedNotebook();
+  if (!loadedFromURL && !restored) showWelcomeNotebook();
 
   // Global keyboard shortcut for report view toggle
   document.addEventListener('keydown', function(e) {

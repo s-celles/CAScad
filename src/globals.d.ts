@@ -7,6 +7,8 @@ declare global {
     t?: (key: string) => string;
     /** Re-render the cell flow diagram (js/dag-diagram.js). */
     refreshDagDiagram?: () => unknown;
+    /** Whether the open notebook holds nothing of the user's (js/io.js). */
+    isNotebookPristine(): boolean;
     /** The open notebook as saved in a file (js/io.js). */
     buildNotebookData(): unknown;
     /** Replace the open notebook (js/io.js). */

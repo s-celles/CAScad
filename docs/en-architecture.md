@@ -58,6 +58,7 @@ src/                  TypeScript, bundled by scripts/build.ts
   theme.ts            Theme (→ js/theme.js, loaded before first paint)
   main.ts             Module entry (→ js/app/main.js)
   about.ts            About window
+  autosave.ts         Keeping the open notebook across reloads
   docs.ts, docs-view.ts, markdown.ts   In-app documentation
   share/              Sending and receiving with QRShare
 docs/                 This documentation (Markdown, shown in the app)
@@ -69,8 +70,9 @@ scripts/              build.ts, serve.ts
 
 ## Storage and network
 
-- Settings (language, kernel, theme, QRShare settings) are kept in the
-  browser's local storage. Notebooks are not stored: export them to keep them.
+- Settings (language, kernel, theme, QRShare settings) and the open notebook
+  (`src/autosave.ts`) are kept in the browser's local storage, on this device
+  only. Export a notebook to keep a copy elsewhere.
 - The service worker keeps the application for offline use; libraries loaded
   from a CDN are cached the first time they are used.
 - Nothing is sent to a server, except when you share: link, QRShare, or the

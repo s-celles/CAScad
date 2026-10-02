@@ -9,6 +9,7 @@ var I18N_ES = {
     giacError: 'Error al iniciar Giac',
     giacDemo: 'Modo demo (Giac no cargado)',
     addMath: '+ Mate', addRaw: '+ Directo', addText: '+ Texto',
+    newNotebook: '🗋 Nuevo',
     runAll: '▶ Ejecutar todo', clearOutputs: '✕ Limpiar salidas',
     exportBtn: '💾 Exportar', shareBtn: '📤 Compartir', importBtn: '📂 Importar',
     examplesBtn: '📚 Ejemplos', replaceNotebookConfirm: '¿Reemplazar el cuaderno abierto? Sus cambios se perderán (expórtalo antes para conservarlo).',

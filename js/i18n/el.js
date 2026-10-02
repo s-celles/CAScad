@@ -9,6 +9,7 @@ var I18N_EL = {
     giacError: 'Σφάλμα αρχικοποίησης Giac',
     giacDemo: 'Λειτουργία επίδειξης (το Giac δεν φορτώθηκε)',
     addMath: '+ Μαθηματικά', addRaw: '+ Ακατέργαστο', addText: '+ Κείμενο',
+    newNotebook: '🗋 Νέο',
     runAll: '▶ Εκτέλεση όλων', clearOutputs: '✕ Καθαρισμός εξόδων',
     exportBtn: '💾 Εξαγωγή', shareBtn: '📤 Κοινοποίηση', importBtn: '📂 Εισαγωγή',
     examplesBtn: '📚 Παραδείγματα', replaceNotebookConfirm: 'Αντικατάσταση του ανοιχτού σημειωματαρίου; Οι αλλαγές του θα χαθούν (εξαγάγετέ το πρώτα για να το κρατήσετε).',
