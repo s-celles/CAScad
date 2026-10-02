@@ -68,6 +68,10 @@ Key files:
 4. Add CSS to `css/notebook.css`, reusing existing patterns (overlays, dialogs, etc.)
 5. Test manually in at least Chrome and one other browser
 
+## Requirements
+
+The behaviour of CAScad is specified in `docs/requirements.md` (EARS notation, MoSCoW priority, status ✅ / 🚧 / 📋). When a change adds or modifies a behaviour, update the matching requirement (or add one, numbered after the last of its area) and its status, and reference its ID in the tests (`describe('REQ-xxx …')`). `tests/requirements.test.ts` checks the IDs, priorities, statuses and numbering.
+
 ## Internationalization
 
 All 10 language files must be updated when adding UI strings:

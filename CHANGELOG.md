@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The version, commit and service worker cache hash are now stamped by the build: `scripts/update-sw-hash.js` and the manual hash commits are gone
 
 ### Added
+- Requirements specification `docs/requirements.md`: about 100 requirements in EARS notation with MoSCoW priorities and their status (implemented, partly implemented, planned), including the planned real-time collaboration; readable in the app from **About → Requirements** (works offline) and checked by unit tests
+- The About window lists the third-party libraries with their version, whether they are included in the app or loaded from a CDN, their licence and their author; Giac's version is read from the engine. The list is produced by the build from `package.json` and the CDN URLs
 - Send to another device and receive from it with [QRShare](https://github.com/s-celles/QRShare), as in Progressive Web Office: **📲 Send to device** hands the notebook to QRShare inside the browser (handoff protocol v1, with a download fallback for older QRShare), offers the system share sheet and a link containing the notebook; **📥 Receive** opens QRShare's receive screen, and the received notebook comes back to CAScad. Policy and QRShare address are remembered
 - Light/dark theme toggle in the header (auto → light → dark, follows the system setting in auto mode, persisted in `localStorage`)
 - Help query support in math mode cells: `?commandname`, `help(commandname)`, `?`, and `help()` now work in visual (math2d) mode, producing identical output to raw mode cells

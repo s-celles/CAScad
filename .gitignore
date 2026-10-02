@@ -36,6 +36,8 @@
 !src/**
 !tests/
 !tests/**
+!docs/
+!docs/**
 !.github/
 !.github/**
 !assets/

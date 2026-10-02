@@ -28,6 +28,10 @@ An interactive, browser-based computer algebra notebook with multi-kernel suppor
 - **Reactive/Manual toggle** — Switch between automatic cascade and manual cell-by-cell execution
 - **Command discovery** — `search_commands()`, `list_categories()`, `suggest_commands()` and more for exploring available functions
 
+## Requirements
+
+The behaviour of CAScad is specified in [docs/requirements.md](docs/requirements.md): requirements in [EARS](https://alistairmavin.com/ears/) notation with MoSCoW priorities and their implementation status, as in Progressive Web Office. The specification can also be read in the app (**About → Requirements**), offline included.
+
 ## Kernels
 
 | Kernel | Description | Status |
@@ -55,6 +59,7 @@ The app is built into `dist/`: plain scripts in `js/` are copied as they are, Ty
 
 ```
 index.html              HTML shell (header, toolbar, notebook container)
+docs/requirements.md    Requirements specification (EARS), also shown in the app
 src/                    TypeScript sources: theme.ts → js/theme.js; main.ts (About window,
                         share/ — QRShare send and receive) → js/app/main.js
 tests/                  Unit tests (bun test)

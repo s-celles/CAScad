@@ -231,6 +231,21 @@
   .about-libraries td{padding:4px 8px;border-bottom:1px solid var(--border)}
   .about-dialog .dialog-actions .hint{margin-inline-end:auto}
 
+  /* ═══════ Requirements viewer ═══════ */
+  .docs-dialog{max-width:min(64rem,calc(100vw - 32px));width:100%}
+  .docs-content{font-size:.92rem;line-height:1.55}
+  .docs-content h1{font-size:1.4rem;margin:8px 0 12px}
+  .docs-content h2{font-size:1.15rem;margin:20px 0 8px;padding-top:8px;border-top:1px solid var(--border)}
+  .docs-content h3{font-size:1rem;margin:16px 0 6px}
+  .docs-content p,.docs-content ul,.docs-content ol{margin:0 0 10px}
+  .docs-content ul,.docs-content ol{padding-inline-start:1.4rem}
+  .docs-content code{font-family:var(--mono);font-size:.85em;background:var(--surface-2);padding:1px 4px;border-radius:4px}
+  .docs-content table{width:100%;border-collapse:collapse;margin:0 0 12px;font-size:.88rem}
+  .docs-content th,.docs-content td{text-align:start;vertical-align:top;padding:5px 8px;border-bottom:1px solid var(--border)}
+  .docs-content th{color:var(--muted);font-weight:600;border-bottom-width:2px}
+  .docs-content td:first-child{font-family:var(--mono);white-space:nowrap}
+  .docs-dialog .dialog-actions .docs-source{margin-inline-end:auto}
+
   /* QR code full screen */
   .qr-full{width:100vw;height:100vh;max-width:none;max-height:none;margin:0;padding:16px;border:0;background:#fff;color:#000}
   .qr-full[open]{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
