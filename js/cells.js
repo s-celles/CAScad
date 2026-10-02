@@ -4,6 +4,12 @@
 // SECTION 5 — CELL MANAGEMENT (functions)
 // ─────────────────────────────────────────────────────────────
 
+/** A random identifier for a new cell (12 base-36 characters). */
+function newCellUid() {
+  var bytes = crypto.getRandomValues(new Uint8Array(8));
+  return Array.prototype.map.call(bytes, function(b) { return (b % 36).toString(36); }).join('') + Date.now().toString(36).slice(-4);
+}
+
 function addCell(type = 'math', initialLatex = '', initialRaw = '', initialMathJson = null, i18nKeys = null, opts = {}) {
   cellCounter++;
   const id = 'cell-' + cellCounter;
@@ -11,6 +17,8 @@ function addCell(type = 'math', initialLatex = '', initialRaw = '', initialMathJ
   const div = document.createElement('div');
   div.className = 'cell'; div.id = id; div.dataset.type = type;
   div.dataset.cellId = id; div.dataset.defines = ''; div.dataset.references = '';
+  // Stable identity of the cell across files, reloads and devices (collaboration)
+  div.dataset.uid = opts.uid || newCellUid();
   if (i18nKeys) div.dataset.i18nContent = i18nKeys;
 
   // Cell control states (default false)

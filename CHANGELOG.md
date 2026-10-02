@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The version, commit and service worker cache hash are now stamped by the build: `scripts/update-sw-hash.js` and the manual hash commits are gone
 
 ### Added
+- Groundwork for real-time collaboration (as in Progressive Web Office): every cell has a stable identifier, kept in notebook files and in the saved notebook; `src/collab/` holds the invitation links, the notebook as shared parts (one per cell, plus their order), the Yjs binding ported from PWO (which also keeps local edits not sent yet when a remote change arrives) and the adapter that applies remote changes to the cells in place — tested, not yet connected to `@scelles/collab`
 - The user guide and the sharing page are also in French (`docs/fr-guide-utilisateur.md`, `docs/fr-partage.md`); the documentation shows each page in the interface language when it exists, English otherwise (with a note); `&lang=fr` opens the French version from a link
 - The open notebook is kept in the browser and comes back after a reload or when the app is reopened (unless a link opens another notebook); **🗋 New** starts a new notebook, after asking if the open one holds work
 - In-app documentation, as in QRShare: the pages of `docs/` (user guide, sharing and transfer, architecture, development, requirements) open in the app from the header (?) and the About window, with an index, a list of pages and links between pages; addresses `#/docs?page=<page>[&section=<heading>]` open a page directly; bundled, so it works offline
