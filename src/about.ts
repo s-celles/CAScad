@@ -103,6 +103,17 @@ export function debugReport(appUrl: string): string {
 
 const link = (href: string, text: string): HTMLAnchorElement => h('a', { href, target: '_blank', rel: 'noopener' }, text);
 
+/** A link to the in-app documentation (index, or a page); the About window closes. */
+const docLink = (text: string, slug?: string): HTMLAnchorElement =>
+  h('a', {
+    href: slug ? `#/docs?page=${slug}` : '#/docs',
+    onclick: ((e: Event) => {
+      e.preventDefault();
+      (e.target as HTMLElement).closest('dialog')?.close();
+      void import('./docs-view').then((m) => m.showDocs(slug));
+    }) as EventListener,
+  }, text);
+
 /** The content of the About window for the app published at `appUrl`. */
 export function aboutContent(appUrl: string): HTMLElement {
   const date = new Date(BUILD.date);
@@ -140,21 +151,12 @@ export function aboutContent(appUrl: string): HTMLElement {
     h(
       'ul',
       { class: 'about-links' },
-      h('li', {}, link(`${SOURCE_URL}#readme`, t('aboutGettingStarted'))),
+      h('li', {}, docLink(t('aboutDocs'))),
+      h('li', {}, docLink(t('aboutGettingStarted'), 'user-guide')),
       h('li', {}, link(SOURCE_URL, t('aboutSource'))),
       h('li', {}, link(CHANGELOG_URL, t('aboutChangelog'))),
       h('li', {}, link(`${SOURCE_URL}/issues/new`, t('aboutReport'))),
-      h(
-        'li',
-        {},
-        h('a', {
-          href: '#',
-          onclick: ((e: Event) => {
-            e.preventDefault();
-            void import('./requirements').then((m) => m.showRequirements());
-          }) as EventListener,
-        }, t('aboutRequirements')),
-      ),
+      h('li', {}, docLink(t('aboutRequirements'), 'requirements')),
     ),
     h('p', { class: 'hint' }, t('aboutPrivacy')),
     h('p', { class: 'hint' }, t('aboutCreditsText')),

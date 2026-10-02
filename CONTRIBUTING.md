@@ -1,6 +1,6 @@
 # Contributing to CAScad
 
-Thank you for your interest in contributing to CAScad! This guide explains how to get started.
+Thank you for your interest in contributing to CAScad! This guide explains how to get started. The [Development](docs/en-development.md) and [Architecture](docs/en-architecture.md) pages of the documentation (also in the app) give more details.
 
 ## Prerequisites
 
