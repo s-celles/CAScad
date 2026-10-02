@@ -200,7 +200,7 @@ Nostr relays, presence and version history).
 | I18N-002 | M | ✅ | When the user selects a language, the system shall translate the interface immediately and remember the choice. |
 | I18N-003 | M | ✅ | While the language is Arabic, the system shall lay the interface out right to left, formulas staying left to right. |
 | I18N-004 | S | ✅ | When the system starts without a remembered language, it shall use the browser's language if available, English otherwise. |
-| I18N-005 | S | 🚧 | The system shall show the command help in the interface language. Arabic, Hindi, Japanese and Russian currently show the English help with a notice. |
+| I18N-005 | S | ✅ | The system shall show the command help in the interface language (all 10 languages); a description missing in a language shall be shown in English. |
 
 ## 16. Privacy & security (SEC)
 
