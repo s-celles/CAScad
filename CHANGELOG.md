@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A notebook (which may come from a shared link) can no longer run scripts when it is displayed: text cells escape quotes too, so an image address or a `@bind` name cannot add HTML attributes (such as `onerror`); images are only loaded from http(s), data or relative addresses; KaTeX only trusts `\href`/`\url` to http(s) (no more `\htmlClass`, `\includegraphics`…); Giac's SVG output is cleaned of scripts, embedded documents, animations, event handlers and unsafe links before it is shown
 
 ### Fixed
+- The CAScad icon now shows in the browser tab: the page declares `favicon.ico` (and the 192 px icon) instead of relying on the browser asking for `/favicon.ico` at the root of the site, which is not CAScad's on GitHub Pages (`s-celles.github.io/CAScad/`)
 - Export → Import gives back the math cells exactly as typed: files now also keep their LaTeX (`latex`), because rebuilding them from MathJSON simplified them (`2+3` came back as `5`, `2^{10}` as `1\,024`); older files still open from their MathJSON
 - A dependency cycle between reactive cells is now named on each cell of the cycle ("Dependency cycle: In[1] (b) → In[2] (a) → In[1]") instead of a generic runtime error
 - Ctrl+Enter inserts the new cell right after the current one (it was added at the end of the notebook)
