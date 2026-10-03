@@ -44,6 +44,7 @@ user's device unless the user chooses to share them.
 | PLT-007 | M | ✅ | The continuous integration shall type-check, run the unit tests and build every change, and shall deploy the built site to GitHub Pages from the main branch. |
 | PLT-008 | S | ✅ | The system shall load third-party libraries at exact pinned versions (bundled dependencies or versioned CDN URLs), so that a new release of a library cannot change the application unnoticed. |
 | PLT-009 | M | ✅ | The system shall work in the latest versions of Chromium-based browsers, Firefox and Safari. |
+| PLT-010 | S | ✅ | The system shall declare its icon in the page (favicon and a larger PNG icon), so that browsers show it in tabs, bookmarks and history even when the app is published in a sub-folder, also offline. |
 
 ## 3. Notebook & cells (CELL)
 
