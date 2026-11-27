@@ -15,9 +15,12 @@
     "serve": "bun run scripts/serve.ts",
     "dev": "bun run scripts/build.ts && bun run scripts/serve.ts",
     "test": "bun test",
+    "test:e2e": "playwright test -c tests/e2e/playwright.config.ts",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@cortex-js/compute-engine": "0.55.6",
+    "@playwright/test": "1.65.1",
     "@types/bun": "1.3.14",
     "typescript": "7.0.2",
     "yjs": "13.6.33"

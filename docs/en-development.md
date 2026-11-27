@@ -22,13 +22,33 @@ and replace it.
 
 ```bash
 bun run typecheck   # tsc --noEmit
-bun test            # unit tests
+bun test            # unit and integration tests (real Compute Engine and Giac)
+bun run test:e2e    # end-to-end tests of the built app in Chromium (Playwright)
 bun run build       # build dist/
 bun run serve       # serve dist/ on http://localhost:3000
 ```
 
 `just preflight` runs the type check, the tests and the build: run it before
 committing.
+
+The first time, install the browser of the end-to-end tests with
+`bunx playwright install chromium`.
+
+### Tests
+
+- `tests/*.test.ts` — unit tests (`bun test`). The plain scripts of `js/` are
+  loaded into a `node:vm` sandbox (`tests/helpers/sandbox.ts`), so their
+  functions can be tested without a browser.
+- `tests/mathjson-giac.test.ts` — visual input → MathJSON → Giac syntax, with
+  the real Compute Engine (devDependency, same version as the CDN URL of
+  `index.html`). Known bugs are listed as `test.todo`.
+- `tests/giac-pipeline.test.ts` — integration with the real Giac engine
+  (`giac.js`, run in a Worker by `tests/helpers/giac-worker.ts`): math cells end
+  to end and every non-graphic cell of the Giac examples.
+- `tests/e2e/*.e2e.ts` — end-to-end tests (Playwright) of the built app: start,
+  pinned libraries, math and raw cells, errors, export → import, both kernels,
+  every example notebook. `bun run test:e2e` builds `dist/` and serves it on
+  port 4173 (`E2E_PORT`).
 
 ## Conventions
 
