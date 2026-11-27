@@ -10,8 +10,11 @@ const latexToGiac = sb.fn('latexToGiac');
 const mathJsonToGiac = sb.fn('mathJsonToGiac');
 const L = String.raw;
 
-/** Same route as getGiacExpr() in js/execution.js: \operatorname → latexToGiac, else MathJSON. */
-const toGiac = (latex: string): string => (/\\operatorname/.test(latex) ? latexToGiac(latex) : mathJsonToGiac(ce.parse(latex).json));
+const mathFieldToMathJson = sb.fn('mathFieldToMathJson');
+/** A math field as seen by js/mathjson-giac.js. */
+const field = (value: string) => ({ value, getValue: () => value });
+/** Same route as getGiacExpr() in js/execution.js: \operatorname → latexToGiac, else the field's MathJSON. */
+const toGiac = (latex: string): string => (/\\operatorname/.test(latex) ? latexToGiac(latex) : mathJsonToGiac(mathFieldToMathJson(field(latex))));
 
 describe('MATH-002 visual input → MathJSON → Giac syntax', () => {
   const cases: [string, string][] = [
@@ -27,7 +30,7 @@ describe('MATH-002 visual input → MathJSON → Giac syntax', () => {
     [L`\ln(x)`, 'ln(x)'],
     [L`|x|`, 'abs(x)'],
     [L`\pi`, 'pi'],
-    [L`i^2`, '((complex(0,1))^(2))'],
+    [L`i^2`, '-1'],
     [L`\infty`, '+infinity'],
     [L`\alpha+\beta`, '(alpha+beta)'],
     [L`a_1`, 'a_1'],
@@ -48,10 +51,15 @@ describe('MATH-002 visual input → MathJSON → Giac syntax', () => {
     [L`\begin{pmatrix}1&2\\3&4\end{pmatrix}`, '[[1,2],[3,4]]'],
     [L`[1,2,3]`, '[1,2,3]'],
     // CAS calls typed with \operatorname (MathLive inline shortcuts)
-    [L`\operatorname{factor}\left(x^4-1\right)`, 'factor((((x)^(4))+-1))'],
-    [L`\operatorname{solve}\left(x^2-5x+6=0,x\right)`, 'solve((((x)^(2))+(-5*x)+6)=0,x)'],
-    [L`\operatorname{\mathrm{expand}}\left((x+1)^3\right)`, 'expand((((x+1))^(3)))'],
-    [L`\operatorname{expand}\left(2x(x+1)\right)`, 'expand((2*x*(x+1)))'],
+    [L`\operatorname{factor}\left(x^4-1\right)`, 'factor((((x)^(4))-(1)))'],
+    [L`\operatorname{solve}\left(x^2-5x+6=0,x\right)`, 'solve(((((x)^(2))-((5*x)))+6)=0,x)'],
+    [L`\operatorname{\mathrm{expand}}\left((x+1)^3\right)`, 'expand(((((x+1)))^(3)))'],
+    [L`\operatorname{expand}\left(2x(x+1)\right)`, 'expand((2*x*((x+1))))'],
+    [L`f(2)`, 'f(2)'],
+    [L`\binom{5}{2}`, 'comb(5,2)'],
+    // MathLive's "dx" shortcut inserts \differentialD
+    [L`\frac{\differentialD}{\differentialD x}\sin(x)`, 'diff(sin(x),x)'],
+    [L`\int_0^1 x^2\,\differentialD x`, 'int(((x)^(2)),x,0,1)'],
     [L`\operatorname{factor}\left(\sum_{k=1}^{n} k\right)`, 'factor(sum(k,k,1,n))'],
     [L`\operatorname{det}\begin{pmatrix}1&2\\3&4\end{pmatrix}`, 'det([[1,2],[3,4]])'],
   ];
@@ -65,13 +73,6 @@ describe('MATH-002 visual input → MathJSON → Giac syntax', () => {
     }
   });
 
-  // Known bugs with Compute Engine 0.55.6 (fixed by a newer Compute Engine)
-  test.todo('f(2) is a function call (currently "(2*f)")', () => {
-    expect(toGiac(L`f(2)`)).toBe('f(2)');
-  });
-  test.todo('\\binom{5}{2} is comb(5,2) (currently an error string)', () => {
-    expect(toGiac(L`\binom{5}{2}`)).toBe('comb(5,2)');
-  });
   test.todo('f(x):=x^2 keeps its parameter (currently "f:=((x)^(2))")', () => {
     expect(toGiac(L`f(x):=x^2`)).toBe('f(x):=((x)^(2))');
   });
@@ -97,14 +98,14 @@ describe('MATH-002 MathJSON shapes', () => {
     expect(mathJsonToGiac('Nothing')).toBe('');
   });
 
-  // Shapes produced by newer Compute Engine versions (needed to upgrade it)
-  test.todo('one-sided limit with the direction as 3rd operand: ["Limit", fn, 0, 1]', () => {
+  // Shapes produced by Compute Engine >= 0.16x
+  it('one-sided limit with the direction as 3rd operand: ["Limit", fn, 0, 1]', () => {
     expect(mathJsonToGiac(['Limit', ['Function', ['Divide', 1, 'x'], 'x'], 0, 1])).toBe('limit(((1)/(x)),x,0,1)');
   });
-  test.todo('sums with Tuple bounds: ["Sum", body, ["Tuple", k, 1, n]]', () => {
+  it('sums with Tuple bounds: ["Sum", body, ["Tuple", k, 1, n]]', () => {
     expect(mathJsonToGiac(['Sum', 'k', ['Tuple', 'k', 1, 'n']])).toBe('sum(k,k,1,n)');
   });
-  test.todo('unresolved juxtaposition: ["InvisibleOperator", 5, "x"] is a product', () => {
+  it('unresolved juxtaposition: ["InvisibleOperator", 5, "x"] is a product', () => {
     expect(mathJsonToGiac(['InvisibleOperator', 5, 'x'])).toBe('(5*x)');
   });
 });
@@ -119,6 +120,23 @@ describe('LaTeX helpers', () => {
   });
   it('extractCasFunctionCall returns null for non-CAS LaTeX', () => {
     expect(sb.fn('extractCasFunctionCall')(L`x^2+1`)).toBeNull();
+  });
+});
+
+describe('MathLive adapter (the only reader of MathJSON from a math field)', () => {
+  it('mathFieldToMathJson gives the canonical MathJSON', () => {
+    expect(plain(mathFieldToMathJson(field(L`2x`)))).toEqual(['Multiply', 2, 'x']);
+  });
+  it('mathFieldToMathJson normalises \\differentialD', () => {
+    expect(plain(mathFieldToMathJson(field(L`\frac{\differentialD}{\differentialD x}\sin(x)`)))).toEqual(['D', ['Sin', 'x'], 'x']);
+  });
+  it('mathFieldToMathJson returns null for an empty field', () => {
+    expect(mathFieldToMathJson(field('  '))).toBeNull();
+  });
+  it('setMathFieldMathJson writes LaTeX', () => {
+    const mf = field('');
+    sb.fn('setMathFieldMathJson')(mf, ['Divide', 1, 'x']);
+    expect(mf.value).toBe(L`\frac{1}{x}`);
   });
 });
 

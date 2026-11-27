@@ -176,7 +176,7 @@ function setCellType(id, newType) {
   if (oldType === 'math' && mf) {
     var mfLatex = mf.value;
     if (mfLatex && mfLatex.trim()) {
-      try { content = mathJsonToGiac(mf.expression.json); } catch(e) { content = mfLatex; }
+      try { content = mathJsonToGiac(mathFieldToMathJson(mf)); } catch(e) { content = mfLatex; }
     }
   } else if (ta) {
     content = ta.value;

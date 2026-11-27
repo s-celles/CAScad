@@ -108,7 +108,7 @@ function getGiacExpr(cellId) {
       var part = parts[si].trim();
       if (!part) continue;
       try {
-        var partJson = ce.parse(part, { canonical: false }).json;
+        var partJson = parseLatexForGiac(part);
         giacParts.push(mathJsonToGiac(partJson));
       } catch(e) {
         giacParts.push(part);
@@ -116,7 +116,7 @@ function getGiacExpr(cellId) {
     }
     return giacParts.join('; ');
   }
-  const json = mf.expression.json;
+  const json = mathFieldToMathJson(mf);
   return mathJsonToGiac(json);
 }
 

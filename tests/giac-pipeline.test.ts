@@ -15,7 +15,10 @@ const isGiacError = sb.fn('isGiacError');
 const parseGiacList = sb.fn('parseGiacList');
 const L = String.raw;
 
-const toGiac = (latex: string): string => (/\\operatorname/.test(latex) ? latexToGiac(latex) : mathJsonToGiac(ce.parse(latex).json));
+const mathFieldToMathJson = sb.fn('mathFieldToMathJson');
+const field = (value: string) => ({ value, getValue: () => value });
+/** Same route as getGiacExpr() in js/execution.js. */
+const toGiac = (latex: string): string => (/\\operatorname/.test(latex) ? latexToGiac(latex) : mathJsonToGiac(mathFieldToMathJson(field(latex))));
 const noSpace = (s: string) => s.replace(/\s+/g, '');
 
 let giac: Giac;

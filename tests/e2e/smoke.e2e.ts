@@ -47,6 +47,15 @@ test.describe('MATH-002 OUT-001 Giac kernel — math (visual) cells', () => {
     expect(await app.mathCell(L`\frac{d}{dx}\sin(x)`)).toContain('cos');
   });
 
+  test('derivative typed with the "dx" shortcut (\\differentialD)', async ({ app }) => {
+    expect(await app.mathCell(L`\frac{\differentialD}{\differentialD x}\sin(x)`)).toContain('cos');
+  });
+
+  test('function call f(2)', async ({ app }) => {
+    await app.rawCell('f(x):=x^2+1');
+    expect(await app.mathCell(L`f(2)`)).toContain('5');
+  });
+
   test('one-sided limits keep their direction', async ({ app }) => {
     expect(await app.mathCell(L`\lim_{x\to 0^+}\frac{1}{x}`)).toMatch(/\+\s*∞/);
     expect(await app.mathCell(L`\lim_{x\to 0^-}\frac{1}{x}`)).toMatch(/[−-]\s*∞/);
