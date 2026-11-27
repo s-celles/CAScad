@@ -88,7 +88,7 @@ var I18N_EN = {
     'docsPage_user-guide': 'User guide', docsPage_sharing: 'Sharing and transfer', docsPage_architecture: 'Architecture',
     docsPage_development: 'Development', docsPage_requirements: 'Requirements', 'docsDesc_user-guide': 'Cells, typing mathematics, running, kernels, plots, help and views.',
     docsDesc_sharing: 'QRShare, links, QR codes and phone-to-computer transfer.', docsDesc_architecture: 'Building blocks, data flow and source layout.', docsDesc_development: 'Set-up, commands, conventions, deployment and releases.',
-    docsDesc_requirements: 'The EARS specification: every requirement, with its priority and status.', docsEnglishOnly: 'This page is only available in English.', docsOnGitHub: 'View this page on GitHub',
+    docsDesc_requirements: 'The EARS specification: every requirement, with its priority and status.', docsPage_roadmap: 'Roadmap', docsDesc_roadmap: 'Planned work: tests, giac-wasm, Compute Engine, architecture and convergence with PWO.', docsEnglishOnly: 'This page is only available in English.', docsOnGitHub: 'View this page on GitHub',
     aboutColVersion: 'Version', aboutSourceLocal: 'local', aboutSourceBundled: 'included',
     aboutSourceCdn: 'CDN', aboutVersionLatest: 'latest', aboutVersionsHint: '“included” libraries are part of the app; “CDN” ones are downloaded from a content delivery network when needed, at the version shown (“latest”: the newest one).',
     aboutRequirements: 'Requirements', 

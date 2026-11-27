@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The version, commit and service worker cache hash are now stamped by the build: `scripts/update-sw-hash.js` and the manual hash commits are gone
 
 ### Added
+- Roadmap page in the in-app documentation (`docs/en-roadmap.md`): quality, the move to giac-wasm, Compute Engine as a second kernel, architecture, the convergence with Progressive Web Office and the Giac ecosystem (OpenMath)
 - Integration and end-to-end tests: visual input → MathJSON → Giac syntax with the real Compute Engine, the real Giac engine run in a Worker (math cells end to end and every non-graphic cell of the Giac examples), and Playwright tests of the built app (start, pinned libraries, cells, errors, export → import, both kernels, every example notebook), run by the CI; known bugs are recorded as `test.todo`
 - The About window shows the author, Sébastien Celles, linked to https://github.com/s-celles (also in `package.json` and the README)
 - Groundwork for real-time collaboration (as in Progressive Web Office): every cell has a stable identifier, kept in notebook files and in the saved notebook; `src/collab/` holds the invitation links, the notebook as shared parts (one per cell, plus their order), the Yjs binding ported from PWO (which also keeps local edits not sent yet when a remote change arrives) and the adapter that applies remote changes to the cells in place — tested, not yet connected to `@scelles/collab`

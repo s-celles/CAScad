@@ -87,7 +87,7 @@ var I18N_AR = {
     'docsPage_user-guide': 'دليل المستخدم', docsPage_sharing: 'المشاركة والنقل', docsPage_architecture: 'البنية',
     docsPage_development: 'التطوير', docsPage_requirements: 'المتطلبات', 'docsDesc_user-guide': 'الخلايا وكتابة الرياضيات والتنفيذ والنوى والرسوم والمساعدة والعروض.',
     docsDesc_sharing: 'QRShare والروابط ورموز QR والنقل من الهاتف إلى الحاسوب.', docsDesc_architecture: 'المكوّنات وتدفّق البيانات وتنظيم الشيفرة.', docsDesc_development: 'الإعداد والأوامر والاصطلاحات والنشر والإصدارات.',
-    docsDesc_requirements: 'مواصفات EARS: كل متطلب مع أولويته وحالته.', docsEnglishOnly: 'هذه الصفحة متاحة بالإنجليزية فقط.', docsOnGitHub: 'عرض هذه الصفحة على GitHub',
+    docsDesc_requirements: 'مواصفات EARS: كل متطلب مع أولويته وحالته.', docsPage_roadmap: 'خارطة الطريق', docsDesc_roadmap: 'الأعمال المخطط لها: الاختبارات وgiac-wasm وCompute Engine والبنية والتقارب مع PWO.', docsEnglishOnly: 'هذه الصفحة متاحة بالإنجليزية فقط.', docsOnGitHub: 'عرض هذه الصفحة على GitHub',
     aboutColVersion: 'الإصدار', aboutSourceLocal: 'محلي', aboutSourceBundled: 'مضمّنة',
     aboutSourceCdn: 'CDN', aboutVersionLatest: 'الأحدث', aboutVersionsHint: 'المكتبات «المضمّنة» جزء من التطبيق؛ أما مكتبات «CDN» فتُنزَّل من شبكة توزيع المحتوى عند الحاجة بالإصدار المعروض («الأحدث»: أحدث إصدار).',
     aboutRequirements: 'المتطلبات', 
