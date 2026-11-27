@@ -37,7 +37,7 @@ function buildNotebookData() {
       } else if (mode === 'math' && mf) {
         // The LaTeX as typed (setting MathJSON back would simplify it: 2+3 → 5)
         cell.latex = mf.value;
-        cell.mathjson = mf.expression.json;
+        cell.mathjson = mathFieldToMathJson(mf);
       } else {
         cell.content = ta ? ta.value : '';
       }

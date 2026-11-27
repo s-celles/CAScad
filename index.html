@@ -17,11 +17,13 @@
 <!-- ═══════════════════════════════════════════════════
   External dependencies (loaded from CDN)
   ═══════════════════════════════════════════════════ -->
-<!-- MathLive and Compute Engine are pinned: unpinned "latest" broke math cells
-     (MathLive 0.111 dropped mf.expression; recent Compute Engine no longer
-     parses \differentialD, inserted by the "dx" shortcut). -->
-<script src="https://unpkg.com/mathlive@0.109.0"></script>
-<script src="https://unpkg.com/@cortex-js/compute-engine@0.55.6"></script>
+<!-- MathLive and Compute Engine are pinned. MathLive >= 0.111 has no
+     mf.expression: js/mathjson-giac.js (mathFieldToMathJson) is the only place
+     that reads MathJSON from a math field. Compute Engine 0.169.2 is the last
+     version with a script-tag build (the `ComputeEngine` global); later
+     versions are ESM only. \differentialD is normalised before parsing. -->
+<script src="https://unpkg.com/mathlive@0.111.4"></script>
+<script src="https://unpkg.com/@cortex-js/compute-engine@0.169.2"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.13.3/distrib/jsxgraph.css">

@@ -177,7 +177,7 @@ function addCell(type = 'math', initialLatex = '', initialRaw = '', initialMathJ
     const mf = document.createElement('math-field');
     if (initialMathJson) {
       inp.appendChild(mf);
-      mf.expression = initialMathJson;
+      setMathFieldMathJson(mf, initialMathJson);
     } else {
       mf.value = initialLatex || '';
       inp.appendChild(mf);
@@ -255,7 +255,7 @@ function updateDebug(cellId) {
   const mf  = cell.querySelector('math-field');
   if (!mf || !dbg) return;
   try {
-    const json = mf.expression.json;
+    const json = mathFieldToMathJson(mf);
     const giac = mathJsonToGiac(json);
     dbg.innerHTML =
       '<span class="lbl">MathJSON:</span><code>' + esc(JSON.stringify(json)) + '</code>' +
@@ -283,7 +283,7 @@ function setCellMode(cellId, mode) {
 
   if (mode === 'raw') {
     const mf = cell.querySelector('math-field');
-    const giacExpr = (mf && mf.value && mf.value.trim()) ? mathJsonToGiac(mf.expression.json) : '';
+    const giacExpr = (mf && mf.value && mf.value.trim()) ? mathJsonToGiac(mathFieldToMathJson(mf)) : '';
     // Save original LaTeX so we can restore it if user switches back without editing
     if (mf && mf.value && mf.value.trim()) {
       cell.dataset.savedLatex = mf.value;

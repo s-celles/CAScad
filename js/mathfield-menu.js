@@ -27,7 +27,7 @@ function evalMathfieldSelection(mf, command) {
   const selectionRange = mf.selection;
   let selectionJson;
   try {
-    selectionJson = mf.getValue(selectionRange, 'math-json');
+    selectionJson = JSON.stringify(mathFieldToMathJson(mf, selectionRange));
   } catch (e) {
     console.error('[mathfield-menu] Failed to get selection:', e);
     return;

@@ -87,7 +87,7 @@ var I18N_ES = {
     'docsPage_user-guide': 'Guía de usuario', docsPage_sharing: 'Compartir y transferir', docsPage_architecture: 'Arquitectura',
     docsPage_development: 'Desarrollo', docsPage_requirements: 'Requisitos', 'docsDesc_user-guide': 'Celdas, escritura matemática, ejecución, núcleos, gráficos, ayuda y vistas.',
     docsDesc_sharing: 'QRShare, enlaces, códigos QR y transferencia del teléfono al ordenador.', docsDesc_architecture: 'Componentes, flujo de datos y organización del código.', docsDesc_development: 'Instalación, comandos, convenciones, despliegue y versiones.',
-    docsDesc_requirements: 'La especificación EARS: cada requisito, con su prioridad y su estado.', docsEnglishOnly: 'Esta página solo está disponible en inglés.', docsOnGitHub: 'Ver esta página en GitHub',
+    docsDesc_requirements: 'La especificación EARS: cada requisito, con su prioridad y su estado.', docsPage_roadmap: 'Hoja de ruta', docsDesc_roadmap: 'Trabajo previsto: pruebas, giac-wasm, Compute Engine, arquitectura y convergencia con PWO.', docsEnglishOnly: 'Esta página solo está disponible en inglés.', docsOnGitHub: 'Ver esta página en GitHub',
     aboutColVersion: 'Versión', aboutSourceLocal: 'local', aboutSourceBundled: 'incluida',
     aboutSourceCdn: 'CDN', aboutVersionLatest: 'última', aboutVersionsHint: 'Las bibliotecas «incluidas» forman parte de la aplicación; las del «CDN» se descargan de una red de distribución cuando hacen falta, en la versión indicada («última»: la más reciente).',
     aboutRequirements: 'Requisitos', 

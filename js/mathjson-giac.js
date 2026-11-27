@@ -54,6 +54,11 @@ function mathJsonToGiac(expr) {
     const v = node.length >= 3 ? mathJsonToGiac(node[2]) : 'x';
     return { body: mathJsonToGiac(body), v };
   }
+  // Bounds of Sum/Product/Integrate: ["Limits", var, lo, hi] (canonical) or
+  // ["Tuple", var, lo, hi] (non-canonical parse of recent Compute Engine versions)
+  function isLimits(node) {
+    return Array.isArray(node) && (node[0] === 'Limits' || node[0] === 'Tuple') && node.length === 4;
+  }
   function isNothing(node) {
     return node == null || node === 'Nothing' ||
       (typeof node === 'object' && !Array.isArray(node) && node.sym === 'Nothing');
@@ -66,7 +71,7 @@ function mathJsonToGiac(expr) {
       return w(all().join('+'));
     case 'Sum': {
       // Summation with bounds: ["Sum", body, ["Limits", var, lo, hi]]
-      var limIdx = args.findIndex(function(a) { return Array.isArray(a) && a[0] === 'Limits'; });
+      var limIdx = args.findIndex(isLimits);
       if (limIdx >= 0) {
         var lim = args[limIdx];
         var v = mathJsonToGiac(lim[1]), lo = mathJsonToGiac(lim[2]), hi = mathJsonToGiac(lim[3]);
@@ -82,9 +87,12 @@ function mathJsonToGiac(expr) {
       return '(-' + w(c(0)) + ')';
     case 'Multiply':
       return w(all().join('*'));
+    case 'InvisibleOperator':
+      // Juxtaposition left unresolved by a non-canonical parse: treat as a product
+      return w(all().join('*'));
     case 'Product': {
       // Product with bounds: ["Product", body, ["Limits", var, lo, hi]]
-      var limIdx = args.findIndex(function(a) { return Array.isArray(a) && a[0] === 'Limits'; });
+      var limIdx = args.findIndex(isLimits);
       if (limIdx >= 0) {
         var lim = args[limIdx];
         var v = mathJsonToGiac(lim[1]), lo = mathJsonToGiac(lim[2]), hi = mathJsonToGiac(lim[3]);
@@ -141,7 +149,7 @@ function mathJsonToGiac(expr) {
       // CortexJS pattern: ["Integrate", ["Function", ["Block", body], var], ["Limits", var, lo, hi]]
       const intFn = unwrapFn(args[0]);
       if (intFn) {
-        if (Array.isArray(args[1]) && args[1][0] === 'Limits') {
+        if (isLimits(args[1])) {
           const lo = args[1][2], hi = args[1][3];
           if (isNothing(lo) && isNothing(hi)) {
             return 'int(' + intFn.body + ',' + intFn.v + ')';
@@ -189,6 +197,10 @@ function mathJsonToGiac(expr) {
       const limFn = unwrapFn(args[0]);
       if (limFn) {
         if (args.length >= 2) {
+          // CortexJS >= 0.1xx: ["Limit", fn, point, 1|-1] — direction as 3rd argument
+          if (args.length >= 3 && (args[2] === 1 || args[2] === -1)) {
+            return 'limit(' + limFn.body + ',' + limFn.v + ',' + c(1) + ',' + args[2] + ')';
+          }
           var ld = extractLimitDir(args[1]);
           if (ld) return 'limit(' + limFn.body + ',' + limFn.v + ',' + mathJsonToGiac(ld.point) + ',' + ld.dir + ')';
           return 'limit(' + limFn.body + ',' + limFn.v + ',' + c(1) + ')';
@@ -321,6 +333,26 @@ function extractCasFunctionCall(latex) {
 }
 
 /**
+ * Parse LaTeX to MathJSON for conversion to GIAC. Only the
+ * 'InvisibleOperator' canonical form is applied: Compute Engine decides
+ * whether a juxtaposition is a product (`5x`) or a function call (`f(2)`),
+ * while the rest of the expression keeps its written structure
+ * (no reordering, `0^+` limits preserved).
+ */
+function parseLatexForGiac(latex) {
+  return ce.parse(normalizeDifferentialD(latex), { canonical: ['InvisibleOperator'] }).json;
+}
+
+/**
+ * MathLive's "dx" shortcut inserts \differentialD, which recent Compute Engine
+ * versions do not parse in derivatives (\frac{\differentialD}{\differentialD x});
+ * \mathrm{d} is parsed everywhere (derivatives and integrals).
+ */
+function normalizeDifferentialD(latex) {
+  return latex.replace(/\\differentialD(?![a-zA-Z])/g, '\\mathrm{d}');
+}
+
+/**
  * Full pipeline: LaTeX (from math-field) → MathJSON → GIAC string.
  */
 function latexToGiac(latex) {
@@ -335,10 +367,31 @@ function latexToGiac(latex) {
   }
 
   try {
-    const json = ce.parse(latex, { canonical: false }).json;
-    return mathJsonToGiac(json);
+    return mathJsonToGiac(parseLatexForGiac(latex));
   } catch (e) {
     console.warn('LaTeX→MathJSON error:', e);
     return latex; // Giac can parse some LaTeX directly
   }
+}
+
+// ─────────────────────────────────────────────────────────────
+// MathLive adapter — the single point of contact with the math-field
+// MathJSON API. MathLive 0.111.0 removed `mf.expression` and the
+// "math-json" output format; the removed getter returned
+// ce.box(ce.parse(mf.getValue('latex-unstyled'))), i.e. the canonical form.
+// ─────────────────────────────────────────────────────────────
+
+/**
+ * MathJSON (canonical) of the content of a <math-field>, or of a selection
+ * range of it. Returns null when the (selected) content is empty.
+ */
+function mathFieldToMathJson(mf, range) {
+  var latex = range ? mf.getValue(range, 'latex-unstyled') : mf.getValue('latex-unstyled');
+  if (!latex || !latex.trim()) return null;
+  return ce.parse(normalizeDifferentialD(latex)).json;
+}
+
+/** Set the content of a <math-field> from a MathJSON expression. */
+function setMathFieldMathJson(mf, json) {
+  mf.value = ce.box(json).latex;
 }

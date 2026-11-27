@@ -88,7 +88,7 @@ var I18N_EL = {
     'docsPage_user-guide': 'Οδηγός χρήσης', docsPage_sharing: 'Κοινοποίηση και μεταφορά', docsPage_architecture: 'Αρχιτεκτονική',
     docsPage_development: 'Ανάπτυξη', docsPage_requirements: 'Απαιτήσεις', 'docsDesc_user-guide': 'Κελιά, πληκτρολόγηση μαθηματικών, εκτέλεση, πυρήνες, γραφήματα, βοήθεια και προβολές.',
     docsDesc_sharing: 'QRShare, σύνδεσμοι, κωδικοί QR και μεταφορά από κινητό σε υπολογιστή.', docsDesc_architecture: 'Δομικά στοιχεία, ροή δεδομένων και οργάνωση του κώδικα.', docsDesc_development: 'Εγκατάσταση, εντολές, συμβάσεις, ανάπτυξη και εκδόσεις.',
-    docsDesc_requirements: 'Η προδιαγραφή EARS: κάθε απαίτηση, με την προτεραιότητα και την κατάστασή της.', docsEnglishOnly: 'Αυτή η σελίδα υπάρχει μόνο στα αγγλικά.', docsOnGitHub: 'Προβολή αυτής της σελίδας στο GitHub',
+    docsDesc_requirements: 'Η προδιαγραφή EARS: κάθε απαίτηση, με την προτεραιότητα και την κατάστασή της.', docsPage_roadmap: 'Οδικός χάρτης', docsDesc_roadmap: 'Προγραμματισμένες εργασίες: δοκιμές, giac-wasm, Compute Engine, αρχιτεκτονική και σύγκλιση με το PWO.', docsEnglishOnly: 'Αυτή η σελίδα υπάρχει μόνο στα αγγλικά.', docsOnGitHub: 'Προβολή αυτής της σελίδας στο GitHub',
     aboutColVersion: 'Έκδοση', aboutSourceLocal: 'τοπικό', aboutSourceBundled: 'ενσωματωμένη',
     aboutSourceCdn: 'CDN', aboutVersionLatest: 'τελευταία', aboutVersionsHint: 'Οι «ενσωματωμένες» βιβλιοθήκες είναι μέρος της εφαρμογής· όσες είναι από «CDN» λαμβάνονται από δίκτυο διανομής περιεχομένου όταν χρειάζονται, στην έκδοση που φαίνεται («τελευταία»: η νεότερη).',
     aboutRequirements: 'Απαιτήσεις', 
