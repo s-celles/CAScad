@@ -1,7 +1,7 @@
 // Integration: LaTeX (math field) → MathJSON (Compute Engine) → Giac syntax →
 // the real Giac engine (giac.js, in a Worker), without a browser.
 
-import { afterAll, beforeAll, describe, expect, it, test } from 'bun:test';
+import { afterAll, beforeAll, describe, expect, it } from 'bun:test';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { createSandbox, ROOT } from './helpers/sandbox';
@@ -61,7 +61,7 @@ describe('OUT-002 OUT-003 Giac errors and messages', () => {
   it('latex() gives a quoted LaTeX string (rendering of results)', async () => {
     expect(await giac.caseval('latex(quote(x^2/2))')).toBe('"\\frac{x^{2}}{2}"');
   });
-  test.todo('parseGiacList reads lists printed as list[...] (solve results)', async () => {
+  it('parseGiacList reads lists printed as list[...] (solve results)', async () => {
     expect([...parseGiacList(await giac.caseval('solve(x^2=4,x)'))]).toEqual([-2, 2]);
   });
 });

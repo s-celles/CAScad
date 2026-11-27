@@ -361,7 +361,8 @@ function attachPlotInteractivity(canvas, canvasId) {
 /** Parse a Giac list string "[3,5,2,8,1]" into an array of numbers */
 function parseGiacList(str) {
   if (!str) return null;
-  str = str.replace(/^\[|\]$/g, '').trim();
+  // Giac prints some lists as "list[...]" (e.g. the result of solve)
+  str = str.replace(/^list\[/, '[').replace(/^\[|\]$/g, '').trim();
   if (!str) return null;
   var nums = str.split(',').map(function(s) { return parseFloat(s.trim()); });
   return nums.filter(function(n) { return !isNaN(n); });
