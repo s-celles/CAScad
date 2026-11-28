@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-28
+
 ### Added
 - The header and the kernel selector show the name and version of each kernel ("Giac 2.1.0", "Compute Engine 0.169.2"), with the Giac build in use on hover (giac-wasm 200.100.0 or giac.js) (KRN-007); the Giac kernel is named "Giac" instead of "GIAC JS"
 - Notebook format page in the in-app documentation (`docs/en-notebook-format.md`): the `.cascad.json` file (version 5) with its JSON Schema (`docs/notebook-v5.schema.json`, checked by the tests against every exported example), the `#nb=` and `#nbe=` links (lz-string line format, encryption) and the QRShare handoff, for applications that open notebooks in CAScad
