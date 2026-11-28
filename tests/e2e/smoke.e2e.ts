@@ -97,6 +97,43 @@ test.describe('FILE export → import', () => {
   });
 });
 
+test.describe('FILE-001 FILE-002 FILE-005 math cell switched to Giac syntax', () => {
+  /** Adds a math cell switched to raw mode and returns its id. */
+  async function rawModeMathCell(app: { page: import('@playwright/test').Page; addCell: (t: string, o?: { latex?: string }) => Promise<string> }) {
+    const id = await app.addCell('math', { latex: 'x^2' });
+    await app.page.evaluate((id) => {
+      setCellMode(id, 'raw');
+      const ta = document.querySelector<HTMLTextAreaElement>(`#${id} textarea`)!;
+      ta.value = 'factor(x^4-1)';
+      ta.dispatchEvent(new Event('input', { bubbles: true }));
+    }, id);
+    return id;
+  }
+  const lastCell = (page: import('@playwright/test').Page) => page.evaluate(() => {
+    const all = document.querySelectorAll<HTMLElement>('.cell');
+    const el = all[all.length - 1]!;
+    return { type: el.dataset.type, mode: el.dataset.mode, math: el.querySelector('math-field') !== null, text: el.querySelector('textarea')?.value };
+  });
+
+  test('stays a Giac-syntax cell after export → import', async ({ app }) => {
+    const { page } = app;
+    await rawModeMathCell(app);
+    const data = await page.evaluate(() => buildNotebookData());
+    expect(data.cells.at(-1)).toMatchObject({ type: 'math', mode: 'raw', content: 'factor(x^4-1)' });
+    await page.evaluate((d) => loadNotebookData(d, { confirmed: true }), data);
+    expect(await lastCell(page)).toEqual({ type: 'math', mode: 'raw', math: false, text: 'factor(x^4-1)' });
+  });
+
+  test('stays a Giac-syntax cell after a reload (saved notebook)', async ({ app }) => {
+    const { page } = app;
+    await rawModeMathCell(app);
+    await page.waitForTimeout(1500); // saved shortly after each change
+    await page.reload();
+    await expect(page.locator('#giac-status')).toHaveClass(/ready/, { timeout: 90_000 });
+    expect(await lastCell(page)).toEqual({ type: 'math', mode: 'raw', math: false, text: 'factor(x^4-1)' });
+  });
+});
+
 test.describe('KRN-002 Compute Engine kernel', () => {
   test('raw cell Factor', async ({ app }) => {
     await app.page.evaluate(() => KernelRegistry.setActive('compute-engine', { silent: true }));

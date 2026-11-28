@@ -108,13 +108,17 @@ function evalMathfieldSelection(mf, command) {
  * @param {HTMLElement} mf - The math-field element to configure
  */
 function configureMathfieldMenu(mf) {
-  if (!mf || typeof mf.menuItems === 'undefined') {
+  // A field removed from the page (cell switched to raw mode, deleted) throws
+  // "Mathfield not mounted" on menuItems with MathLive >= 0.111.
+  if (!mf || !mf.isConnected) return;
+  if (typeof mf.menuItems === 'undefined') {
     console.warn('[mathfield-menu] math-field does not support custom menus');
     return;
   }
 
   // Defer menu configuration until the element is ready
   requestAnimationFrame(() => {
+    if (!mf.isConnected) return;
     try {
       // Remove Compute Engine built-in menu items (ce-*)
       const filteredItems = (mf.menuItems || []).filter(

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- A math cell switched to Giac syntax came back as a visual math cell holding Giac text after an import, and after every reload (the notebook kept in the browser); it now comes back in Giac syntax
+- No more "Mathfield not mounted" error when a math field is removed right after it is created (cell switched to Giac syntax on import or by a collaborator): with MathLive 0.111, configuring the field or its menu after its removal threw
+
 ## [0.2.0] - 2026-11-28
 
 ### Security

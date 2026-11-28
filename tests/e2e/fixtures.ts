@@ -6,7 +6,7 @@ declare global {
   function runSingleCell(id: string, forceManual?: boolean): void;
   function setCellMode(id: string, mode: 'math' | 'raw'): void;
   function buildNotebookData(): { cells: { type: string; mathjson?: unknown; latex?: string }[] };
-  function loadNotebookData(data: unknown): void;
+  function loadNotebookData(data: unknown, opts?: { keepReactiveMode?: boolean; confirmed?: boolean }): void;
   function runAll(): void;
   function t(key: string): string;
   function observableAvailable(): boolean;

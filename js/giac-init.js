@@ -144,6 +144,7 @@ if (typeof MathfieldElement !== 'undefined') {
 // Fallback for manual configuration
 function configureMathField(mf) {
   requestAnimationFrame(() => {
+    if (!mf.isConnected) return; // removed meanwhile (MathLive throws on detached fields)
     _applyCasShortcuts(mf);
     // Configure custom context menu (factor, simplify, etc.)
     if (typeof configureMathfieldMenu === 'function') {
