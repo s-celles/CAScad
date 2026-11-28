@@ -1,8 +1,11 @@
-import { readdirSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import Ajv2020 from 'ajv/dist/2020.js';
 import { expect, test } from './fixtures';
 
 const ROOT = join(import.meta.dirname, '..', '..');
+// The JSON Schema of the exported file (docs/en-notebook-format.md)
+const validateNotebook = new Ajv2020({ allErrors: true }).compile(JSON.parse(readFileSync(join(ROOT, 'docs', 'notebook-v5.schema.json'), 'utf8')));
 const L = String.raw;
 
 test.describe('KRN-004 KRN-005 boot', () => {
@@ -120,6 +123,7 @@ test.describe('FILE-001 FILE-002 FILE-005 math cell switched to Giac syntax', ()
     await rawModeMathCell(app);
     const data = await page.evaluate(() => buildNotebookData());
     expect(data.cells.at(-1)).toMatchObject({ type: 'math', mode: 'raw', content: 'factor(x^4-1)' });
+    expect(validateNotebook(data) || validateNotebook.errors).toBe(true);
     await page.evaluate((d) => loadNotebookData(d, { confirmed: true }), data);
     expect(await lastCell(page)).toEqual({ type: 'math', mode: 'raw', math: false, text: 'factor(x^4-1)' });
   });
@@ -166,6 +170,9 @@ for (const kernel of ['giac-js', 'compute-engine']) {
           .filter((c) => c.classList.contains('cell-error') || c.querySelector('.cell-output .err'))
           .map((c) => `${c.id}: ${((c.querySelector('math-field') as HTMLElement & { value?: string } | null)?.value || c.querySelector('textarea')?.value || '').slice(0, 80)} → ${(c.querySelector('.cell-output') as HTMLElement | null)?.innerText.slice(0, 120)}`));
       expect(errors, 'cells in error').toEqual([]);
+      // FILE-001: the export of the example follows the JSON Schema
+      const exported = await page.evaluate(() => buildNotebookData());
+      expect(validateNotebook(exported) || validateNotebook.errors, 'exported file vs docs/notebook-v5.schema.json').toBe(true);
     });
   }
 }

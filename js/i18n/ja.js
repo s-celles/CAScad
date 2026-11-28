@@ -87,7 +87,7 @@ var I18N_JA = {
     'docsPage_user-guide': 'ユーザーガイド', docsPage_sharing: '共有と転送', docsPage_architecture: 'アーキテクチャ',
     docsPage_development: '開発', docsPage_requirements: '要件', 'docsDesc_user-guide': 'セル、数式の入力、実行、カーネル、グラフ、ヘルプ、表示。',
     docsDesc_sharing: 'QRShare、リンク、QR コード、スマートフォンからコンピューターへの転送。', docsDesc_architecture: '構成要素、データの流れ、コードの構成。', docsDesc_development: 'セットアップ、コマンド、規約、デプロイ、リリース。',
-    docsDesc_requirements: 'EARS 仕様：すべての要件とその優先度・状態。', docsPage_roadmap: 'ロードマップ', docsDesc_roadmap: '予定している作業：テスト、giac-wasm、Compute Engine、アーキテクチャ、PWO との統合。', docsEnglishOnly: 'このページは英語版のみです。', docsOnGitHub: 'このページを GitHub で見る',
+    docsDesc_requirements: 'EARS 仕様：すべての要件とその優先度・状態。', docsPage_roadmap: 'ロードマップ', docsDesc_roadmap: '予定している作業：テスト、giac-wasm、Compute Engine、アーキテクチャ、PWO との統合。', 'docsPage_notebook-format': 'ノートブックの形式', 'docsDesc_notebook-format': '.cascad.json ファイル（バージョン 5）、その JSON Schema、#nb= リンク。', docsEnglishOnly: 'このページは英語版のみです。', docsOnGitHub: 'このページを GitHub で見る',
     aboutColVersion: 'バージョン', aboutSourceLocal: 'ローカル', aboutSourceBundled: '同梱',
     aboutSourceCdn: 'CDN', aboutVersionLatest: '最新', aboutVersionsHint: '「同梱」のライブラリはアプリの一部です。「CDN」のライブラリは必要なときにコンテンツ配信ネットワークから表示のバージョンでダウンロードされます（「最新」：最も新しいもの）。',
     aboutRequirements: '要件', 

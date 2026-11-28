@@ -19,6 +19,9 @@ Legend: **P0** urgent, **P1** next minor release, **P2** medium term,
   `mf.expression` and the `math-json` output; one adapter
   (`mathFieldToMathJson` in `js/mathjson-giac.js`) now reads MathJSON from a
   math field.
+- ☑ The [notebook format](en-notebook-format.md) is documented, with a JSON Schema
+  checked by the tests (file v5 and `#nb=` links), for other applications
+  such as Progressive Web Office's "Open in CAScad".
 - ☐ `f(x):=x^2` typed in a math cell loses its parameter (sent as `f:=x^2`);
   recorded as a `test.todo`.
 - ☐ The `physics-mechanics` example assigns `x := …` before `desolve(…, y)`,

@@ -10,6 +10,7 @@ import architecture from '../docs/en-architecture.md' with { type: 'text' };
 import development from '../docs/en-development.md' with { type: 'text' };
 import requirements from '../docs/requirements.md' with { type: 'text' };
 import roadmap from '../docs/en-roadmap.md' with { type: 'text' };
+import notebookFormat from '../docs/en-notebook-format.md' with { type: 'text' };
 import userGuideFr from '../docs/fr-guide-utilisateur.md' with { type: 'text' };
 import sharingFr from '../docs/fr-partage.md' with { type: 'text' };
 
@@ -44,6 +45,7 @@ export const DOC_PAGES: readonly DocPage[] = [
   { slug: 'architecture', group: 'developing', files: { en: 'en-architecture.md' }, content: { en: architecture } },
   { slug: 'development', group: 'developing', files: { en: 'en-development.md' }, content: { en: development } },
   { slug: 'requirements', group: 'developing', files: { en: 'requirements.md' }, content: { en: requirements } },
+  { slug: 'notebook-format', group: 'developing', files: { en: 'en-notebook-format.md' }, content: { en: notebookFormat } },
   { slug: 'roadmap', group: 'developing', files: { en: 'en-roadmap.md' }, content: { en: roadmap } },
 ];
 
