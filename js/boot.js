@@ -185,16 +185,8 @@ document.addEventListener('DOMContentLoaded', () => {
           ceKernel.available = true;
         }
       } catch(e) {}
-      // Update selector option state
-      if (sel) {
-        var opt = sel.querySelector('option[value="compute-engine"]');
-        if (opt) {
-          if (!ceKernel.available) {
-            opt.disabled = true;
-            opt.textContent = (typeof t === 'function' ? t('kernelComputeEngine') : 'Compute Engine') + ' (' + (typeof t === 'function' ? t('kernelUnavailable') : 'unavailable') + ')';
-          }
-        }
-      }
+      // Selector options with versions, unavailable kernels marked (KRN-004, KRN-007)
+      if (sel) KernelRegistry.refreshLabels();
       // If user preferred CE and it's now available, activate it
       if (defaultKernel === 'compute-engine' && ceKernel.available) {
         KernelRegistry.setActive('compute-engine', { silent: true });

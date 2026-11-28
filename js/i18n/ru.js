@@ -114,7 +114,7 @@ var I18N_RU = {
     placeholderRaw: 'Прямой синтаксис (напр.: factor(x^4-1))',
     placeholderText: 'Заметки, Markdown…',
     placeholderMath: '\\text{Математическое выражение (напр. }x^2+1\\text{)}',
-    kernelGiac: 'GIAC JS',
+    kernelGiac: 'Giac',
     kernelComputeEngine: 'Compute Engine',
     kernelSelector: 'Ядро',
     kernelUnavailable: 'недоступно',

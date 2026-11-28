@@ -21,11 +21,35 @@ test.describe('KRN-004 KRN-005 boot', () => {
     expect(await app.page.evaluate(() => (caseval as (e: string) => string)('int(x^2,x,0,1)'))).toBe('1/3');
   });
 
+  test('KRN-007 shows the name and version of the kernel', async ({ app }) => {
+    const { page } = app;
+    await expect(page.locator('#giac-status .text')).toHaveText('Giac 2.1.0 ✓');
+    await expect(page.locator('#giac-status')).toHaveAttribute('title', 'giac-wasm 200.100.0 (WebAssembly)');
+    await expect(page.locator('#kernel-select option[value="giac-js"]')).toHaveText('Giac 2.1.0');
+    await expect(page.locator('#kernel-select option[value="compute-engine"]')).toHaveText(/^Compute Engine \d+\.\d+\.\d+$/);
+    // Switching kernel shows the other one
+    await page.evaluate(() => KernelRegistry.setActive('compute-engine', { silent: true }));
+    await expect(page.locator('#giac-status .text')).toHaveText(/^Compute Engine \d+\.\d+\.\d+ ✓$/);
+    await page.evaluate(() => KernelRegistry.setActive('giac-js', { silent: true }));
+    // A change of language keeps the state and the version
+    await page.evaluate(() => setLocale('fr'));
+    await expect(page.locator('#giac-status .text')).toHaveText('Giac 2.1.0 ✓');
+    await page.evaluate(() => setLocale('en'));
+  });
+
+  test('UI-005 the About window shows the version of Giac', async ({ app }) => {
+    const { page } = app;
+    await page.evaluate(() => (window as unknown as { showAboutDialog: () => void }).showAboutDialog());
+    await expect(page.locator('dialog, .about-dialog, .dialog').filter({ hasText: 'giac' }).first()).toContainText('2.1.0');
+  });
+
   test('KRN-001 falls back to giac.js (asm.js) with ?giac=asm', async ({ app }) => {
     const { page } = app;
     await page.goto('/index.html?giac=asm');
     await expect(page.locator('#giac-status')).toHaveClass(/ready/, { timeout: 90_000 });
     expect(await page.evaluate(() => window.giacEngine?.engine)).toBe('giac.js');
+    await expect(page.locator('#giac-status')).toHaveAttribute('title', 'giac.js (asm.js)');
+    await expect(page.locator('#giac-status .text')).toHaveText(/^Giac \d[\w.-]* ✓$/);
     expect((await app.rawCell('factor(x^4-1)')).replace(/\s/g, '')).toContain('x2+1');
   });
 });

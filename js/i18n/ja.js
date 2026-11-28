@@ -114,7 +114,7 @@ var I18N_JA = {
     placeholderRaw: '直接構文（例：factor(x^4-1)）',
     placeholderText: 'メモ、Markdown…',
     placeholderMath: '\\text{数式（例：}x^2+1\\text{）}',
-    kernelGiac: 'GIAC JS',
+    kernelGiac: 'Giac',
     kernelComputeEngine: 'Compute Engine',
     kernelSelector: 'カーネル',
     kernelUnavailable: '利用不可',

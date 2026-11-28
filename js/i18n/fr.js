@@ -114,7 +114,7 @@ var I18N_FR = {
     placeholderRaw: 'Syntaxe brute (ex : factor(x^4-1))',
     placeholderText: 'Notes, Markdown\u2026',
     placeholderMath: '\\text{Expression math (ex : }x^2+1\\text{)}',
-    kernelGiac: 'GIAC JS',
+    kernelGiac: 'Giac',
     kernelComputeEngine: 'Compute Engine',
     kernelSelector: 'Noyau',
     kernelUnavailable: 'indisponible',

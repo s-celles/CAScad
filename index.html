@@ -95,12 +95,12 @@ var GIAC_WASM_VERSION = '200.100.0'; // stamped by scripts/build.ts from package
   <button type="button" id="app-version" class="app-version" onclick="showAboutDialog()" data-i18n-title="aboutTitle"></button>
   <div class="nav-actions">
     <select class="kernel-select" id="kernel-select" aria-label="Kernel" onchange="if(typeof KernelRegistry!=='undefined')KernelRegistry.setActive(this.value)">
-      <option value="giac-js">GIAC JS</option>
+      <option value="giac-js">Giac</option>
       <option value="compute-engine">Compute Engine</option>
     </select>
     <div id="giac-status" role="status">
       <span class="dot"></span>
-      <span class="text" data-i18n="giacLoading">Loading Giac…</span>
+      <span class="text">Loading Giac…</span>
     </div>
     <select class="lang-select" id="lang-select" aria-label="Language" onchange="setLocale(this.value)">
       <option value="en">English (en)</option>

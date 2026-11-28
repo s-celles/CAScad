@@ -114,7 +114,7 @@ var I18N_AR = {
     placeholderRaw: 'صيغة مباشرة (مثال: factor(x^4-1))',
     placeholderText: 'ملاحظات، Markdown…',
     placeholderMath: '\\text{تعبير رياضي (مثال: }x^2+1\\text{)}',
-    kernelGiac: 'GIAC JS',
+    kernelGiac: 'Giac',
     kernelComputeEngine: 'Compute Engine',
     kernelSelector: 'النواة',
     kernelUnavailable: 'غير متوفر',

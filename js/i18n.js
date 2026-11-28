@@ -78,6 +78,8 @@ function setLocale(locale) {
   currentLocale = locale;
   document.getElementById('lang-select').value = locale;
   applyI18n();
+  // The header status and kernel selector carry state (ready, versions), not only text
+  if (typeof KernelRegistry !== 'undefined') KernelRegistry.refreshLabels();
   if (typeof setupMathKeyboard === 'function') setupMathKeyboard();
   if (typeof switchHelpLanguage === 'function') switchHelpLanguage(locale);
   try { localStorage.setItem('giac-nb-locale', locale); } catch(e) {}

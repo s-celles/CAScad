@@ -1,12 +1,37 @@
 'use strict';
 
-// GIAC JS Kernel Adapter
+// Giac Kernel Adapter
 // Wraps the existing caseval() + GIAC_HELP infrastructure behind the Kernel interface
+
+var _giacVersionCache = null;
 
 var GiacKernel = {
   id: 'giac-js',
   label: 'kernelGiac',
   available: false, // set to true by initGiac() once the engine is ready
+
+  /**
+   * GIAC's version ("2.1.0") and the build that runs it (KRN-007), once ready:
+   * giac-wasm reports it; for giac.js (asm.js), it is read from version().
+   */
+  versionInfo: function() {
+    var engine = window.giacEngine;
+    if (!this.available || !engine) return null;
+    if (!_giacVersionCache) {
+      var version = engine.version;
+      if (!version && typeof caseval === 'function') {
+        try {
+          var m = /giac\s+([0-9][\w.\-]*)/i.exec(caseval('version()'));
+          if (m) version = m[1];
+        } catch (e) { /* unknown */ }
+      }
+      var detail = engine.engine === 'giac-wasm'
+        ? 'giac-wasm ' + (typeof GIAC_WASM_VERSION !== 'undefined' ? GIAC_WASM_VERSION : '') + ' (WebAssembly)'
+        : 'giac.js (asm.js)';
+      _giacVersionCache = { version: version || null, detail: detail.replace(/\s+\(/, ' (') };
+    }
+    return _giacVersionCache;
+  },
 
   evaluate: function(expr, cellType) {
     if (!this.available || typeof caseval !== 'function') {
