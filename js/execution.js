@@ -4,17 +4,17 @@
 // ─────────────────────────────────────────────────────────────
 
 // ── Giac message capture ─────────────────────────────────────
-// Module.print / Module.printErr buffer messages during caseval()
-// so we can display warnings/info in the cell output.
+// The engine (index.html) buffers GIAC's messages during caseval() while
+// window._giacCapture is on, so we can display them in the cell output.
 function giacCaptureStart() {
-  Module._giacMessages = [];
-  Module._giacCapture = true;
+  window._giacMessages = [];
+  window._giacCapture = true;
 }
 
 function giacCaptureFlush() {
-  Module._giacCapture = false;
-  var msgs = Module._giacMessages;
-  Module._giacMessages = [];
+  window._giacCapture = false;
+  var msgs = window._giacMessages || [];
+  window._giacMessages = [];
   return msgs;
 }
 

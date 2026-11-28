@@ -6,7 +6,7 @@
 var GiacKernel = {
   id: 'giac-js',
   label: 'kernelGiac',
-  available: false, // set to true when Module.ready and caseval is bound
+  available: false, // set to true by initGiac() once the engine is ready
 
   evaluate: function(expr, cellType) {
     if (!this.available || typeof caseval !== 'function') {

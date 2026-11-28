@@ -63,6 +63,16 @@ for (const item of STATIC) {
   cpSync(src, join(DIST, item), { recursive: true });
 }
 
+// 1b. giac-wasm (package.json dependency, pinned by its release URL and bun.lock):
+// served from giac-wasm/<version>/, a versioned path that can be cached for good.
+const giacWasmDir = join(ROOT, 'node_modules', 'giac-wasm');
+if (!existsSync(join(giacWasmDir, 'package.json'))) fail('Missing node_modules/giac-wasm: run bun install');
+const giacWasmVersion: string = JSON.parse(readFileSync(join(giacWasmDir, 'package.json'), 'utf8')).version;
+for (const item of ['src', 'dist', 'LICENSE', 'package.json']) {
+  if (!existsSync(join(giacWasmDir, item))) fail(`Missing giac-wasm/${item}`);
+  cpSync(join(giacWasmDir, item), join(DIST, 'giac-wasm', giacWasmVersion, item), { recursive: true });
+}
+
 // 2. TypeScript bundles
 for (const [entry, out] of Object.entries(ENTRIES)) {
   const result = await Bun.build({
@@ -99,6 +109,8 @@ function stamp(file: string, replacements: [RegExp, string][]): void {
   writeFileSync(path, text);
 }
 
+stamp('index.html', [[/var GIAC_WASM_VERSION = '[^']*'/, `var GIAC_WASM_VERSION = '${giacWasmVersion}'`]]);
+
 stamp('js/boot.js', [
   [/var APP_VERSION = '[^']*'/, `var APP_VERSION = '${version}'`],
   [/var APP_COMMIT = '[^']*'/, `var APP_COMMIT = '${commit}'`],
@@ -121,6 +133,7 @@ for (const file of shellFiles) {
 const cacheHash = hash.digest('hex').slice(0, 10);
 
 stamp('sw.js', [
+  [/var GIAC_WASM_VERSION = '[^']*'/, `var GIAC_WASM_VERSION = '${giacWasmVersion}'`],
   [/var CACHE_HASH = '[^']*'/, `var CACHE_HASH = '${cacheHash}'`],
   [/var CACHE_VERSION = '[^']*'/, `var CACHE_VERSION = '${version}'`],
 ]);

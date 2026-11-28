@@ -1863,7 +1863,7 @@ function getGiacRenderer() {
 
 function renderGl3dPlot(outputEl, sceneId) {
   // Check WebGL availability
-  if (UI.disable3d || !webglAvailable()) {
+  if (typeof UI === 'undefined' || UI.disable3d || !webglAvailable()) {
     var msg = document.createElement('div');
     msg.className = 'plot-3d-msg';
     msg.textContent = t('plot3dNotSupported');

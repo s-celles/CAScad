@@ -15,6 +15,19 @@ test.describe('KRN-004 KRN-005 boot', () => {
     await expect(page.locator('#kernel-select option[value="compute-engine"]')).toBeEnabled();
     expect(await page.evaluate(() => typeof caseval === 'function' && giacReady)).toBe(true);
   });
+
+  test('KRN-001 computes with giac-wasm (GIAC 2.1.0)', async ({ app }) => {
+    expect(await app.page.evaluate(() => ({ engine: window.giacEngine?.engine, version: window.giacEngine?.version }))).toEqual({ engine: 'giac-wasm', version: '2.1.0' });
+    expect(await app.page.evaluate(() => (caseval as (e: string) => string)('int(x^2,x,0,1)'))).toBe('1/3');
+  });
+
+  test('KRN-001 falls back to giac.js (asm.js) with ?giac=asm', async ({ app }) => {
+    const { page } = app;
+    await page.goto('/index.html?giac=asm');
+    await expect(page.locator('#giac-status')).toHaveClass(/ready/, { timeout: 90_000 });
+    expect(await page.evaluate(() => window.giacEngine?.engine)).toBe('giac.js');
+    expect((await app.rawCell('factor(x^4-1)')).replace(/\s/g, '')).toContain('x2+1');
+  });
 });
 
 test.describe('PLT-008 pinned CDN libraries load', () => {

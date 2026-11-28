@@ -20,6 +20,7 @@ declare global {
   var giacReady: boolean;
   var JXG: unknown;
   interface Window {
+    giacEngine?: { engine: 'giac-wasm' | 'giac.js'; version: string | null };
     mermaid?: { render: unknown };
     _mermaidReady: Promise<void>;
     _litReady: Promise<void>;

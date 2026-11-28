@@ -35,37 +35,45 @@ Legend: **P0** urgent, **P1** next minor release, **P2** medium term,
 - ☐ Automated update pull requests for the pinned versions, checked by the
   tests.
 
-## 2. Giac engine: from asm.js to giac-wasm (P1, ⏸ waiting for its release)
+## 2. Giac engine: from asm.js to giac-wasm (P1, ◐ in progress)
 
-The first release of `giac-wasm` will be **200.100.0** (GIAC 2.1.0): version
+**giac-wasm 200.100.0** (GIAC 2.1.0) is released (28 November 2026) and is
+CAScad's engine. Version
 `X00.Y00.Z00` is GIAC `X.Y.Z`, the last digits count rebuilds. The version
 follows GIAC, not the JavaScript API, so it must be pinned exactly and its
 changelog read before each upgrade. It is published by tag `giac-wasm-v*` on
 [JuliaGiac/giac](https://github.com/JuliaGiac/giac/releases) and on
 [GitHub Pages](https://s-celles.github.io/giac-wasm/versions.json).
 
-| | `giac.js` today (asm.js) | `giac-wasm` 200.100.0 |
+| | `giac.js` (asm.js, fallback) | `giac-wasm` 200.100.0 (default) |
 |---|---|---|
 | Size | 19.9 MB of JavaScript | `giac.wasm` 3.3 MB gzip + 68 KB glue |
 | Loading | classic script, global `Module` and `UI` stubs | ES module, `await loadGiac()` |
 | Errors | `GIAC_ERROR:` strings | `GiacError` with the messages |
-| Long computations | freeze the page | Worker, timeout, hard stop |
+| Long computations | freeze the page | a time limit (30 s); later a Worker and a hard stop |
 | Licence | GPL-3.0+ | GPL-3.0+ (GMP, MPFR: LGPL-3.0+), compatible with AGPL-3.0 |
 
 Plan:
 
-1. ☐ Kernel adapter built on `createGiacWorker()` from `giac-wasm/worker`
-   ([JuliaGiac/giac#21](https://github.com/JuliaGiac/giac/issues/21)): Giac in a
-   Worker, a Stop button and a timeout per cell.
-2. ☐ A `caseval()` compatibility layer for the 47 direct calls of `js/`, mapping
-   `GiacError` to the current error strings and the messages to the output
-   panel (OUT-002, OUT-003).
-3. ☐ Behaviour differences: `plot()` SVG that is not well-formed XML, no
-   appended `=approximation`, Giac 3D disabled (CAScad draws 3D with JSXGraph).
-4. ☐ Cache `giac.wasm` in the service worker (offline, PLT-003).
-5. ☐ giac-wasm by default, asm.js kept as a fallback for one minor release
-   (Safari older than 15.2), then removed (−57 MB in the repository).
-6. ☐ Tests in Firefox and Safari (upstream only tests Chromium).
+1. ☑ giac-wasm on the main thread (its synchronous `eval`), behind a `caseval()`
+   compatibility layer for the 47 direct calls of `js/` (`js/giac-engine.js`):
+   `GiacError` becomes the `GIAC_ERROR:` string, the messages go to the output
+   panel (OUT-002, OUT-003); a 30 s limit per evaluation.
+2. ☑ Behaviour differences: no appended `=approximation` (`1/3`), well-formed
+   SVG (giac#24), Giac's own 3D disabled (CAScad draws 3D with JSXGraph).
+3. ☑ giac-wasm cached by the service worker, from the first start (PLT-003).
+4. ☑ giac-wasm by default, asm.js kept as a fallback (`?giac=asm`, or when
+   giac-wasm cannot be loaded); unit, integration and e2e tests on both.
+5. ☐ The kernel in a Worker with `createGiacWorker()` from `giac-wasm/worker`
+   ([JuliaGiac/giac#21](https://github.com/JuliaGiac/giac/issues/21)): a Stop button,
+   a hard stop of loops GIAC's limit misses. It needs the asynchronous `Kernel`
+   interface (§4, step 3), since `caseval` is synchronous today.
+6. ☐ Remove `giac.js`, `giacsimple.js` and `giacwasm.js` after one minor release
+   (−57 MB in the repository).
+7. ☐ Tests in Firefox and Safari (Safari needs 15.2 or later for giac-wasm).
+8. ☐ `[x=1]` at the top level assigns in giac-wasm (`x=1` already did in
+   asm.js): write top-level equations as `id(…)` when the OpenMath route
+   arrives (`evalOpenMath` already does).
 
 ## 3. Compute Engine as a real second kernel (P1/P2)
 

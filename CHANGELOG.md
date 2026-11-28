@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Notebook format page in the in-app documentation (`docs/en-notebook-format.md`): the `.cascad.json` file (version 5) with its JSON Schema (`docs/notebook-v5.schema.json`, checked by the tests against every exported example), the `#nb=` and `#nbe=` links (lz-string line format, encryption) and the QRShare handoff, for applications that open notebooks in CAScad
 
+### Changed
+- Giac now runs as WebAssembly: giac-wasm 200.100.0 (GIAC 2.1.0, JuliaGiac/giac), a pinned release in `package.json` served by the app from `giac-wasm/200.100.0/` and cached by the service worker from the first start. It loads faster than the asm.js build (`giac.wasm` is 3.3 MB compressed, against 19.9 MB of JavaScript), gives exact results without an appended approximation (`1/3`), well-formed SVG plots and a 30 s time limit per evaluation. The asm.js build (`giac.js`) remains a fallback where giac-wasm cannot be loaded, or with `?giac=asm`
+- Third-party dependencies may also be the asset of a GitHub release of an exact version, locked by its integrity hash in `bun.lock` (PLT-008)
+
 ### Fixed
 - A math cell switched to Giac syntax came back as a visual math cell holding Giac text after an import, and after every reload (the notebook kept in the browser); it now comes back in Giac syntax
 - A math cell switched to Giac syntax was sent empty in links and QR codes (`#nb=`, `#nbe=`, animated QR); it now travels as a Giac cell (`X:`)
