@@ -293,12 +293,13 @@ function initGiac() {
     if (typeof GiacKernel !== 'undefined') {
       GiacKernel.available = true;
     }
-    // Update status via kernel registry
+    // Header status and kernel selector, with the versions (KRN-005, KRN-007)
     if (typeof KernelRegistry !== 'undefined') {
-      KernelRegistry._updateStatusIndicator();
+      KernelRegistry.refreshLabels();
+    } else {
+      txt.textContent = t('giacReady');
+      el.classList.add('ready');
     }
-    txt.textContent = t('giacReady');
-    el.classList.add('ready');
     // FR-001: Register GIAC commands as MathLive shortcuts.
     // Uses the static GIAC_ALL_COMMANDS list (from giac-commands.js).
     try {
@@ -310,6 +311,8 @@ function initGiac() {
       console.error('[GIAC commands] Failed to register shortcuts:', e);
     }
   }).catch(function(e) {
+    if (typeof GiacKernel !== 'undefined') GiacKernel.failed = true;
+    if (typeof KernelRegistry !== 'undefined') KernelRegistry.refreshLabels();
     txt.textContent = t('giacError');
     el.classList.add('error');
     console.error('Giac init error:', e);

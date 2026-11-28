@@ -114,7 +114,7 @@ var I18N_ES = {
     placeholderRaw: 'Sintaxis directa (ej: factor(x^4-1))',
     placeholderText: 'Notas, Markdown…',
     placeholderMath: '\\text{Expresión matemática (ej: }x^2+1\\text{)}',
-    kernelGiac: 'GIAC JS',
+    kernelGiac: 'Giac',
     kernelComputeEngine: 'Compute Engine',
     kernelSelector: 'Kernel',
     kernelUnavailable: 'no disponible',

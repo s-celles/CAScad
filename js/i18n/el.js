@@ -115,7 +115,7 @@ var I18N_EL = {
     placeholderRaw: 'Ακατέργαστη σύνταξη (π.χ. factor(x^4-1))',
     placeholderText: 'Σημειώσεις, Markdown…',
     placeholderMath: '\\text{Μαθηματική έκφραση (π.χ. }x^2+1\\text{)}',
-    kernelGiac: 'GIAC JS',
+    kernelGiac: 'Giac',
     kernelComputeEngine: 'Compute Engine',
     kernelSelector: 'Πυρήνας',
     kernelUnavailable: 'μη διαθέσιμο',

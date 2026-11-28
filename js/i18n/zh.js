@@ -114,7 +114,7 @@ var I18N_ZH = {
     placeholderRaw: '原始语法（例如：factor(x^4-1)）',
     placeholderText: '笔记、Markdown…',
     placeholderMath: '\\text{数学表达式（例如 }x^2+1\\text{）}',
-    kernelGiac: 'GIAC JS',
+    kernelGiac: 'Giac',
     kernelComputeEngine: 'Compute Engine',
     kernelSelector: '内核',
     kernelUnavailable: '不可用',

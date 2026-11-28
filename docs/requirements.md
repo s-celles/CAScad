@@ -83,6 +83,7 @@ user's device unless the user chooses to share them.
 | KRN-004 | M | ✅ | If a kernel cannot be loaded, then the system shall show it as unavailable in the selector and keep the other kernel usable. |
 | KRN-005 | M | ✅ | The system shall show the state of the Giac engine (loading, ready, error) in the header. |
 | KRN-006 | M | ✅ | The system shall save the active kernel in the notebook file and restore it when the notebook is opened, if available. |
+| KRN-007 | S | ✅ | When a kernel is ready, the system shall show its name and version in the header ("Giac 2.1.0", "Compute Engine 0.169.2") and in the kernel selector, with the build in use on hover (giac-wasm and its release, or giac.js); it shall keep showing them after a change of language. |
 
 ## 6. Execution & reactivity (EXE)
 

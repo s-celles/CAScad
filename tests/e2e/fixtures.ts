@@ -9,6 +9,7 @@ declare global {
   function loadNotebookData(data: unknown, opts?: { keepReactiveMode?: boolean; confirmed?: boolean }): void;
   function runAll(): void;
   function t(key: string): string;
+  function setLocale(locale: string): void;
   function observableAvailable(): boolean;
   function compressNotebook(): Promise<string>;
   function decompressNotebook(data: string): Promise<string | null>;

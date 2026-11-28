@@ -36,7 +36,10 @@ const LIBRARIES: Record<string, { label: string; author: string; license: string
 /** Giac's own version (`version()`), once the engine is ready; null otherwise. */
 function giacVersion(): string | null {
   try {
-    if (typeof caseval !== 'function' || !window.Module?.ready) return null;
+    if (typeof caseval !== 'function') return null;
+    // giac-wasm reports GIAC's version; giac.js (asm.js) prints it from version()
+    const reported = (window as Window & { giacEngine?: { version?: string | null } }).giacEngine?.version;
+    if (reported) return reported;
     const text = caseval('version()').replace(/^"|"$/g, '');
     return /^giac\s+\S+/i.test(text) ? text.replace(/^giac\s+/i, '').split(/[\s,]/)[0]! : null;
   } catch {

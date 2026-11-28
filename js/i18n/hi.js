@@ -114,7 +114,7 @@ var I18N_HI = {
     placeholderRaw: 'कच्चा वाक्यविन्यास (उदा: factor(x^4-1))',
     placeholderText: 'नोट्स, Markdown…',
     placeholderMath: '\\text{गणितीय व्यंजक (उदा: }x^2+1\\text{)}',
-    kernelGiac: 'GIAC JS',
+    kernelGiac: 'Giac',
     kernelComputeEngine: 'Compute Engine',
     kernelSelector: 'कर्नेल',
     kernelUnavailable: 'अनुपलब्ध',

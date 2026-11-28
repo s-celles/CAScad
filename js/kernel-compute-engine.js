@@ -133,6 +133,12 @@ var ComputeEngineKernel = {
   label: 'kernelComputeEngine',
   available: false, // set to true when ComputeEngine is constructed and ready
 
+  /** Compute Engine's version (KRN-007). */
+  versionInfo: function() {
+    var version = (typeof ComputeEngine !== 'undefined' && ComputeEngine.version) || null;
+    return this.available ? { version: version, detail: 'CortexJS Compute Engine' + (version ? ' ' + version : '') } : null;
+  },
+
   evaluate: function(expr, cellType) {
     if (!this.available) {
       throw new Error('Compute Engine is not available');

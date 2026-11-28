@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- The header and the kernel selector show the name and version of each kernel ("Giac 2.1.0", "Compute Engine 0.169.2"), with the Giac build in use on hover (giac-wasm 200.100.0 or giac.js) (KRN-007); the Giac kernel is named "Giac" instead of "GIAC JS"
 - Notebook format page in the in-app documentation (`docs/en-notebook-format.md`): the `.cascad.json` file (version 5) with its JSON Schema (`docs/notebook-v5.schema.json`, checked by the tests against every exported example), the `#nb=` and `#nbe=` links (lz-string line format, encryption) and the QRShare handoff, for applications that open notebooks in CAScad
 
 ### Changed
@@ -15,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Third-party dependencies may also be the asset of a GitHub release of an exact version, locked by its integrity hash in `bun.lock` (PLT-008)
 
 ### Fixed
+- After a change of language, the header said "Loading Giac…" again although Giac was ready
+- The About window showed no version for Giac once it ran as giac-wasm
 - A math cell switched to Giac syntax came back as a visual math cell holding Giac text after an import, and after every reload (the notebook kept in the browser); it now comes back in Giac syntax
 - A math cell switched to Giac syntax was sent empty in links and QR codes (`#nb=`, `#nbe=`, animated QR); it now travels as a Giac cell (`X:`)
 - No more "Mathfield not mounted" error when a math field is removed right after it is created (cell switched to Giac syntax on import or by a collaborator): with MathLive 0.111, configuring the field or its menu after its removal threw
