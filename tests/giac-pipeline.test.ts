@@ -64,6 +64,24 @@ for (const engine of ['giac-wasm', 'giac.js'] as const) describe(engine, () => {
     }
   });
 
+  describe('EXE-011 Giac text with inline math fields', () => {
+    const expand = sb.fn('expandInlineMath');
+    // Plain strings: see the note on String.raw in tests/mathjson-giac.test.ts
+    const cases: [string, string | RegExp][] = [
+      ['factor(⟦x^{4}-1⟧)', '(x-1)*(x+1)*(x^2+1)'],
+      ['int(⟦\\frac{1}{1+x^2}⟧, x, 0, 1)', /^1\/4\*pi/],
+      ['subst(⟦x^2+1⟧, x=⟦\\sqrt{2}⟧)', '3'],
+      ['solve(⟦x^2-5x+6=0⟧, x)', 'list[2,3]'],
+    ];
+    for (const [text, value] of cases) {
+      it(text, async () => {
+        const out = noSpace(await giac.caseval(expand(text)));
+        if (value instanceof RegExp) expect(out).toMatch(value);
+        else expect(out).toBe(noSpace(value));
+      });
+    }
+  });
+
   describe('OUT-002 OUT-003 Giac errors and messages', () => {
     it('an invalid call is reported with the GIAC_ERROR prefix', async () => {
       expect(isGiacError(await giac.caseval('factor('))).toBeTruthy();

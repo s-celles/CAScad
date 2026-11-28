@@ -112,6 +112,7 @@ var I18N_ZH = {
     showMathJSON: '显示 MathJSON',
     cellMath: '数学', cellRaw: '原始', cellText: '文本',
     placeholderRaw: '原始语法（例如：factor(x^4-1)）',
+    insertFormula: '插入数学字段 (Ctrl+M)',
     placeholderText: '笔记、Markdown…',
     placeholderMath: '\\text{数学表达式（例如 }x^2+1\\text{）}',
     kernelGiac: 'Giac',

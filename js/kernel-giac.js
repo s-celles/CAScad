@@ -59,6 +59,16 @@ var GiacKernel = {
     } catch(e) { return ''; }
   },
 
+  /** A math field's LaTeX in Giac syntax (EXE-011). */
+  formulaToSource: function(latex) {
+    return typeof latexToGiac === 'function' ? latexToGiac(latex) : latex;
+  },
+
+  /** Giac source as LaTeX, without evaluating it, or null (MATH-007). */
+  sourceToLatex: function(source) {
+    return typeof giacSourceToLatex === 'function' ? giacSourceToLatex(source) : null;
+  },
+
   getCommands: function() {
     if (typeof COMMAND_MENU !== 'undefined' && COMMAND_MENU.allCommands) {
       return COMMAND_MENU.allCommands.filter(function(c) { return c.length > 0; });

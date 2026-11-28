@@ -6,6 +6,7 @@
 import { showAbout } from './about';
 import { restoreSavedNotebook, watchNotebook } from './autosave';
 import { openHandedOffNotebook, receiveFromDevice, sendToDevice } from './share/ui';
+import { attachMixedEditor } from './mixed-editor';
 
 /** The documentation (loaded on demand: Markdown pages and renderer). */
 const showDocs = (slug?: string, section?: string): void => void import('./docs-view').then((m) => m.showDocs(slug, section));
@@ -20,6 +21,8 @@ Object.assign(window, {
   restoreSavedNotebook,
   sendToDevice: () => void sendToDevice(),
   receiveFromDevice,
+  // Giac cells: Giac text with inline math fields (js/cells.js)
+  attachMixedEditor,
 });
 
 // After js/boot.js has set up the notebook (it runs on DOMContentLoaded).

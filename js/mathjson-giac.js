@@ -395,3 +395,54 @@ function mathFieldToMathJson(mf, range) {
 function setMathFieldMathJson(mf, json) {
   mf.value = ce.box(json).latex;
 }
+
+// ─────────────────────────────────────────────────────────────
+// Inline math in Giac cells (MATH-006, EXE-011): `⟦L⟧` holds a formula typed
+// in a math field, stored as its LaTeX L (src/mixed-editor.ts).
+// ─────────────────────────────────────────────────────────────
+
+var INLINE_MATH = /⟦([^⟦⟧\n]*)⟧/g;
+
+/**
+ * The text of a Giac cell as the kernel reads it: each `⟦L⟧` becomes `(…)`,
+ * L converted by toKernel (to Giac syntax by default); an empty field is dropped.
+ */
+function expandInlineMath(text, toKernel) {
+  if (!text || text.indexOf('⟦') === -1) return text;
+  var convert = toKernel || function(latex) { return latexToGiac(latex); };
+  return text.replace(INLINE_MATH, function(_, latex) {
+    return latex.trim() ? '(' + convert(latex) + ')' : '';
+  });
+}
+
+/** Giac source → LaTeX, without evaluating it (to turn a selection into a math field), or null. */
+function giacSourceToLatex(src) {
+  if (typeof caseval !== 'function' || !src || !src.trim()) return null;
+  try {
+    var r = caseval('latex(quote(' + src + '))');
+    if (!r || /^GIAC_ERROR/.test(r) || r === '"undef"') return null;
+    return r.replace(/^"|"$/g, '');
+  } catch (e) {
+    return null;
+  }
+}
+
+/** Why the LaTeX of a math field is not valid math (Compute Engine's parse), or null. */
+function inlineMathError(latex) {
+  if (!latex || !latex.trim() || typeof ce === 'undefined') return null;
+  var found = null;
+  function walk(node) {
+    if (found || !Array.isArray(node)) return;
+    if (node[0] === 'Error') { found = node; return; }
+    node.forEach(walk);
+  }
+  try {
+    walk(ce.parse(normalizeDifferentialD(latex), { canonical: false }).json);
+  } catch (e) {
+    return String((e && e.message) || e);
+  }
+  if (!found) return null;
+  var cause = String(found[1] || '').replace(/'/g, '');
+  var where = Array.isArray(found[2]) && found[2][0] === 'LatexString' ? String(found[2][1] || '').replace(/'/g, '') : '';
+  return (cause || 'invalid expression') + (where ? ' near "' + where + '"' : '');
+}

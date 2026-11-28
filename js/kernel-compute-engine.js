@@ -198,6 +198,21 @@ var ComputeEngineKernel = {
     }
   },
 
+  /** A math field's LaTeX for a Compute Engine raw cell, which reads LaTeX (EXE-011). */
+  formulaToSource: function(latex) {
+    return latex;
+  },
+
+  /** Compute Engine raw text as LaTeX, or null (MATH-007). */
+  sourceToLatex: function(source) {
+    try {
+      var latex = ce.parse(_ceTextToLatex(source)).latex;
+      return latex && latex.indexOf('\\error') === -1 ? latex : null;
+    } catch (e) {
+      return null;
+    }
+  },
+
   getCommands: function() {
     return _CE_COMMANDS;
   },

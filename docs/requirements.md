@@ -72,6 +72,9 @@ user's device unless the user chooses to share them.
 | MATH-003 | S | ✅ | The system shall provide inline shortcuts for CAS function names, taking precedence over shorter built-in shortcuts, and shall disable the shortcuts that conflict with CAS names ("and", "or", "sub"). |
 | MATH-004 | S | ✅ | When the user types `?` in an empty math cell, or the beginning of a command name, the system shall show a filterable list of commands, navigable with the arrow keys, Tab and Enter. |
 | MATH-005 | C | ✅ | The system shall offer a context menu on math fields with CAS actions (factor, simplify, …). |
+| MATH-006 | S | ✅ | The system shall show each `⟦…⟧` of a raw cell (the active kernel's own syntax: Giac, Compute Engine…) as an inline, editable math field among the text, and shall keep in the text the LaTeX typed in the field. |
+| MATH-007 | S | ✅ | When the user presses Ctrl/⌘+M or the ∫ button in a raw cell, the system shall insert a math field at the caret, or turn the selected text (converted by the active kernel) into a field; the arrow keys shall move in and out of a field and Backspace shall delete it whole. |
+| MATH-008 | S | ✅ | If a math field of a raw cell does not hold valid math, then the system shall mark it and keep its content as typed. |
 
 ## 5. Kernels (KRN)
 
@@ -99,6 +102,7 @@ user's device unless the user chooses to share them.
 | EXE-008 | S | ✅ | When the application starts in reactive mode, the system shall not evaluate the notebook until the user confirms (Run all), and shall offer to switch to manual mode instead. |
 | EXE-009 | S | ✅ | When the user turns reactive mode off, the system shall discard the dependency graph and evaluate cells only on request. |
 | EXE-010 | S | ✅ | If cells form a dependency cycle, then the system shall show, on each cell of the cycle, a warning naming the cells and variables involved (e.g. "In[1] (b) → In[2] (a) → In[1]") instead of evaluating them; once the cycle is broken, they shall be evaluated again. |
+| EXE-011 | S | ✅ | When a raw cell runs, the system shall replace each math field `⟦L⟧` by L in the syntax of the active kernel, in parentheses: each kernel converts a formula (`formulaToSource`), Giac syntax for Giac, LaTeX for Compute Engine. |
 
 ## 7. Output & plots (OUT)
 

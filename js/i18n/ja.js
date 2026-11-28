@@ -112,6 +112,7 @@ var I18N_JA = {
     showMathJSON: 'MathJSON を表示',
     cellMath: '数学', cellRaw: '直接', cellText: 'テキスト',
     placeholderRaw: '直接構文（例：factor(x^4-1)）',
+    insertFormula: '数式フィールドを挿入 (Ctrl+M)',
     placeholderText: 'メモ、Markdown…',
     placeholderMath: '\\text{数式（例：}x^2+1\\text{）}',
     kernelGiac: 'Giac',

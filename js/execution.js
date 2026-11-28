@@ -40,7 +40,12 @@ function getGiacExpr(cellId) {
   if (cell.dataset.disabled === 'true') return '';
   const mode = cell.dataset.mode || cell.dataset.type;
   if (cell.dataset.type === 'raw' || mode === 'raw') {
-    return cell.querySelector('textarea')?.value.trim() || '';
+    var rawText = cell.querySelector('textarea')?.value.trim() || '';
+    // Math fields ⟦L⟧ of a mixed cell, in the active kernel's syntax (EXE-011)
+    var kernel = typeof KernelRegistry !== 'undefined' ? KernelRegistry.active : null;
+    return typeof expandInlineMath === 'function'
+      ? expandInlineMath(rawText, kernel && kernel.formulaToSource ? function(latex) { return kernel.formulaToSource(latex); } : undefined)
+      : rawText;
   }
   const mf = cell.querySelector('math-field');
   if (!mf) return '';

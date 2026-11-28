@@ -196,6 +196,7 @@ function addCell(type = 'math', initialLatex = '', initialRaw = '', initialMathJ
     ta.rows = type === 'text' ? 3 : 2;
     ta.addEventListener('keydown', (e) => cellKey(e, id, type));
     inp.appendChild(ta);
+    if (type === 'raw') attachRawEditor(ta);
   }
 
   // Apply locked state to input elements
@@ -225,6 +226,25 @@ function addCell(type = 'math', initialLatex = '', initialRaw = '', initialMathJ
   cells.push({ id, type, element: div });
   updateEmptyState();
   return id;
+}
+
+/** Raw cells, for any kernel: replace the textarea by the editor of text with inline math fields (MATH-006). */
+function attachRawEditor(ta) {
+  if (typeof window.attachMixedEditor !== 'function' || !ta.parentNode) return;
+  try {
+    window.attachMixedEditor(ta, {
+      // Turning a selection into a field: the active kernel's syntax → LaTeX
+      giacToLatex: function(src) {
+        var kernel = typeof KernelRegistry !== 'undefined' ? KernelRegistry.active : null;
+        return kernel && kernel.sourceToLatex ? kernel.sourceToLatex(src) : null;
+      },
+      latexError: function(latex) { return typeof inlineMathError === 'function' ? inlineMathError(latex) : null; },
+      configureMathField: function(mf) { if (typeof configureMathField === 'function') configureMathField(mf); },
+      insertTitle: t('insertFormula')
+    });
+  } catch (e) {
+    console.error('Mixed editor unavailable, keeping the plain text area:', e);
+  }
 }
 
 function mkTextarea(ph, val) {
@@ -295,13 +315,15 @@ function setCellMode(cellId, mode) {
     const ta = mkTextarea(t('placeholderRaw'), giacExpr);
     ta.addEventListener('keydown', (e) => cellKey(e, cellId, 'raw'));
     inp.appendChild(ta);
+    attachRawEditor(ta);
     cell.dataset.mode = 'raw';
     btns[0].classList.remove('active'); btns[1].classList.add('active');
     // Reapply lock state after mode switch
     if (cell.dataset.locked === 'true') ta.readOnly = true;
   } else {
     const ta = cell.querySelector('textarea');
-    const rawValue = ta ? ta.value.trim() : '';
+    // Inline math fields ⟦L⟧ become Giac syntax before the conversion to LaTeX
+    const rawValue = ta ? (typeof expandInlineMath === 'function' ? expandInlineMath(ta.value.trim()) : ta.value.trim()) : '';
     inp.innerHTML = '';
     const mf = document.createElement('math-field');
     // Convert raw Giac expression back to LaTeX for visual rendering
