@@ -63,6 +63,24 @@ constants, letters and Greek letters.
   selection) and **Math** (insert a function).
 - **Show MathJSON** (bottom bar) shows how each math cell is understood.
 
+### Formulas inside text cells of any kernel
+
+A raw cell (the kernel's own syntax: Giac, or Compute Engine) mixes text and
+**math fields**: write the command in text and the formula in a field, as in
+`factor(` *x⁶ − 1* `)`.
+
+- **Ctrl+M** (⌘M on a Mac), or the **∫** button, inserts a math field at the
+  caret; with a selection, it turns the selected text into a field (the active
+  kernel converts it).
+- **Enter**, **Esc** or **Tab** leave the field and write it back into the
+  text; the arrow keys move in and out of a field; **Backspace** after a field
+  deletes it. **Shift+Enter** in a field runs the cell.
+- A field that is not valid math is outlined in red and kept as typed.
+- In the text, a field is written `⟦…⟧` with the LaTeX typed, e.g.
+  `factor(⟦x^{6}-1⟧)`; that is what files and links keep. When the cell runs,
+  each field becomes its expression in the active kernel's syntax, in
+  parentheses (Giac syntax for Giac).
+
 ## Running cells
 
 | Keys | Action |

@@ -74,6 +74,25 @@ transformées et constantes physiques, lettres et lettres grecques.
 - **Afficher MathJSON** (barre du bas) montre comment chaque cellule math est
   comprise.
 
+### Des formules dans les cellules texte, pour tout noyau
+
+Une cellule texte (la syntaxe du noyau : Giac, ou Compute Engine) mélange du
+texte et des **champs mathématiques** : la commande en texte, la formule dans
+un champ, comme dans `factor(` *x⁶ − 1* `)`.
+
+- **Ctrl+M** (⌘M sur Mac), ou le bouton **∫**, insère un champ mathématique au
+  curseur ; avec une sélection, il transforme le texte sélectionné en champ (le
+  noyau actif le convertit).
+- **Entrée**, **Échap** ou **Tab** quittent le champ et l'écrivent dans le
+  texte ; les flèches entrent dans un champ et en sortent ; **Retour arrière**
+  après un champ le supprime. **Maj+Entrée** dans un champ exécute la cellule.
+- Un champ qui n'est pas une formule valide est entouré de rouge et conservé
+  tel quel.
+- Dans le texte, un champ s'écrit `⟦…⟧` avec le LaTeX saisi, par exemple
+  `factor(⟦x^{6}-1⟧)` : c'est ce que gardent les fichiers et les liens. À
+  l'exécution, chaque champ devient son expression dans la syntaxe du noyau
+  actif, entre parenthèses (syntaxe Giac pour Giac).
+
 ## Exécuter les cellules
 
 | Touches | Action |

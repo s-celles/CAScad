@@ -112,6 +112,7 @@ var I18N_ES = {
     showMathJSON: 'Mostrar MathJSON',
     cellMath: 'Mate', cellRaw: 'Directo', cellText: 'Texto',
     placeholderRaw: 'Sintaxis directa (ej: factor(x^4-1))',
+    insertFormula: 'Insertar un campo matemático (Ctrl+M)',
     placeholderText: 'Notas, Markdown…',
     placeholderMath: '\\text{Expresión matemática (ej: }x^2+1\\text{)}',
     kernelGiac: 'Giac',

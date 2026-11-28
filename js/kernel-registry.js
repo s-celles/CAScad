@@ -1,7 +1,11 @@
 'use strict';
 
 // Kernel Registry — central abstraction layer for computation kernels
-// Each kernel implements: { id, label, available, evaluate(expr, cellType), getCommands(), getHelp(cmd) }
+// Each kernel implements: { id, label, available, evaluate(expr, cellType), getCommands(), getHelp(cmd) },
+// and, for the math fields ⟦…⟧ of mixed cells (MATH-006, EXE-011):
+//   formulaToSource(latex) — the formula in the kernel's own syntax;
+//   sourceToLatex(source)  — the kernel's syntax as LaTeX, or null (to turn a selection into a field);
+// and versionInfo() — { version, detail } once ready (KRN-007).
 
 var KernelRegistry = (function() {
   var _kernels = {};

@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Mixed cells, for any kernel: a raw cell mixes text in the kernel's syntax and inline math fields, as in GiacSlate. Ctrl/⌘+M or the ∫ button insert a field, or turn the selected text into one (converted by the active kernel); Enter, Esc or Tab write it back; the arrow keys move in and out of fields; Backspace deletes a field whole; an invalid formula is outlined in red and kept. A field is stored as `⟦LaTeX⟧` in the text (files and links), and becomes its expression in the active kernel's syntax, in parentheses, when the cell runs: each kernel converts formulas (`formulaToSource`, `sourceToLatex`), Giac syntax for Giac, LaTeX for Compute Engine (MATH-006…008, EXE-011). The editor of raw cells is now CodeMirror 6 (6.44.2), bundled with the app
+
 ## [0.3.0] - 2026-11-28
 
 ### Added

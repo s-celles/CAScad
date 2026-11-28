@@ -182,6 +182,92 @@ test.describe('FILE-001 FILE-002 FILE-005 math cell switched to Giac syntax', ()
   });
 });
 
+test.describe('MATH-006…008 EXE-011 mixed cells: text with inline math fields', () => {
+  /** A raw (Giac) cell holding `text`, and its id. */
+  async function giacCell(app: { page: import('@playwright/test').Page; addCell: (t: string, o?: { latex?: string }) => Promise<string> }, text: string) {
+    const id = await app.addCell('math');
+    await app.page.evaluate(([id, text]) => {
+      setCellMode(id, 'raw');
+      document.querySelector<HTMLTextAreaElement>(`#${id} textarea`)!.value = text;
+    }, [id, text] as const);
+    return id;
+  }
+  const source = (page: import('@playwright/test').Page, id: string) => page.evaluate((id) => document.querySelector<HTMLTextAreaElement>(`#${id} textarea`)!.value, id);
+
+  test('shows each ⟦…⟧ as a math field and runs it as Giac', async ({ app }) => {
+    const { page } = app;
+    const id = await giacCell(app, 'factor(⟦x^{4}-1⟧)');
+    await expect(page.locator(`#${id} .cascad-formula math-field`)).toHaveCount(1);
+    expect(await page.locator(`#${id} .cascad-formula math-field`).evaluate((mf) => (mf as HTMLElement & { value: string }).value)).toBe('x^{4}-1');
+    expect((await app.run(id)).replace(/\s/g, '')).toContain('x2+1');
+  });
+
+  test('Ctrl+M inserts a field; leaving it writes its LaTeX back', async ({ app }) => {
+    const { page } = app;
+    const id = await giacCell(app, 'expand()');
+    await page.locator(`#${id} .cm-content`).click();
+    await page.keyboard.press('End');
+    await page.keyboard.press('ArrowLeft');
+    await page.keyboard.press('Control+m');
+    const mf = page.locator(`#${id} .cascad-formula math-field`);
+    await expect(mf).toBeFocused();
+    await page.keyboard.type('(x+1)^2');
+    await page.keyboard.press('Escape');
+    await expect.poll(() => source(page, id)).toMatch(/^expand\(⟦(\\left)?\(x\+1(\\right)?\)\^\{?2\}?⟧\)$/);
+    expect((await app.run(id)).replace(/\s/g, '')).toContain('x2+2⋅x+1');
+  });
+
+  test('the ∫ button turns the selection into a field, through Giac → LaTeX', async ({ app }) => {
+    const { page } = app;
+    const id = await giacCell(app, 'x^2/2');
+    await page.locator(`#${id} .cm-content`).click();
+    await page.keyboard.press('Control+a');
+    await page.locator(`#${id} .cascad-insert-formula`).click();
+    await expect.poll(() => source(page, id)).toBe('⟦\\frac{x^{2}}{2}⟧');
+  });
+
+  test('an invalid formula is flagged and kept as typed', async ({ app }) => {
+    const { page } = app;
+    const id = await giacCell(app, 'simplify(⟦\\frac{1}{⟧)');
+    await expect(page.locator(`#${id} .cascad-formula`)).toHaveClass(/cascad-formula-error/);
+    expect(await source(page, id)).toBe('simplify(⟦\\frac{1}{⟧)');
+  });
+
+  test('Backspace after a field deletes it whole', async ({ app }) => {
+    const { page } = app;
+    const id = await giacCell(app, 'a+⟦x^2⟧');
+    await page.locator(`#${id} .cm-content`).click({ position: { x: 2, y: 5 } });
+    await page.keyboard.press('End');
+    await page.keyboard.press('Backspace');
+    await expect.poll(() => source(page, id)).toBe('a+');
+  });
+
+  test('works with any kernel: Compute Engine runs the fields as LaTeX', async ({ app }) => {
+    const { page } = app;
+    await page.evaluate(() => KernelRegistry.setActive('compute-engine', { silent: true }));
+    const id = await giacCell(app, 'Factor(⟦x^{4}-1⟧)');
+    await expect(page.locator(`#${id} .cascad-formula math-field`)).toHaveCount(1);
+    expect((await app.run(id)).replace(/\s/g, '')).toContain('x2+1');
+    // A selection is turned into a field by the active kernel (Compute Engine here)
+    const id2 = await giacCell(app, 'x^2/2');
+    await page.locator(`#${id2} .cm-content`).click();
+    await page.keyboard.press('Control+a');
+    await page.keyboard.press('Control+m');
+    await expect.poll(() => source(page, id2)).toBe('⟦\\frac{x^2}{2}⟧');
+  });
+
+  test('FILE SHARE keeps the fields in files and links', async ({ app }) => {
+    const { page } = app;
+    await giacCell(app, 'factor(⟦x^{4}-1⟧)');
+    const data = await page.evaluate(() => buildNotebookData());
+    expect(data.cells.at(-1)).toMatchObject({ type: 'math', mode: 'raw', content: 'factor(⟦x^{4}-1⟧)' });
+    const lines = await page.evaluate(async () => (await decompressNotebook(await compressNotebook()))!.split('\n'));
+    expect(lines.at(-1)).toBe('X:factor(⟦x^{4}-1⟧)');
+    await page.evaluate((d) => loadNotebookData(d, { confirmed: true }), data);
+    await expect(page.locator('.cell').last().locator('.cascad-formula math-field')).toHaveCount(1);
+  });
+});
+
 test.describe('KRN-002 Compute Engine kernel', () => {
   test('raw cell Factor', async ({ app }) => {
     await app.page.evaluate(() => KernelRegistry.setActive('compute-engine', { silent: true }));

@@ -367,6 +367,21 @@
   .cell-input math-field{width:100%;font-size:1.2rem;border:none;outline:none;background:transparent;color:var(--text);--caret-color:var(--accent);--selection-background-color:var(--sel)}
   .cell-input math-field::part(placeholder){color:var(--text-muted,#999);opacity:.6}
   .cell-input textarea{width:100%;min-height:34px;border:none;outline:none;font-family:var(--mono);font-size:.8rem;color:var(--text);background:transparent;resize:vertical;line-height:1.55}
+  /* Giac cells: Giac text with inline math fields ⟦…⟧ (src/mixed-editor.ts) */
+  .cascad-mixed-editor{position:relative}
+  .cascad-mixed-editor .cm-editor{min-height:34px;font-family:var(--mono);font-size:.8rem;color:var(--text);background:transparent;line-height:1.55}
+  .cascad-mixed-editor .cm-editor.cm-focused{outline:none}
+  .cascad-mixed-editor .cm-content{padding:.15rem 1.8rem .15rem 0;font-family:var(--mono);caret-color:var(--text)}
+  .cascad-mixed-editor .cm-line{padding:0}
+  .cascad-mixed-editor .cm-placeholder{color:var(--text-muted)}
+  .cascad-formula{display:inline-block;vertical-align:middle;margin:0 .1rem;padding:0 .15rem;border:1px solid var(--border);border-radius:4px;background:var(--surface-2)}
+  .cascad-formula:focus-within{border-color:var(--accent)}
+  .cascad-formula math-field{display:inline-block;min-width:1.6em;padding:0 .1rem;font-size:1rem;border:none;background:transparent;outline:none}
+  .cascad-formula math-field::part(menu-toggle){display:none}
+  .cascad-formula-error{border-color:var(--error)}
+  .cascad-insert-formula{position:absolute;top:.1rem;inset-inline-end:0;width:1.5rem;height:1.5rem;padding:0;border:1px solid var(--border);border-radius:4px;background:var(--surface);color:var(--text-muted);font-size:.85rem;line-height:1;cursor:pointer;opacity:.6}
+  .cascad-insert-formula:hover,.cascad-insert-formula:focus-visible{opacity:1;color:var(--accent)}
+  .cascad-mixed-editor.read-only .cascad-insert-formula{display:none}
 
   /* ═══════ Debug ═══════ */
   .cell-debug{padding:.3rem .8rem;background:var(--surface-2);border-top:1px dashed var(--border);font-family:var(--mono);font-size:.65rem;color:var(--text-muted);display:none;overflow-x:auto;word-break:break-all}

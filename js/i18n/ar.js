@@ -112,6 +112,7 @@ var I18N_AR = {
     showMathJSON: 'إظهار MathJSON',
     cellMath: 'رياضيات', cellRaw: 'مباشر', cellText: 'نص',
     placeholderRaw: 'صيغة مباشرة (مثال: factor(x^4-1))',
+    insertFormula: 'إدراج حقل رياضي (Ctrl+M)',
     placeholderText: 'ملاحظات، Markdown…',
     placeholderMath: '\\text{تعبير رياضي (مثال: }x^2+1\\text{)}',
     kernelGiac: 'Giac',

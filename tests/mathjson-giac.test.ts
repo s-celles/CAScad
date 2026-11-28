@@ -147,3 +147,27 @@ describe('PLT-008 the Compute Engine of the tests is the one the app loads', () 
     expect(html.match(/@cortex-js\/compute-engine@([\d.]+)/)?.[1]).toBe(pkg.devDependencies['@cortex-js/compute-engine']);
   });
 });
+
+describe('EXE-011 inline math fields ⟦…⟧ in Giac cells', () => {
+  // Plain strings, not String.raw: Bun's transpiler turns ⟦ into the text "\u27E6"
+  // inside a String.raw template that also holds braces.
+  const expand = sb.fn('expandInlineMath');
+  const error = sb.fn('inlineMathError');
+  it('turns each formula into parenthesized Giac syntax', () => {
+    expect(expand('factor(⟦x^{4}-1⟧)')).toBe('factor(((((x)^(4))-(1))))');
+    expect(expand('solve(⟦x^2-4=0⟧, x)')).toBe('solve(((((x)^(2))-(4))=0), x)');
+    expect(expand('⟦a⟧+⟦\\frac{1}{b}⟧')).toBe('(a)+(((1)/(b)))');
+  });
+  it('leaves text without formulas unchanged, drops empty fields', () => {
+    expect(expand('factor(x^4-1)')).toBe('factor(x^4-1)');
+    expect(expand('f(⟦⟧)')).toBe('f()');
+  });
+  it('lets another kernel convert the LaTeX', () => {
+    expect(expand('Factor(⟦x^{4}-1⟧)', (latex: string) => latex)).toBe('Factor((x^{4}-1))');
+  });
+  it('tells valid from invalid math', () => {
+    expect(error('\\frac{1}{x}')).toBeNull();
+    expect(error('')).toBeNull();
+    expect(typeof error('\\frac{1}{')).toBe('string');
+  });
+});

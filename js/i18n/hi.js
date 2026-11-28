@@ -112,6 +112,7 @@ var I18N_HI = {
     showMathJSON: 'MathJSON दिखाएँ',
     cellMath: 'गणित', cellRaw: 'कच्चा', cellText: 'पाठ',
     placeholderRaw: 'कच्चा वाक्यविन्यास (उदा: factor(x^4-1))',
+    insertFormula: 'गणित फ़ील्ड डालें (Ctrl+M)',
     placeholderText: 'नोट्स, Markdown…',
     placeholderMath: '\\text{गणितीय व्यंजक (उदा: }x^2+1\\text{)}',
     kernelGiac: 'Giac',

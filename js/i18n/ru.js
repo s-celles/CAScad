@@ -112,6 +112,7 @@ var I18N_RU = {
     showMathJSON: 'Показать MathJSON',
     cellMath: 'Математика', cellRaw: 'Прямой', cellText: 'Текст',
     placeholderRaw: 'Прямой синтаксис (напр.: factor(x^4-1))',
+    insertFormula: 'Вставить математическое поле (Ctrl+M)',
     placeholderText: 'Заметки, Markdown…',
     placeholderMath: '\\text{Математическое выражение (напр. }x^2+1\\text{)}',
     kernelGiac: 'Giac',

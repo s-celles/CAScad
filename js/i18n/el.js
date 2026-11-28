@@ -113,6 +113,7 @@ var I18N_EL = {
     showMathJSON: 'Εμφάνιση MathJSON',
     cellMath: 'Μαθηματικά', cellRaw: 'Ακατέργαστο', cellText: 'Κείμενο',
     placeholderRaw: 'Ακατέργαστη σύνταξη (π.χ. factor(x^4-1))',
+    insertFormula: 'Εισαγωγή μαθηματικού πεδίου (Ctrl+M)',
     placeholderText: 'Σημειώσεις, Markdown…',
     placeholderMath: '\\text{Μαθηματική έκφραση (π.χ. }x^2+1\\text{)}',
     kernelGiac: 'Giac',
