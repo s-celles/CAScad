@@ -32,7 +32,12 @@ function serializeNotebook() {
     var type = el.dataset.type;
     var code = _typeToCode[type] || 'X';
     var content = '';
-    if (type === 'math') {
+    if (type === 'math' && el.dataset.mode === 'raw') {
+      // A math cell switched to Giac syntax travels as a raw cell
+      code = 'X';
+      var rawTa = el.querySelector('textarea');
+      if (rawTa) content = rawTa.value;
+    } else if (type === 'math') {
       var mf = el.querySelector('math-field');
       if (mf) content = mf.value; // LaTeX — round-trips via ce.parse()
     } else if (type === 'slider') {

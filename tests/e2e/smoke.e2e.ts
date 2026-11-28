@@ -124,6 +124,13 @@ test.describe('FILE-001 FILE-002 FILE-005 math cell switched to Giac syntax', ()
     expect(await lastCell(page)).toEqual({ type: 'math', mode: 'raw', math: false, text: 'factor(x^4-1)' });
   });
 
+  test('travels as a Giac cell in a #nb= link (SHARE)', async ({ app }) => {
+    const { page } = app;
+    await rawModeMathCell(app);
+    const lines = await page.evaluate(async () => (await decompressNotebook(await compressNotebook()))!.split('\n'));
+    expect(lines.at(-1)).toBe('X:factor(x^4-1)');
+  });
+
   test('stays a Giac-syntax cell after a reload (saved notebook)', async ({ app }) => {
     const { page } = app;
     await rawModeMathCell(app);
