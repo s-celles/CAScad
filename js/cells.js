@@ -187,7 +187,9 @@ function addCell(type = 'math', initialLatex = '', initialRaw = '', initialMathJ
     mf.addEventListener('input', () => updateDebug(id));
     mf.addEventListener('keydown', (e) => cellKey(e, id, 'math'));
     if (typeof attachAutocomplete === 'function') attachAutocomplete(mf, id);
-    setTimeout(() => { mf.placeholder = t('placeholderMath'); updateDebug(id); }, 100);
+    // The field may already be gone (cell switched to raw mode, deleted): MathLive
+    // throws "Mathfield not mounted" on a detached field.
+    setTimeout(() => { if (!mf.isConnected) return; mf.placeholder = t('placeholderMath'); updateDebug(id); }, 100);
   } else {
     const ph = type === 'raw' ? t('placeholderRaw') : t('placeholderText');
     const ta = mkTextarea(ph, initialRaw);

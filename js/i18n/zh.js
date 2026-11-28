@@ -87,7 +87,7 @@ var I18N_ZH = {
     'docsPage_user-guide': '用户指南', docsPage_sharing: '分享与传输', docsPage_architecture: '架构',
     docsPage_development: '开发', docsPage_requirements: '需求', 'docsDesc_user-guide': '单元格、数学输入、运行、内核、绘图、帮助和视图。',
     docsDesc_sharing: 'QRShare、链接、二维码以及从手机到电脑的传输。', docsDesc_architecture: '组成部分、数据流和代码结构。', docsDesc_development: '环境搭建、命令、约定、部署和发布。',
-    docsDesc_requirements: 'EARS 规格说明：每条需求及其优先级和状态。', docsPage_roadmap: '路线图', docsDesc_roadmap: '计划中的工作：测试、giac-wasm、Compute Engine、架构以及与 PWO 的融合。', docsEnglishOnly: '此页面仅提供英文版。', docsOnGitHub: '在 GitHub 上查看此页面',
+    docsDesc_requirements: 'EARS 规格说明：每条需求及其优先级和状态。', docsPage_roadmap: '路线图', docsDesc_roadmap: '计划中的工作：测试、giac-wasm、Compute Engine、架构以及与 PWO 的融合。', 'docsPage_notebook-format': '笔记本格式', 'docsDesc_notebook-format': '.cascad.json 文件（第 5 版）、其 JSON Schema 以及 #nb= 链接。', docsEnglishOnly: '此页面仅提供英文版。', docsOnGitHub: '在 GitHub 上查看此页面',
     aboutColVersion: '版本', aboutSourceLocal: '本地', aboutSourceBundled: '已包含',
     aboutSourceCdn: 'CDN', aboutVersionLatest: '最新', aboutVersionsHint: '“已包含”的库是应用的一部分；“CDN”上的库在需要时从内容分发网络按所示版本下载（“最新”：最新版本）。',
     aboutRequirements: '需求', 

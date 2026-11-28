@@ -87,7 +87,7 @@ var I18N_HI = {
     'docsPage_user-guide': 'उपयोगकर्ता गाइड', docsPage_sharing: 'साझा करना और स्थानांतरण', docsPage_architecture: 'संरचना',
     docsPage_development: 'विकास', docsPage_requirements: 'आवश्यकताएँ', 'docsDesc_user-guide': 'सेल, गणित लिखना, चलाना, कर्नेल, ग्राफ़, सहायता और दृश्य।',
     docsDesc_sharing: 'QRShare, लिंक, QR कोड और फ़ोन से कंप्यूटर पर स्थानांतरण।', docsDesc_architecture: 'घटक, डेटा का प्रवाह और कोड की व्यवस्था।', docsDesc_development: 'सेटअप, कमांड, परिपाटियाँ, डिप्लॉयमेंट और संस्करण।',
-    docsDesc_requirements: 'EARS विनिर्देश: हर आवश्यकता, उसकी प्राथमिकता और स्थिति के साथ।', docsPage_roadmap: 'रोडमैप', docsDesc_roadmap: 'नियोजित कार्य: परीक्षण, giac-wasm, Compute Engine, आर्किटेक्चर और PWO के साथ अभिसरण।', docsEnglishOnly: 'यह पेज केवल अंग्रेज़ी में उपलब्ध है।', docsOnGitHub: 'यह पेज GitHub पर देखें',
+    docsDesc_requirements: 'EARS विनिर्देश: हर आवश्यकता, उसकी प्राथमिकता और स्थिति के साथ।', docsPage_roadmap: 'रोडमैप', docsDesc_roadmap: 'नियोजित कार्य: परीक्षण, giac-wasm, Compute Engine, आर्किटेक्चर और PWO के साथ अभिसरण।', 'docsPage_notebook-format': 'नोटबुक प्रारूप', 'docsDesc_notebook-format': '.cascad.json फ़ाइल (संस्करण 5), उसका JSON Schema और #nb= लिंक।', docsEnglishOnly: 'यह पेज केवल अंग्रेज़ी में उपलब्ध है।', docsOnGitHub: 'यह पेज GitHub पर देखें',
     aboutColVersion: 'संस्करण', aboutSourceLocal: 'स्थानीय', aboutSourceBundled: 'शामिल',
     aboutSourceCdn: 'CDN', aboutVersionLatest: 'नवीनतम', aboutVersionsHint: '“शामिल” लाइब्रेरी ऐप का हिस्सा हैं; “CDN” वाली ज़रूरत पड़ने पर कंटेंट डिलीवरी नेटवर्क से दिखाए गए संस्करण में डाउनलोड होती हैं (“नवीनतम”: सबसे नया)।',
     aboutRequirements: 'आवश्यकताएँ', 

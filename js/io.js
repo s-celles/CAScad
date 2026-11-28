@@ -264,6 +264,12 @@ function loadNotebookData(data, opts) {
         expression: item.expression || '',
         plotType: item.plotType || 'plot'
       }));
+    } else if (item.type === 'math' && item.mode === 'raw') {
+      // A math cell switched to Giac syntax: its text is Giac, not LaTeX
+      cid = addCell('math', '', '', null, null, cellOpts);
+      setCellMode(cid, 'raw');
+      var rawField = document.getElementById(cid).querySelector('textarea');
+      if (rawField) rawField.value = item.content || '';
     } else if (item.type === 'math') {
       if (typeof item.latex === 'string') {
         cid = addCell('math', item.latex, '', null, null, cellOpts);

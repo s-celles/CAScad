@@ -133,7 +133,7 @@ user's device unless the user chooses to share them.
 
 | ID | Pri | Status | Requirement |
 |----|-----|--------|-------------|
-| FILE-001 | M | ✅ | When the user selects "Export", the system shall save the notebook as `notebook.cascad.json` (format version 5: kernel, locale, reactive mode, cells with their type, content — the LaTeX as typed for math cells — and flags), so that opening it gives back exactly what was typed. |
+| FILE-001 | M | ✅ | When the user selects "Export", the system shall save the notebook as `notebook.cascad.json` (format version 5, described by the JSON Schema `docs/notebook-v5.schema.json`: kernel, locale, reactive mode, cells with their type, content — the LaTeX as typed for math cells — and flags), so that opening it gives back exactly what was typed. |
 | FILE-002 | M | ✅ | When the user selects "Import", the system shall open a CAScad, Giac or Xcas notebook file (format versions 1 to 5). |
 | FILE-003 | M | ✅ | If the imported file is not valid JSON or not a notebook, then the system shall show an error and keep the current notebook. |
 | FILE-004 | S | ✅ | When an action would replace a notebook the user has worked on (import, example, link, QR code, transfer, QRShare, kernel change), the system shall ask for confirmation first; the welcome notebook and empty cells are replaced without asking. If the user declines, the notebook and the kernel selection shall stay unchanged. |

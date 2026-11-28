@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/s-celles/CAScad/main/docs/notebook-v5.schema.json",
+  "title": "CAScad notebook, format version 5",
+  "description": "A .cascad.json file as written by CAScad (Export) and accepted by Import. See docs/en-notebook-format.md.",
+  "type": "object",
+  "required": ["version", "cells"],
+  "properties": {
+    "version": { "const": 5 },
+    "type": { "const": "cascad-notebook" },
+    "kernel": { "enum": ["giac-js", "compute-engine"], "description": "Kernel of the notebook; giac-js when absent." },
+    "created": { "type": "string", "description": "ISO 8601 date and time of the export." },
+    "locale": { "enum": ["en", "fr", "es", "de", "el", "ar", "hi", "ru", "zh", "ja"] },
+    "reactiveMode": { "type": "boolean" },
+    "cells": { "type": "array", "items": { "$ref": "#/$defs/cell" } }
+  },
+  "$defs": {
+    "common": {
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "pattern": "^[\\w-]{4,64}$", "description": "Stable identifier of the cell." },
+        "hidden": { "type": "boolean" },
+        "disabled": { "type": "boolean" },
+        "locked": { "type": "boolean" },
+        "defines": { "type": "array", "items": { "type": "string" }, "description": "Derived (reactive graph); ignored on import." },
+        "references": { "type": "array", "items": { "type": "string" }, "description": "Derived (reactive graph); ignored on import." }
+      }
+    },
+    "cell": {
+      "oneOf": [
+        { "$ref": "#/$defs/mathCell" },
+        { "$ref": "#/$defs/mathCellRawMode" },
+        { "$ref": "#/$defs/rawCell" },
+        { "$ref": "#/$defs/textCell" },
+        { "$ref": "#/$defs/sliderCell" }
+      ]
+    },
+    "mathCell": {
+      "description": "Visual math cell: the LaTeX as typed in MathLive.",
+      "allOf": [{ "$ref": "#/$defs/common" }],
+      "type": "object",
+      "required": ["type", "latex"],
+      "properties": {
+        "type": { "const": "math" },
+        "mode": { "const": "math" },
+        "latex": { "type": "string" },
+        "mathjson": { "description": "MathJSON of the LaTeX; informative, ignored when latex is present." }
+      }
+    },
+    "mathCellRawMode": {
+      "description": "Math cell switched to Giac syntax.",
+      "allOf": [{ "$ref": "#/$defs/common" }],
+      "type": "object",
+      "required": ["type", "mode", "content"],
+      "properties": {
+        "type": { "const": "math" },
+        "mode": { "const": "raw" },
+        "content": { "type": "string", "description": "Giac syntax." }
+      }
+    },
+    "rawCell": {
+      "description": "Raw cell: Giac syntax.",
+      "allOf": [{ "$ref": "#/$defs/common" }],
+      "type": "object",
+      "required": ["type", "content"],
+      "properties": {
+        "type": { "const": "raw" },
+        "mode": { "const": "raw" },
+        "content": { "type": "string" }
+      }
+    },
+    "textCell": {
+      "description": "Text cell: Markdown with $…$ formulas and @bind(…) sliders.",
+      "allOf": [{ "$ref": "#/$defs/common" }],
+      "type": "object",
+      "required": ["type", "content"],
+      "properties": {
+        "type": { "const": "text" },
+        "mode": { "const": "text" },
+        "content": { "type": "string" }
+      }
+    },
+    "sliderCell": {
+      "description": "Slider cell: parameters and the plotted Giac expression.",
+      "allOf": [{ "$ref": "#/$defs/common" }],
+      "type": "object",
+      "required": ["type", "params", "expression"],
+      "properties": {
+        "type": { "const": "slider" },
+        "mode": { "const": "slider" },
+        "params": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "min", "max", "step", "value"],
+            "properties": {
+              "name": { "type": "string" },
+              "label": { "type": "string" },
+              "min": { "type": "number" },
+              "max": { "type": "number" },
+              "step": { "type": "number" },
+              "value": { "type": "number" }
+            }
+          }
+        },
+        "expression": { "type": "string" },
+        "plotType": { "type": "string" }
+      }
+    }
+  }
+}

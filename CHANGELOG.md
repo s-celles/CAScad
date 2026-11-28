@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Notebook format page in the in-app documentation (`docs/en-notebook-format.md`): the `.cascad.json` file (version 5) with its JSON Schema (`docs/notebook-v5.schema.json`, checked by the tests against every exported example), the `#nb=` and `#nbe=` links (lz-string line format, encryption) and the QRShare handoff, for applications that open notebooks in CAScad
+
+### Fixed
+- A math cell switched to Giac syntax came back as a visual math cell holding Giac text after an import, and after every reload (the notebook kept in the browser); it now comes back in Giac syntax
+- A math cell switched to Giac syntax was sent empty in links and QR codes (`#nb=`, `#nbe=`, animated QR); it now travels as a Giac cell (`X:`)
+- No more "Mathfield not mounted" error when a math field is removed right after it is created (cell switched to Giac syntax on import or by a collaborator): with MathLive 0.111, configuring the field or its menu after its removal threw
+
 ## [0.2.0] - 2026-11-28
 
 ### Security
