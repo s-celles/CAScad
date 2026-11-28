@@ -5,6 +5,7 @@
     "": {
       "name": "cascad",
       "dependencies": {
+        "giac-wasm": "https://github.com/JuliaGiac/giac/releases/download/giac-wasm-v200.100.0/giac-wasm-200.100.0.tgz",
         "lean-qr": "2.7.4",
         "marked": "18.0.7",
       },
@@ -79,6 +80,8 @@
     "fast-deep-equal": ["fast-deep-equal@3.1.3", "", {}, "sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q=="],
 
     "fast-uri": ["fast-uri@3.1.9", "", {}, "sha512-hS/0Wt3Ya043oKXs0sIxrMpKQITXhMLIrVAKKXi4gozGC9v7YRWVnXIZzjNPTO02M9BdxLCWqK1yRXgNziVyJQ=="],
+
+    "giac-wasm": ["giac-wasm@https://github.com/JuliaGiac/giac/releases/download/giac-wasm-v200.100.0/giac-wasm-200.100.0.tgz", {}, "sha512-QkLJ3PYy0DyxFOc8mPW/bUJsAOhKGwg3MEJ9JQbLj7fbo8OJDJVKhYC59lZY6TMb+ZvvM3N6kMwcmfPpqnuk9Q=="],
 
     "isomorphic.js": ["isomorphic.js@0.2.5", "", {}, "sha512-PIeMbHqMt4DnUP3MA/Flc0HElYjMXArsw1qwJZcm9sqR8mq3l8NYizFMty0pWwE/tzIGH3EKK5+jes5mAr85yw=="],
 

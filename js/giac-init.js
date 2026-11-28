@@ -156,10 +156,9 @@ function configureMathField(mf) {
 // ─────────────────────────────────────────────────────────────
 // SECTION 3 — GIAC INITIALIZATION
 //
-// Giac exposes:  extern "C" const char* caseval(const char*);
-// Two loading strategies:
-//   A) giacsimple.js → UI.ready / UI.caseval
-//   B) giacwasm.js   → Module.cwrap('caseval','string',['string'])
+// index.html loads giac-wasm (WebAssembly), or the asm.js build giac.js as a
+// fallback, and resolves window._giacEngineReady to { engine, version, caseval }.
+// caseval(expr) returns GIAC's result as text, errors as "GIAC_ERROR: …".
 // ─────────────────────────────────────────────────────────────
 
 let giacReady = false;
@@ -275,8 +274,8 @@ function initGiac() {
   const el  = document.getElementById('giac-status');
   const txt = el.querySelector('.text');
 
-  if (typeof Module === 'undefined') {
-    // No Module at all — demo mode (FR-007: hardcoded fallback)
+  if (!window._giacEngineReady) {
+    // No engine loader at all — demo mode (FR-007: hardcoded fallback)
     txt.textContent = t('giacDemo');
     el.classList.add('error');
     caseval = (expr) => '[DEMO] ' + expr;
@@ -284,38 +283,35 @@ function initGiac() {
     return;
   }
 
-  // Poll until Module.ready (set by onRuntimeInitialized)
-  const poll = setInterval(() => {
-    if (Module.ready) {
-      clearInterval(poll);
-      try {
-        caseval = Module.cwrap('caseval', 'string', ['string']);
-        giacReady = true;
-        // Update GIAC kernel adapter availability
-        if (typeof GiacKernel !== 'undefined') {
-          GiacKernel.available = true;
-        }
-        // Update status via kernel registry
-        if (typeof KernelRegistry !== 'undefined') {
-          KernelRegistry._updateStatusIndicator();
-        }
-        txt.textContent = t('giacReady');
-        el.classList.add('ready');
-        // FR-001: Register GIAC commands as MathLive shortcuts.
-        // Uses the static GIAC_ALL_COMMANDS list (from giac-commands.js).
-        try {
-          var commands = getGiacCommandNames();
-          if (commands.length > 0) {
-            registerDiscoveredShortcuts(commands);
-          }
-        } catch (e) {
-          console.error('[GIAC commands] Failed to register shortcuts:', e);
-        }
-      } catch (e) {
-        txt.textContent = t('giacError');
-        el.classList.add('error');
-        console.error('Giac init error:', e);
-      }
+  // index.html loads giac-wasm, or giac.js (asm.js) as a fallback
+  window._giacEngineReady.then(function(engine) {
+    caseval = engine.caseval;
+    window.giacEngine = engine;
+    giacReady = true;
+    console.log('Giac ready: ' + engine.engine + (engine.version ? ' (GIAC ' + engine.version + ')' : ''));
+    // Update GIAC kernel adapter availability
+    if (typeof GiacKernel !== 'undefined') {
+      GiacKernel.available = true;
     }
-  }, 200);
+    // Update status via kernel registry
+    if (typeof KernelRegistry !== 'undefined') {
+      KernelRegistry._updateStatusIndicator();
+    }
+    txt.textContent = t('giacReady');
+    el.classList.add('ready');
+    // FR-001: Register GIAC commands as MathLive shortcuts.
+    // Uses the static GIAC_ALL_COMMANDS list (from giac-commands.js).
+    try {
+      var commands = getGiacCommandNames();
+      if (commands.length > 0) {
+        registerDiscoveredShortcuts(commands);
+      }
+    } catch (e) {
+      console.error('[GIAC commands] Failed to register shortcuts:', e);
+    }
+  }).catch(function(e) {
+    txt.textContent = t('giacError');
+    el.classList.add('error');
+    console.error('Giac init error:', e);
+  });
 }

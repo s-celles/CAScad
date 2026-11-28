@@ -14,9 +14,13 @@ are, the TypeScript of `src/` is bundled next to them, and the documentation of
 `docs/` is bundled into the app. Serving the repository root directly does not
 work.
 
-`giac.js` (the Giac engine, asm.js build) is in the repository; to update it,
-download [giacjs.tar.gz](https://www-fourier.univ-grenoble-alpes.fr/~parisse/giacjs.tar.gz)
-and replace it.
+The Giac engine is [giac-wasm](https://github.com/JuliaGiac/giac/releases), a
+dependency in `package.json` pinned to the `.tgz` of a release (its integrity is
+in `bun.lock`); the build copies it to `dist/giac-wasm/<version>/`. To upgrade,
+change the release URL (version `X00.Y00.Z00` is GIAC `X.Y.Z`: read the
+giac-wasm changelog, the JavaScript API is not tied to the version) and run the
+tests. `giac.js` (asm.js) stays in the repository as a fallback: `?giac=asm`
+forces it.
 
 ## Commands
 
@@ -42,8 +46,9 @@ The first time, install the browser of the end-to-end tests with
 - `tests/mathjson-giac.test.ts` — visual input → MathJSON → Giac syntax, with
   the real Compute Engine (devDependency, same version as the CDN URL of
   `index.html`). Known bugs are listed as `test.todo`.
-- `tests/giac-pipeline.test.ts` — integration with the real Giac engine
-  (`giac.js`, run in a Worker by `tests/helpers/giac-worker.ts`): math cells end
+- `tests/giac-pipeline.test.ts` — integration with the real Giac engines,
+  giac-wasm (through the same `caseval` as the app, `js/giac-engine.js`) and
+  giac.js (run in a Worker by `tests/helpers/giac-worker.ts`): math cells end
   to end and every non-graphic cell of the Giac examples.
 - `tests/e2e/*.e2e.ts` — end-to-end tests (Playwright) of the built app: start,
   pinned libraries, math and raw cells, errors, export → import, both kernels,

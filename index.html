@@ -64,54 +64,18 @@
 </script>
 
 <!-- ═══════════════════════════════════════════════════
-  Giac engine (asm.js) — HOST giac.js LOCALLY
-  Download: https://www-fourier.univ-grenoble-alpes.fr/~parisse/giacjs.tar.gz
-  We bypass giacsimple.js and define a minimal Module object
-  so giac.js (Emscripten asm.js build) can initialize.
+  Giac engine: giac-wasm (WebAssembly, served from giac-wasm/<version>/ by the
+  build), or the asm.js build giac.js as a fallback where giac-wasm cannot be
+  loaded, or with ?giac=asm. Both resolve window._giacEngineReady to
+  { engine, version, caseval } (js/giac-init.js). GIAC's messages go to
+  window._giacMessages while window._giacCapture is on (js/execution.js).
   ═══════════════════════════════════════════════════ -->
 <div style="position:absolute;left:-9999px;width:0;height:0;overflow:hidden"><canvas id="canvas" width="1" height="1"></canvas></div>
 <script>
-var Module = {
-  ready: false,
-  canvas: document.getElementById('canvas'),
-  preRun: [],
-  postRun: [],
-  _giacMessages: [],
-  print: function(text) {
-    if (Module._giacCapture) { Module._giacMessages.push({ type: 'info', text: text }); return; }
-    console.log('giac:', text);
-  },
-  printErr: function(text) {
-    if (Module._giacCapture) { Module._giacMessages.push({ type: 'warn', text: text }); return; }
-    console.warn('giac:', text);
-  },
-  setStatus: function(text) { if (text) console.log('giac status:', text); },
-  totalDependencies: 0,
-  monitorRunDependencies: function(left) {
-    this.totalDependencies = Math.max(this.totalDependencies, left);
-  },
-  onRuntimeInitialized: function() {
-    console.log('Giac runtime initialized');
-    Module.ready = true;
-  }
-};
-// Minimal UI stub — giac.js references UI.* during some computations
-var UI = {
-  Datestart: Date.now(),
-  disable3d: 0,
-  warnpy: false,
-  python_output: '',
-  assistant_matr_maxrows: 100,
-  assistant_matr_maxcols: 100,
-  clean_for_html: function(s) { return s; },
-  add_python_output: function(s) { UI.python_output += s; },
-  set_config_width: function() {},
-  open_sheet: function() {},
-  sheet_recompute: function() {},
-  sheet_set_ij: function() {}
-};
+var GIAC_WASM_VERSION = '200.100.0'; // stamped by scripts/build.ts from package.json
 </script>
-<script src="giac.js"></script>
+<script src="js/giac-engine.js"></script>
+<script>startGiacEngine();</script>
 
 <!-- ═══════════════════════════════════════════════════
   Application CSS

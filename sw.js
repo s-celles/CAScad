@@ -7,7 +7,16 @@ var CACHE_HASH = 'dev';
 var CACHE_VERSION = 'dev';
 
 var SHELL_CACHE = 'cascad-shell-v' + CACHE_VERSION + '-' + CACHE_HASH;
-var GIAC_CACHE  = 'cascad-giac-v1';  // Separate: giac.js rarely changes
+// Giac engine files (giac-wasm/<version>/ and the asm.js fallback giac.js):
+// their own cache, named after the giac-wasm version set by scripts/build.ts.
+var GIAC_WASM_VERSION = 'dev';
+var GIAC_CACHE  = 'cascad-giac-' + GIAC_WASM_VERSION;
+var GIAC_FILES = [
+  './giac-wasm/' + GIAC_WASM_VERSION + '/src/index.mjs',
+  './giac-wasm/' + GIAC_WASM_VERSION + '/src/errors.mjs',
+  './giac-wasm/' + GIAC_WASM_VERSION + '/dist/giac.mjs',
+  './giac-wasm/' + GIAC_WASM_VERSION + '/dist/giac.wasm'
+];
 var CDN_CACHE   = 'cascad-cdn-v' + CACHE_VERSION + '-' + CACHE_HASH;
 
 // ─── App shell files to precache on install ────────────────
@@ -27,7 +36,7 @@ var SHELL_FILES = [
   './js/i18n/hi.js', './js/i18n/ru.js', './js/i18n/zh.js',
   './js/i18n/ja.js', './js/i18n.js',
   // Core
-  './js/giac-commands.js', './js/giac-init.js', './js/mathjson-giac.js',
+  './js/giac-commands.js', './js/giac-engine.js', './js/giac-init.js', './js/mathjson-giac.js',
   './js/mathfield-menu.js',
   './js/kernel-registry.js', './js/kernel-giac.js',
   './js/kernel-compute-engine.js',
@@ -49,6 +58,8 @@ self.addEventListener('install', function(event) {
     caches.open(SHELL_CACHE).then(function(cache) {
       return cache.addAll(SHELL_FILES);
     }).then(function() {
+      // Giac works offline from the first start (PLT-003); not blocking the install
+      caches.open(GIAC_CACHE).then(function(cache) { return cache.addAll(GIAC_FILES); }).catch(function() {});
       return self.skipWaiting();
     })
   );
@@ -80,8 +91,8 @@ self.addEventListener('fetch', function(event) {
   // Skip non-GET requests
   if (event.request.method !== 'GET') return;
 
-  // Strategy 1: giac.js — cache-first (own cache, rarely changes)
-  if (url.pathname.endsWith('/giac.js') && url.origin === self.location.origin) {
+  // Strategy 1: the Giac engine — cache-first (own cache; versioned path)
+  if (url.origin === self.location.origin && (url.pathname.endsWith('/giac.js') || url.pathname.indexOf('/giac-wasm/') !== -1)) {
     event.respondWith(cacheFirst(event.request, GIAC_CACHE));
     return;
   }

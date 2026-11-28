@@ -28,6 +28,7 @@
     "yjs": "13.6.33"
   },
   "dependencies": {
+    "giac-wasm": "https://github.com/JuliaGiac/giac/releases/download/giac-wasm-v200.100.0/giac-wasm-200.100.0.tgz",
     "lean-qr": "2.7.4",
     "marked": "18.0.7"
   }

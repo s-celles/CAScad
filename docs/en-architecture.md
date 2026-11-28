@@ -8,7 +8,7 @@ and published on GitHub Pages.
 
 | Part | Role |
 |------|------|
-| **Giac** (`giac.js`) | Computer algebra engine by Bernard Parisse, compiled to JavaScript (asm.js), shipped with the app. Called through `caseval`. |
+| **Giac** (giac-wasm) | Computer algebra engine by Bernard Parisse and Renée De Graeve, compiled to WebAssembly ([giac-wasm](https://github.com/JuliaGiac/giac/tree/dev/npm), a pinned release in `package.json`), served from `giac-wasm/<version>/`. Loaded by `js/giac-engine.js`, called through `caseval` (errors as `GIAC_ERROR: …`). Where it cannot be loaded, or with `?giac=asm`, the asm.js build `giac.js` is used. |
 | **CortexJS Compute Engine** | Parses LaTeX into MathJSON; second kernel. |
 | **MathLive** | Visual math input (`<math-field>`) and virtual keyboard. |
 | **MathJSON → Giac** (`js/mathjson-giac.js`) | Turns what is typed visually into Giac syntax. |
@@ -45,6 +45,7 @@ js/                   Historical plain scripts, loaded in order by index.html
   execution.js        Running a cell, text cells, sliders
   reactive-dag.js     Reactive graph (Observable Runtime)
   kernel-*.js         Kernel registry, Giac and Compute Engine kernels
+  giac-engine.js      Loading Giac: giac-wasm, or giac.js (asm.js) as a fallback
   giac-init.js        Giac and Compute Engine set-up, MathLive shortcuts
   mathjson-giac.js    MathJSON → Giac
   plot-rendering.js   Plots
